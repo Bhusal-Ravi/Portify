@@ -35,12 +35,15 @@ function AuthContext({ children }) {
             setLoading(false);
         }
     }
+    function logout() {
+        setUser(null);
+    }
 
     useEffect(() => {
         checkLoginSuccess();
     }, [])
     return (
-        <UserContext.Provider value={{ user, loading }}>
+        <UserContext.Provider value={{ user, loading, logout }}>
             {children}
         </UserContext.Provider>
     )

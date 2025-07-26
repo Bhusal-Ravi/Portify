@@ -7,6 +7,7 @@ const session= require('express-session')
 const connectdb= require('./config/dbConnection')
 const authRoute= require('./auth/oauth')
 require('./passport'); 
+const usernameRoute=require('./routes/setUsername')
 
 const app= express();
 
@@ -44,6 +45,7 @@ app.use(express.json());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use('/auth',authRoute);
+app.use('/api',usernameRoute);
 connectdb();
 
 const PORT= process.env.PORT || 5000

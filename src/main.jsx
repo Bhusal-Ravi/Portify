@@ -5,6 +5,8 @@ import './components/index.css'
 import App from './components/App.jsx';
 import Login from './components/Login.jsx';
 import Home from './components/Home.jsx';
+import Username from './components/Username.jsx';
+import Form from './components/Form.jsx';
 
 
 const router = createBrowserRouter([
@@ -19,6 +21,13 @@ const router = createBrowserRouter([
       {
         path: '/home',
         element: <Home />
+      },
+      {
+        path: '/form',
+        element: <Form />
+      }, {
+        path: '/username',
+        element: <Username />
       }
     ]
   }
