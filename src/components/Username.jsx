@@ -25,7 +25,7 @@ function Username() {
             } else {
                 setError(false);
                 setSuccess({ status: true, message: `UserName Set Successully` });
-                setTimeout(() => navigate('/form'), 2000);
+                setTimeout(() => navigate(`/form/${userName.url}`), 2000);
             }
 
         } catch (error) {

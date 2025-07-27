@@ -23,7 +23,7 @@ const router = createBrowserRouter([
         element: <Home />
       },
       {
-        path: '/form',
+        path: '/form/:url',
         element: <Form />
       }, {
         path: '/username',
