@@ -335,7 +335,7 @@ function Form() {
                     <div className='xl:col-span-3 bg-white rounded-lg shadow-sm border border-slate-200 p-6'>
                         <h2 className='text-xl font-semibold text-slate-700 text-center mb-6'>Live Preview</h2>
                         <div className='bg-slate-100 rounded-lg p-6 min-h-96 flex items-center justify-center'>
-                            <p className='text-slate-500 text-center'>Your portfolio preview will appear here as you fill out the form</p>
+                            <p className='text-slate-500 text-center'>Your portfolio preview will appear as you fill out the form</p>
                         </div>
                     </div>
                 </div>
