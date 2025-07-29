@@ -67,6 +67,14 @@ function Form() {
         name: "skills"
     })
 
+
+    {/*Watch*/ }
+    const username = watch("username")
+    const description = watch("description")
+    const projects = watch("projects");
+    const socials = watch("social")
+    const skills = watch("skills")
+
     function handleProjectAppend() {
         console.log("append")
         appendProject({ title: "", description: "", link: "" });
@@ -334,8 +342,39 @@ function Form() {
                     {/* Right Sidebar - Preview Section */}
                     <div className='xl:col-span-3 bg-white rounded-lg shadow-sm border border-slate-200 p-6'>
                         <h2 className='text-xl font-semibold text-slate-700 text-center mb-6'>Live Preview</h2>
-                        <div className='bg-slate-100 rounded-lg p-6 min-h-96 flex items-center justify-center'>
-                            <p className='text-slate-500 text-center'>Your portfolio preview will appear as you fill out the form</p>
+                        <div className='bg-slate-100 rounded-lg p-6 h-full  flex flex-col justify-center'>
+                            <div className=''>
+                                <div className='bg-slate-700 group transtion-color duration-700 hover:bg-slate-800  justify-center flex items-center font-semibold rounded-md px-2 py-1 w-full text-white'>
+                                    <div className='  h-20 w-20 mr-5 overflow-hidden  '>
+                                        <img className='h-20 w-20 mr-5 rounded-full  object-cover transition-all duration-700 group-hover:scale-115' src='https://i.imgur.com/g3RTCiv.jpeg' />
+                                    </div>
+                                    <h1 className='transition-all duration-700 text-white group-hover:text-emerald-400 group-hover:scale-115' ><span  >Name </span>: <span >{username} </span></h1>
+                                    <div className='flex justify-center items-center'>
+                                        {socials.length > 0 && socials.map((items, index) => (
+                                            <div key={index} className=" relative mr-2">
+                                                <div className="text-xs bg-slate-900/90 text-white px-2 py-1 rounded-md font-medium absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
+                                                    {items.title}
+                                                </div>
+
+                                                <a
+                                                    href={items.link}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className="w-fit cursor-pointer bg-slate-800 rounded-full flex justify-center items-center p-2 text-white hover:bg-slate-700"
+                                                >
+                                                    {items.icon}
+                                                </a>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className='w-full min-h-25 mt-2   bg-slate-800 rounded-md py-1 px-4 flex flex-wrap  text-white '>
+                                <p className=' break-words w-full'>
+                                    {description}
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
