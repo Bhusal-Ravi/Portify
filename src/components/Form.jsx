@@ -102,6 +102,14 @@ function Form() {
         console.log(data)
     }
 
+    function formatUrl(url) {
+        if (!url.startsWith("http://") && !url.startsWith("https://"))
+            return `http://${url}`
+
+        return url
+    }
+
+
     return (
         <div className='w-full min-h-screen bg-slate-50 flex flex-col justify-start items-center py-8 px-4'>
             <div className='max-w-7xl w-full'>
@@ -342,44 +350,136 @@ function Form() {
                     {/* Right Sidebar - Preview Section */}
                     <div className='xl:col-span-3 bg-white rounded-lg shadow-sm border border-slate-200 p-6'>
                         <h2 className='text-xl font-semibold text-slate-700 text-center mb-6'>Live Preview</h2>
-                        <div className='bg-slate-100 rounded-lg p-6 h-full  flex flex-col justify-center'>
-                            <div className=''>
-                                <div className='bg-slate-700 group transtion-color duration-700 hover:bg-slate-800  justify-center flex items-center font-semibold rounded-md px-2 py-1 w-full text-white'>
-                                    <div className='  h-20 w-20 mr-5 overflow-hidden  '>
-                                        <img className='h-20 w-20 mr-5 rounded-full  object-cover transition-all duration-700 group-hover:scale-115' src='https://i.imgur.com/g3RTCiv.jpeg' />
+                        <div className='bg-slate-100 rounded-lg p-6 h-full flex flex-col justify-center'>
+                            <div className='flex flex-col'>
+                                <div className='bg-slate-700 group/main transition-colors duration-700 hover:bg-slate-800 flex flex-col items-center font-semibold rounded-md px-4 py-4 w-full text-white'>
+
+                                    {/* Row: Image + Name */}
+                                    <div className='flex items-center mb-4'>
+                                        <div className='h-20 w-20 mr-5 overflow-hidden'>
+                                            <img
+                                                className='h-20 w-20 rounded-full object-cover transition-all duration-700 group-hover/main:scale-115'
+                                                src='https://i.imgur.com/g3RTCiv.jpeg'
+                                                alt='Profile'
+                                            />
+                                        </div>
+                                        <h1 className='transition-all duration-700 text-white group-hover/main:text-emerald-400 group-hover/main:scale-115 text-lg'>
+                                            <span>Name</span>: <span>{username}</span>
+                                        </h1>
                                     </div>
-                                    <h1 className='transition-all duration-700 text-white group-hover:text-emerald-400 group-hover:scale-115' ><span  >Name </span>: <span >{username} </span></h1>
-                                    <div className='flex justify-center items-center'>
-                                        {socials.length > 0 && socials.map((items, index) => (
-                                            <div key={index} className=" relative mr-2">
-                                                <div className="text-xs bg-slate-900/90 text-white px-2 py-1 rounded-md font-medium absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
+
+                                    {/* Socials Below */}
+                                    <div className='flex justify-center items-center flex-wrap gap-2'>
+                                        <h1 className='font-thin mr-2'>Socials</h1>
+                                        {socials.length > 0 &&
+                                            socials.map((items, index) => (
+                                                <div key={index} className='relative group/icon'>
+
+                                                    <div className='text-xs bg-slate-900/90 text-white px-2 py-1 rounded-md font-medium absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover/icon:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10'>
+                                                        {items.title}
+                                                    </div>
+
+                                                    <a
+                                                        href={items.link}
+                                                        target='_blank'
+                                                        rel='noopener noreferrer'
+                                                        className='w-fit cursor-pointer bg-slate-800 rounded-full flex justify-center items-center p-2 text-white hover:bg-slate-700'
+                                                    >
+                                                        {items.icon}
+                                                    </a>
+                                                </div>
+                                            ))}
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/*Skills*/}
+                            <div className='bg-slate-700 flex flex-col justify-center items-center mt-4 p-5 group/main rounded-md'>
+                                <h1 className='font-bold text-lg text-white mb-2'>Skills</h1>
+                                <div className='flex justify-center items-center flex-wrap gap-2'>
+
+                                    {skills.length > 0 &&
+                                        skills.map((items, index) => (
+                                            <div key={index} className='relative group/icon'>
+
+                                                <div className='text-xs bg-slate-900/90 text-white px-2 py-1 rounded-md font-medium absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover/icon:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10'>
                                                     {items.title}
                                                 </div>
 
                                                 <a
                                                     href={items.link}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                    className="w-fit cursor-pointer bg-slate-800 rounded-full flex justify-center items-center p-2 text-white hover:bg-slate-700"
+                                                    target='_blank'
+                                                    rel='noopener noreferrer'
+                                                    className='w-fit cursor-pointer bg-slate-800 transition-all duration-400 m-1  group-hover/main:scale-115 group-hover/icon:bg-slate-900 rounded-full flex justify-center items-center p-2 text-white '
                                                 >
                                                     {items.icon}
                                                 </a>
                                             </div>
                                         ))}
-                                    </div>
                                 </div>
                             </div>
 
-                            <div className='w-full min-h-25 mt-2   bg-slate-800 rounded-md py-1 px-4 flex flex-wrap  text-white '>
-                                <p className=' break-words w-full'>
-                                    {description}
-                                </p>
+                            {/* Description */}
+                            <div className='w-full min-h-24 mt-4 bg-slate-800 flex flex-col justify-center items-center rounded-md p-4 text-white'>
+
+                                <h3 className='font-bold text-lg mb-2 text-center md:text-left'>Description</h3>
+
+
+                                <div className='w-full'>
+                                    <p className='break-words overflow-auto text-sm md:text-base'>
+                                        {description || (
+                                            <span className='text-slate-400 italic'>No description provided</span>
+                                        )}
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/*Projects*/}
+                            <div className='bg-gradient-to-r from-slate-500 via-indigo-400 to-slate-900 mt-5 p-2 flex flex-col justify-center items-center rounded-md'>
+                                <h1 className='font-bold text-white text-lg'>Projects</h1>
+                                {projects.length > 0 &&
+                                    projects.map((items, index) => (
+                                        <div className='group/main m-3 bg-slate-800 flex  flex-col justify-center items-center overflow-hidden rounded-md w-full p-3'>
+                                            <div className='flex flex-row justify-center items-center'>
+                                                <div className='rounded-full  '>
+                                                    {items.link && (<img
+                                                        className='h-15 w-15 object-cover transition-all duration-300 group-hover/main:scale-115'
+                                                        src={`https://www.google.com/s2/favicons?sz=64&domain_url=${items.link}`}
+                                                    />)}
+                                                </div>
+                                                <h1 className='font-bold text-lg ml-5 text-white'>{items.title}</h1>
+                                            </div>
+                                            <h1 className='text-white font-semibold mt-4'>Visit: <span>
+                                                <a
+                                                    className='cursor-pointer text-emerald-400'
+                                                    target='blank'
+                                                    rel='noopener noreferrer'
+                                                    href={formatUrl(items.link)} >
+                                                    {items.title}
+                                                </a>
+                                            </span></h1>
+
+                                            <div className='w-full mb-3 flex flex-col justify-center items-center'>
+                                                <hr className='mt-2 mb-2 w-full text-white/50'></hr>
+                                                <h1 className='mb-2 text-emerald-400 font-thin'>Description :</h1>
+                                                <p className='text-white font-thin'>
+                                                    {items.description}
+                                                </p>
+                                            </div>
+
+                                        </div>
+                                    ))
+                                }
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+
+
+
     )
 }
 
