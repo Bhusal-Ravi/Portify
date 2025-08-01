@@ -8,6 +8,9 @@ import Home from './components/Home.jsx';
 import Username from './components/Username.jsx';
 import Form from './components/Form.jsx';
 
+import PortFolio from './components/PortFolio.jsx';
+
+
 
 const router = createBrowserRouter([
   {
@@ -28,6 +31,9 @@ const router = createBrowserRouter([
       }, {
         path: '/username',
         element: <Username />
+      }, {
+        path: '/:url',
+        element: <PortFolio />
       }
     ]
   }

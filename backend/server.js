@@ -8,6 +8,8 @@ const connectdb= require('./config/dbConnection')
 const authRoute= require('./auth/oauth')
 require('./passport'); 
 const usernameRoute=require('./routes/setUsername')
+const portfolioRoute= require('./routes/setPortfolio');
+const getPortfolioRoute= require('./routes/getPortfolio')
 
 const app= express();
 
@@ -46,6 +48,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use('/auth',authRoute);
 app.use('/api',usernameRoute);
+app.use('/api',portfolioRoute);
+app.use('/api',getPortfolioRoute);
 connectdb();
 
 const PORT= process.env.PORT || 5000
