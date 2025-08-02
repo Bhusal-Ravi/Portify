@@ -6,6 +6,7 @@ const PortfolioSchema= new mongoose.Schema({
         ref:'User',
         required:true
     },
+   
     urlId:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Url',
@@ -16,6 +17,10 @@ const PortfolioSchema= new mongoose.Schema({
         required:true
     },
     username:{
+        type:String,
+        required:true
+    },
+     profileimg:{
         type:String,
         required:true
     },
@@ -30,7 +35,8 @@ const PortfolioSchema= new mongoose.Schema({
         {
             title:{type:String,required:true},
              description: { type: String },
-      link: { type: String }
+      link: { type: String },
+      img:{type:String}
         }
     ],
 

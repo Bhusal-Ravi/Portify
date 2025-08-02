@@ -155,6 +155,13 @@ function Form() {
     }
 
 
+    function profileUrlCheck(value) {
+        if (value.includes("imgur.com")) {
+            return true
+        } else return false
+    }
+
+
 
 
 
@@ -276,6 +283,25 @@ function Form() {
                                                 </span>
                                             </div>
                                         )}
+
+                                        <label className='block text-white font-medium mb-2 mt-2'>Image Link</label>
+                                        <input
+                                            type='text'
+                                            placeholder='Upload Your Image in imgur.com -> Provide the link to the image'
+                                            className='w-full p-3 bg-slate-800 text-white border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent placeholder-slate-400 transition-all duration-200'
+                                            {...register("profileimg", {
+                                                required: "This field is required",
+                                                validate: (value) => profileUrlCheck(value) || "please provide a valid imgur link"
+                                            })}
+                                        />
+                                        {errors.profile && (
+                                            <div className='mt-2'>
+                                                <span className='font-thin text-md text-red-400'>
+                                                    {errors.profile.message}
+                                                </span>
+                                            </div>
+                                        )}
+
                                     </div>
 
                                     <div>
@@ -348,7 +374,7 @@ function Form() {
                                                 className='bg-slate-800 rounded-full text-white py-3 px-4 flex items-center gap-3 hover:bg-slate-700 transition-all duration-200 shadow-md hover:shadow-lg'
                                             >
                                                 <div className='flex items-center gap-2'>
-                                                    <span className='text-lg'>{item.icon}</span>
+                                                    <span className='text-lg'>{skillicons.map((items) => items[item.title])}</span>
                                                     <span className='font-medium text-sm'>{item.title}</span>
                                                 </div>
                                                 <button
@@ -401,6 +427,24 @@ function Form() {
                                                     <div className='mt-2'>
                                                         <span className='text-md  font-thin text-red-400'>
                                                             {errors.projects[index].title.message}
+                                                        </span>
+                                                    </div>
+                                                )}
+                                                <div>
+                                                    <label className='block text-white font-medium mb-2'>Project ScreenShot Link</label>
+                                                    <input
+                                                        type='text'
+                                                        placeholder='Enter project name...'
+                                                        className='w-full p-3 bg-slate-800 text-white border border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent placeholder-slate-400 transition-all duration-200'
+                                                        {...register(`projects.${index}.img`)}
+                                                    />
+                                                </div>
+
+
+                                                {errors.projects?.[index]?.img && (
+                                                    <div className='mt-2'>
+                                                        <span className='text-md  font-thin text-red-400'>
+                                                            {errors.projects[index].img.message}
                                                         </span>
                                                     </div>
                                                 )}
