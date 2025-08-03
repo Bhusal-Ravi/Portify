@@ -74,7 +74,27 @@ function PortFolio() {
         { Numpy: <SiNumpy className='h-8 w-8' />, label: "Numpy" },
         { TensorFlow: <SiTensorflow className='h-8 w-8' />, label: "TensorFlow" },
         { GitGithub: <FaGitAlt className='h-8 w-8' />, label: "GitGithub" },
+
+
     ]
+
+    const containerVarients = {
+        hidden: {},
+        show: {
+            transition: {
+                staggerChildren: 0.5
+            }
+        }
+    }
+
+    const itemVariants = {
+        hidden: {
+            opacity: 0, y: 20
+        },
+        show: {
+            opacity: 1, y: 0
+        }
+    }
 
     return (
         <div className='w-full flex flex-col justify-center items-center bg-gradient-to-r from-slate-900 via-indigo-400 to-slate-900'>
@@ -181,29 +201,42 @@ function PortFolio() {
             {/* Skills Section - Full Screen */}
             {portfolio.skills.length > 0 && (
                 <div className='min-h-screen min-w-7xl flex flex-col justify-center items-center py-8 px-4'>
-                    <div className='w-full  bg-gradient-to-r from-blue-800/50 via-indigo-400-800/50 to-blue-900/50 rounded-lg shadow-sm p-6'>
-                        <div className='bg-slate-700/50 min-h-[80vh] transition-all duration-700 hover:bg-slate-800 group flex flex-col justify-center items-center p-5 group/main rounded-md'>
-                            <h1 className='font-bold text-lg text-white mb-8 transition-all duration-400 group-hover:text-emerald-400'>Skills</h1>
-                            <div className='flex justify-center items-center flex-wrap gap-6'>
-                                {portfolio.skills.length > 0 &&
-                                    portfolio.skills.map((items, index) => (
-                                        <div key={index} className='relative group/icon'>
-                                            <div className='text-xs bg-slate-900/90 text-white px-2 py-1 rounded-md font-medium absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover/icon:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10'>
-                                                {items.title}
-                                            </div>
-                                            <a
-                                                href={items.link}
-                                                target='_blank'
-                                                rel='noopener noreferrer'
-                                                className='w-fit cursor-pointer bg-slate-800 transition-all duration-700 shadow-sm group-hover:shadow-emerald-400 group-hover/main:scale-115 group-hover/icon:bg-slate-900 rounded-full flex justify-center items-center p-3 text-white'
-                                            >
-                                                {skillicons.map((item) => item[items.title])}
-                                            </a>
+
+                    <div
+
+                        className='bg-slate-700/50 min-h-[80vh] w-full transition-all duration-700 hover:bg-slate-800 group flex flex-col justify-center items-center p-5 group/main rounded-md'>
+                        <h1 className='font-bold text-lg text-white mb-8 transition-all duration-400 group-hover:text-emerald-400'>Skills</h1>
+                        <motion.div
+                            variants={containerVarients}
+                            initial="hidden"
+                            whileInView="show"
+                            viewport={{ once: true, amount: 0.3 }}
+                            className='flex justify-center items-center max-w-4xl flex-wrap gap-6'>
+                            {portfolio.skills.length > 0 &&
+                                portfolio.skills.map((items, index) => (
+                                    <motion.div
+                                        variants={itemVariants}
+                                        initial={{ opacity: 0, y: 20 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: index * 0.1, duration: 0.5 }}
+                                        viewport={{ once: true, amount: 0.3 }}
+                                        key={index} className='relative group/icon'>
+                                        <div className='text-xs bg-slate-900/90 text-white px-2 py-1 rounded-md font-medium absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover/icon:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10'>
+                                            {items.title}
                                         </div>
-                                    ))}
-                            </div>
-                        </div>
+                                        <a
+                                            href={items.link}
+                                            target='_blank'
+                                            rel='noopener noreferrer'
+                                            className='w-fit cursor-pointer bg-slate-800 transition-all duration-700 shadow-sm group-hover:shadow-emerald-400 group-hover/main:scale-115 group-hover/icon:bg-slate-900 rounded-full flex justify-center items-center p-3 text-white'
+                                        >
+                                            {skillicons.map((item) => item[items.title])}
+                                        </a>
+                                    </motion.div>
+                                ))}
+                        </motion.div>
                     </div>
+
                 </div>
             )}
 
@@ -217,8 +250,9 @@ function PortFolio() {
                                 {portfolio.projects.length > 0 &&
                                     portfolio.projects.map((items, index) => (
                                         <div key={index} className='relative group/main bg-slate-700/50 transition-all duration-700 hover:bg-slate-800 flex flex-col justify-center items-center overflow-hidden rounded-md w-full p-6'>
-                                            {items.img && (
+                                            {items.img && (items.img.includes(".jpeg") || items.img.includes(".png") || items.img.includes(".jpg")) && (
                                                 <div className='w-full h-60 overflow-hidden rounded-md mb-4'>
+
                                                     <img
                                                         className='w-full h-full object-cover transition-transform duration-700 group-hover/main:scale-105'
                                                         src={items.img}
