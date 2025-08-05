@@ -288,7 +288,7 @@ function PortFolio() {
                                                         rel='noopener noreferrer'
                                                         href={formatUrl(items.link)}
                                                     >
-                                                        DEMO
+                                                        Live Demo
                                                     </a>
                                                 </span>
                                             </h1>
