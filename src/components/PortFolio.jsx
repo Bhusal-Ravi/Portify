@@ -11,7 +11,7 @@ import { FaHtml5, FaGolang } from "react-icons/fa6";
 import { RiTailwindCssFill } from "react-icons/ri";
 import { DiDjango } from "react-icons/di";
 import { SiNumpy, SiTensorflow } from "react-icons/si";
-import { motion } from 'framer-motion';
+import { motion, scale } from 'framer-motion';
 
 
 function PortFolio() {
@@ -97,7 +97,10 @@ function PortFolio() {
     }
 
     return (
-        <div className='w-full flex flex-col justify-center items-center bg-gradient-to-r from-slate-900 via-indigo-400 to-slate-900'>
+        <div className='w-full flex flex-col justify-center items-center bg-gradient-to-r from-slate-900 via-indigo-400 to-slate-900 min-h-screen relative overflow-hidden'>
+            {/* Decorative background shapes */}
+            <div className='absolute top-0 left-0 w-96 h-96 bg-emerald-400/10 rounded-full blur-3xl -z-10 animate-pulse'></div>
+            <div className='absolute bottom-0 right-0 w-96 h-96 bg-indigo-400/10 rounded-full blur-3xl -z-10 animate-pulse'></div>
 
             {/* Profile Section - Full Screen */}
             <div className=' min-w-7xl flex flex-col justify-center items-center py-8 px-4'>
@@ -108,13 +111,13 @@ function PortFolio() {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ duration: 0.8, ease: 'easeOut' }}
-                            className='relative bg-slate-700/50 min-w-7xl min-h-screen group/main transition-colors duration-700 hover:bg-slate-800 flex justify-center flex-col items-center font-semibold rounded-md px-1 py-4 w-full text-white'
+                            className='relative bg-slate-700/60 min-w-7xl min-h-screen group/main transition-colors duration-700 hover:bg-slate-800 flex justify-center flex-col items-center font-semibold rounded-2xl shadow-2xl px-4 py-8 w-full text-white border border-emerald-400/20 backdrop-blur-md'
                         >
                             {/* About Me Heading */}
                             <motion.h1
-                                initial={{ opacity: 0, y: -40 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.2, duration: 0.7 }}
+                                initial={{ opacity: 0, y: -40, color: '#f0fdf4' }}
+                                animate={{ opacity: 1, y: 0, color: '#34d399' }}
+                                transition={{ delay: 0.7, duration: 0.7 }}
                                 className='absolute top-40 text-3xl font-bold'
                             >
                                 About Me
@@ -127,13 +130,19 @@ function PortFolio() {
                                     initial={{ opacity: 0, x: -50 }}
                                     animate={{ opacity: 1, x: 0 }}
                                     transition={{ delay: 0.4, duration: 0.7 }}
-                                    className='flex flex-col justify-center items-center'
+                                    className='flex flex-col justify-center items-center p-6 bg-slate-800/40 rounded-xl shadow-md border border-emerald-400/10'
                                 >
                                     <h1 className='transition-all duration-700 text-white group-hover/main:text-emerald-400 group-hover/main:scale-115 text-lg'>
                                         <span>Hi, I'm <span className='text-emerald-400'>{portfolio.username}</span></span>
                                     </h1>
                                     <p className='font-extralight text-sm text-white/70 transition-all duration-700 group-hover/main:text-emerald-400/70'>{portfolio.tag}</p>
                                     <hr className='w-full mt-5 opacity-50 transition duration-700 group-hover/main:text-emerald-400'></hr>
+                                    {/* Motivational/placeholder text for About Me section */}
+                                    <div className='w-full flex justify-center items-center mt-2 mb-2'>
+                                        <p className='text-emerald-300/80 text-xs italic text-center'>
+                                            "Every great journey begins with a single step. Welcome to my story!"
+                                        </p>
+                                    </div>
 
                                     <div className='max-w-xl flex justify-center items-center mt-5'>
                                         <p className='break-words flex overflow-auto text-md transition-all duration-700 group-hover/main:text-emerald-400 font-light md:text-base'>
@@ -148,13 +157,18 @@ function PortFolio() {
                                 <motion.div
                                     initial={{ opacity: 0, x: 50 }}
                                     animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: 0.4, duration: 0.7 }}
-                                    className='h-100 w-70 flex justify-center border-2 border-emerald-400 shadow-lg transition-all duration-700 group-hover/main:shadow-emerald-800 rounded-lg items-center mr-5 mb-2 overflow-hidden'
+                                    transition={{ type: "spring", stiffness: 300, damping: 10, duration: 1 }}
+                                    whileHover={{ rotateX: -10, rotateY: 15 }}
+                                    style={{
+                                        transformStyle: "preserve-3d"
+                                    }}
+                                    className='h-100 w-70 flex justify-center border-4 border-emerald-400/60 shadow-2xl transition-shadow duration-700 group-hover/main:shadow-emerald-800 rounded-2xl items-center mr-5 mb-2 overflow-hidden bg-gradient-to-br from-emerald-400/10 to-indigo-400/10 backdrop-blur-md'
                                 >
-                                    <img
-                                        className='h-90 w-60 rounded-lg object-cover transition-all duration-700 group-hover/main:scale-115'
+                                    <motion.img
+                                        className='h-90 w-60 rounded-2xl object-cover transition-transform duration-700 group-hover/main:scale-115 border-2 border-white/10 shadow-lg'
                                         src={`${portfolio.profileimg}`}
                                         alt='Profile'
+                                        whileHover={{}}
                                     />
                                 </motion.div>
                             </div>
@@ -165,23 +179,30 @@ function PortFolio() {
                                     initial={{ opacity: 0, y: 30 }}
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.6, duration: 0.6 }}
+                                    viewport={{ once: true, amount: 0.3 }}
                                     className='absolute bottom-30 flex flex-col justify-center items-center flex-wrap gap-2'
                                 >
                                     <h1 className='font-light mr-2 text-emerald-400'>Connect With Me</h1>
                                     <div className='flex gap-4'>
                                         {portfolio.social.map((items, index) => (
-                                            <div key={index} className='relative group/icon'>
+                                            <div key={index}
+
+
+                                                className='relative group/icon'>
                                                 <div className='text-xs bg-slate-900/90 text-white px-2 py-1 rounded-md font-medium absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover/icon:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10'>
                                                     {items.title}
                                                 </div>
-                                                <a
+                                                <motion.a
+                                                    whileHover={{ scale: 1.2, originX: 0 }}
+                                                    transition={{ type: "spring", damping: 15, stiffness: 500 }}
+
                                                     href={formatUrl(items.link)}
                                                     target='_blank'
                                                     rel='noopener noreferrer'
-                                                    className='w-fit cursor-pointer bg-slate-800 rounded-full flex justify-center items-center p-2 text-white hover:bg-slate-700 transition-all duration-700 shadow-md group-hover/main:shadow-emerald-400'
+                                                    className='w-fit cursor-pointer bg-slate-800 rounded-full flex justify-center items-center p-2 text-white hover:bg-slate-700 transition-color  shadow-md group-hover/main:shadow-emerald-400'
                                                 >
                                                     {socialicons.map((item) => item[items.title])}
-                                                </a>
+                                                </motion.a>
                                             </div>
                                         ))}
                                     </div>
@@ -200,12 +221,18 @@ function PortFolio() {
 
             {/* Skills Section - Full Screen */}
             {portfolio.skills.length > 0 && (
-                <div className='min-h-screen min-w-7xl flex flex-col justify-center items-center py-8 px-4'>
+                <div className=' relative min-h-screen min-w-7xl flex flex-col justify-center items-center py-8 px-4'>
 
                     <div
 
                         className='bg-slate-700/50 min-h-[80vh] w-full transition-all duration-700 hover:bg-slate-800 group flex flex-col justify-center items-center p-5 group/main rounded-md'>
-                        <h1 className='font-bold text-lg text-white mb-8 transition-all duration-400 group-hover:text-emerald-400'>Skills</h1>
+                        <h1 className=' absolute top-50 font-bold text-3xl text-white mb-8 transition-all duration-400 group-hover:text-emerald-400'>Skills</h1>
+                        {/* Motivational/placeholder text for Skills section */}
+                        <div className='w-full flex justify-center items-center mt-2 mb-6'>
+                            <p className='text-indigo-200/80 text-xs italic text-center'>
+                                "Skills are the tools that turn dreams into reality. Here are some of mine!"
+                            </p>
+                        </div>
                         <motion.div
                             variants={containerVarients}
                             initial="hidden"
@@ -221,17 +248,19 @@ function PortFolio() {
                                         transition={{ delay: index * 0.1, duration: 0.5 }}
                                         viewport={{ once: true, amount: 0.3 }}
                                         key={index} className='relative group/icon'>
-                                        <div className='text-xs bg-slate-900/90 text-white px-2 py-1 rounded-md font-medium absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover/icon:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10'>
+                                        <div className='text-xs bg-slate-900/90 text-white px-2 py-1 rounded-md font-medium absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover/icon:opacity-100 transition-opacity  pointer-events-none whitespace-nowrap z-10'>
                                             {items.title}
                                         </div>
-                                        <a
+                                        <motion.a
                                             href={items.link}
                                             target='_blank'
                                             rel='noopener noreferrer'
-                                            className='w-fit cursor-pointer bg-slate-800 transition-all duration-700 shadow-sm group-hover:shadow-emerald-400 group-hover/main:scale-115 group-hover/icon:bg-slate-900 rounded-full flex justify-center items-center p-3 text-white'
+                                            whileHover={{ scale: 1.2, originX: 0 }}
+                                            transition={{ type: "spring", damping: 15, stiffness: 500 }}
+                                            className='w-fit cursor-pointer bg-slate-800 transition-color  shadow-sm group-hover:shadow-emerald-400  group-hover/icon:bg-slate-900 rounded-full flex justify-center items-center p-3 text-white'
                                         >
                                             {skillicons.map((item) => item[items.title])}
-                                        </a>
+                                        </motion.a>
                                     </motion.div>
                                 ))}
                         </motion.div>
@@ -242,14 +271,19 @@ function PortFolio() {
 
             {/* Projects Section - Full Screen */}
             {portfolio.projects.length > 0 && (
-                <div className='min-h-screen min-w-7xl flex flex-col justify-center items-center py-8 px-4'>
-                    <div className='w-full max-w-6xl bg-gradient-to-r from-blue-800/50 via-indigo-400-800/50 to-blue-900/50 rounded-lg shadow-sm p-6'>
+                <div className=' min-w-7xl flex flex-col justify-center items-center py-8 px-4'>
+                    <div className='w-full max-w-6xl bg-gradient-to-r from-blue-800/10 via-indigo-400-800/10 to-blue-900/10 rounded-lg shadow-sm p-6'>
                         <div className='bg-gradient-to-br from-slate-900 via-indigo-400 group to-slate-900 p-5 flex flex-col justify-center items-center rounded-md min-h-[80vh]'>
-                            <h1 className='font-bold text-white text-lg mb-8 transition-all duration-700 group-hover:text-emerald-400'>Projects</h1>
-                            <div className='flex flex-col gap-6 w-full max-w-4xl overflow-y-auto max-h-[70vh]'>
+                            <h1 className='font-bold text-white text-3xl mb-8 transition-all duration-700 group-hover:text-emerald-400'>Projects</h1>
+                            <div className='flex flex-col   gap-6 mt-10 mb-20 w-full max-w-4xl '>
                                 {portfolio.projects.length > 0 &&
                                     portfolio.projects.map((items, index) => (
-                                        <div key={index} className='relative group/main bg-slate-700/50 transition-all duration-700 hover:bg-slate-800 flex flex-col justify-center items-center overflow-hidden rounded-md w-full p-6'>
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 20, scale: 0.8 }}
+                                            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                                            transition={{ delay: index * 0.1, duration: 0.5 }}
+                                            viewport={{ once: true, amount: 0.5 }}
+                                            key={index} className=' mb-10 group/main bg-gradient-to-b from-slate-900 via-indigo-400 group to-slate-900 transition-all duration-700 hover:bg-slate-800 flex flex-col justify-center items-center rounded-md w-full p-6'>
                                             {items.img && (items.img.includes(".jpeg") || items.img.includes(".png") || items.img.includes(".jpg")) && (
                                                 <div className='w-full h-60 overflow-hidden rounded-md mb-4'>
 
@@ -279,11 +313,11 @@ function PortFolio() {
                                                 </span>
                                             </div>
 
-                                            <h1 className='text-white font-semibold mt-4'>
+                                            <h1 className='text-white font-semibold mt-4 mb-5'>
                                                 <span className='flex justify-center items-center cursor-pointer hover:border-b'>
                                                     <ExternalLink />
                                                     <a
-                                                        className='text-emerald-400 ml-2'
+                                                        className='text-emerald-400 ml-2 '
                                                         target='_blank'
                                                         rel='noopener noreferrer'
                                                         href={formatUrl(items.link)}
@@ -299,7 +333,7 @@ function PortFolio() {
                                                     {items.description}
                                                 </p>
                                             </div>
-                                        </div>
+                                        </motion.div>
                                     ))}
                             </div>
                         </div>

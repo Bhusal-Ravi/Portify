@@ -148,9 +148,7 @@ function Form() {
 
     function checkProjectUrl(link) {
         if (link.includes("https") || link.includes("http")) {
-            if (link.includes("www")) {
-                return true
-            }
+            return true
         } else return false
     }
 
@@ -434,7 +432,7 @@ function Form() {
                                                     <label className='block text-white font-medium mb-2'>Project ScreenShot Link</label>
                                                     <input
                                                         type='text'
-                                                        placeholder='Enter project name...'
+                                                        placeholder='Upload Screen On Imgur(Link Input)...'
                                                         className='w-full p-3 bg-slate-800 text-white border border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent placeholder-slate-400 transition-all duration-200'
                                                         {...register(`projects.${index}.img`)}
                                                     />
