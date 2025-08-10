@@ -30,25 +30,25 @@ function Marqueeslider() {
         "/22.svg",
     ]
     return (
-        <div className='absolute z-10 '>
+        <div className='relative z-0 '>
             <div className='flex'>
                 <motion.div
                     initial={{ x: 0 }}
                     animate={{ x: "-100%" }}
-                    transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                    transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
                     className='flex '>
                     {upper.map((item, index) => (
-                        <img className=' flex-shrink-0 mt-5 mx-5 pr-5 mb-2 lg:h-30 lg:w-46 md:h-25 md:w-40 sm:h-20 sm:w-35' key={index} src={`${item}`} />
+                        <img className=' flex-shrink-0 mt-5 mx-5 pr-5 mb-1 lg:h-30 lg:w-46 md:h-25 md:w-40 sm:h-20 sm:w-35' key={index} src={`${item}`} />
                     ))}
 
                 </motion.div>
                 <motion.div
                     initial={{ x: 0 }}
                     animate={{ x: "-100%" }}
-                    transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
+                    transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
                     className='flex '>
                     {upper.map((item, index) => (
-                        <img className=' flex-shrink-0 mt-5 mx-5 pr-5 mb-2 lg:h-30 lg:w-46 md:h-25 md:w-40 sm:h-20 sm:w-35' key={index} src={`${item}`} />
+                        <img className=' flex-shrink-0 mt-5 mx-5 pr-5 mb-1 lg:h-30 lg:w-46 md:h-25 md:w-40 sm:h-20 sm:w-35' key={index} src={`${item}`} />
                     ))}
 
                 </motion.div>
@@ -56,20 +56,20 @@ function Marqueeslider() {
             </div>
             <div className='flex'>
                 <motion.div
-                    initial={{ x: 0 }}
-                    animate={{ x: "100%" }}
-                    transition={{ duration: 5, repeat: Infinity, ease: "linear" }} className='flex'>
+                    initial={{ x: "-100%" }}
+                    animate={{ x: "0%" }}
+                    transition={{ duration: 35, repeat: Infinity, ease: "linear" }} className='flex'>
                     {lower.map((item, index) => (
-                        <img className='flex-shrink-0 mt-2 mx-5 mb-5 pr-5 lg:h-30 lg:w-46 md:h-25 md:w-40 sm:h-20 sm:w-35' key={index} src={item} />
+                        <img className='flex-shrink-0 mt-1 mx-5 mb-5 pr-5 lg:h-30 lg:w-46 md:h-25 md:w-40 sm:h-20 sm:w-35' key={index} src={item} />
                     ))}
                 </motion.div>
 
                 <motion.div
-                    initial={{ x: 0 }}
-                    animate={{ x: "100%" }}
-                    transition={{ duration: 5, repeat: Infinity, ease: "linear" }} className='flex'>
+                    initial={{ x: "-100%" }}
+                    animate={{ x: "0%" }}
+                    transition={{ duration: 35, repeat: Infinity, ease: "linear" }} className='flex'>
                     {lower.map((item, index) => (
-                        <img className='flex-shrink-0 mt-2 mx-5 mb-5 pr-5 lg:h-30 lg:w-46 md:h-25 md:w-40 sm:h-20 sm:w-35' key={index} src={item} />
+                        <img className='flex-shrink-0 mt-1 mx-5 mb-5 pr-5 lg:h-30 lg:w-46 md:h-25 md:w-40 sm:h-20 sm:w-35' key={index} src={item} />
                     ))}
                 </motion.div>
             </div>
