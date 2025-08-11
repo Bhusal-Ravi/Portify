@@ -38,7 +38,7 @@ function Marqueeslider() {
                     transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
                     className='flex '>
                     {upper.map((item, index) => (
-                        <img className=' flex-shrink-0 mt-5 mx-5 pr-5 mb-1 lg:h-30 lg:w-46 md:h-25 md:w-40 sm:h-20 sm:w-35' key={index} src={`${item}`} />
+                        <img className=' flex-shrink-0 mt-5 mx-5 transition-all ease-in-out pr-5 mb-1 lg:h-30 lg:w-46 md:h-25 md:w-40 h-20 w-35' key={index} src={`${item}`} />
                     ))}
 
                 </motion.div>
@@ -48,7 +48,7 @@ function Marqueeslider() {
                     transition={{ duration: 35, repeat: Infinity, ease: "linear" }}
                     className='flex '>
                     {upper.map((item, index) => (
-                        <img className=' flex-shrink-0 mt-5 mx-5 pr-5 mb-1 lg:h-30 lg:w-46 md:h-25 md:w-40 sm:h-20 sm:w-35' key={index} src={`${item}`} />
+                        <img className=' flex-shrink-0 mt-5 mx-5 pr-5 mb-1 transition-all ease-in-out lg:h-30 lg:w-46 md:h-25 md:w-40 h-20 w-35' key={index} src={`${item}`} />
                     ))}
 
                 </motion.div>
@@ -60,7 +60,7 @@ function Marqueeslider() {
                     animate={{ x: "0%" }}
                     transition={{ duration: 35, repeat: Infinity, ease: "linear" }} className='flex'>
                     {lower.map((item, index) => (
-                        <img className='flex-shrink-0 mt-1 mx-5 mb-5 pr-5 lg:h-30 lg:w-46 md:h-25 md:w-40 sm:h-20 sm:w-35' key={index} src={item} />
+                        <img className='flex-shrink-0 mt-1 mx-5 mb-5 pr-5 lg:h-30 transition-all ease-in-out lg:w-46 md:h-25 md:w-40 h-20 w-35' key={index} src={item} />
                     ))}
                 </motion.div>
 
@@ -69,7 +69,7 @@ function Marqueeslider() {
                     animate={{ x: "0%" }}
                     transition={{ duration: 35, repeat: Infinity, ease: "linear" }} className='flex'>
                     {lower.map((item, index) => (
-                        <img className='flex-shrink-0 mt-1 mx-5 mb-5 pr-5 lg:h-30 lg:w-46 md:h-25 md:w-40 sm:h-20 sm:w-35' key={index} src={item} />
+                        <img className='flex-shrink-0 mt-1 mx-5 mb-5 pr-5 lg:h-30 transition-all ease-in-out lg:w-46 md:h-25 md:w-40 h-20 w-35' key={index} src={item} />
                     ))}
                 </motion.div>
             </div>

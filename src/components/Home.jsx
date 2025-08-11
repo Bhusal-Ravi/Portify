@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Menu, X, Zap, Telescope } from 'lucide-react';
+import { Menu, X, Zap, Telescope, Radio, ChartColumnStacked, BadgePlus, Image, LocateFixed } from 'lucide-react';
 import { motion, spring } from 'framer-motion';
 import Marqueeslider from './Marqueeslider';
+import { useInView } from 'react-intersection-observer';
 
 
 
@@ -10,6 +11,17 @@ function Home() {
 
     const navigate = useNavigate();
     const [menueShow, setMenueShow] = useState(false)
+
+    const [homeRef, homeInView] = useInView({ threshold: 0.5 });
+    const [featuresRef, featuresInView] = useInView({ threshold: 0.5 });
+    const [howtoRef, howtoView] = useInView({ threshold: 0.5 });
+    const [contactusRef, contactusView] = useInView({ threshold: 0.5 });
+
+    const activeSection = homeInView ? 'home' :
+        featuresInView ? 'features' :
+            howtoView ? 'howto' :
+                contactusView ? 'contact' :
+                    'home'
 
     function handlePortfolio() {
         navigate('/username')
@@ -34,10 +46,10 @@ function Home() {
                         className=' rounded-lg   '
                     >
                         <ul className="list-none flex text-gray-800">
-                            <motion.li initial={{ color: "#C4C4C4", textShadow: "0px 0px 0px rgba(255, 255, 255, 0)" }} whileHover={{ scale: 1.1, color: "#F7F7F7", textShadow: "0px 0px 8px rgba(255, 255, 255, 0.8)" }} transition={{ type: "tween", duration: 0.3, ease: "easeOut" }} className="px-4 py-2 cursor-pointer text-slate-800 ">Home</motion.li>
-                            <motion.li initial={{ color: "#C4C4C4", textShadow: "0px 0px 0px rgba(255, 255, 255, 0)" }} whileHover={{ scale: 1.1, color: "#F7F7F7", textShadow: "0px 0px 8px rgba(255, 255, 255, 0.8)" }} transition={{ type: "tween", duration: 0.3, ease: "easeOut" }} className="px-4 py-2 cursor-pointer text-slate-800 ">Features</motion.li>
-                            <motion.li initial={{ color: "#C4C4C4", textShadow: "0px 0px 0px rgba(255, 255, 255, 0)" }} whileHover={{ scale: 1.1, color: "#F7F7F7", textShadow: "0px 0px 8px rgba(255, 255, 255, 0.8)" }} transition={{ type: "tween", duration: 0.3, ease: "easeOut" }} className="px-4 py-2 cursor-pointer text-slate-800 ">How to</motion.li>
-                            <motion.li initial={{ color: "#C4C4C4", textShadow: "0px 0px 0px rgba(255, 255, 255, 0)" }} whileHover={{ scale: 1.1, color: "#F7F7F7", textShadow: "0px 0px 8px rgba(255, 255, 255, 0.8)" }} transition={{ type: "tween", duration: 0.3, ease: "easeOut" }} className="px-4 py-2 cursor-pointer text-slate-800 ">Contact Us</motion.li>
+                            <motion.li initial={{ color: "#C4C4C4", textShadow: "0px 0px 0px rgba(255, 255, 255, 0)" }} whileHover={{ scale: 1.1, color: "#F7F7F7", textShadow: "0px 0px 8px rgba(255, 255, 255, 0.8)" }} transition={{ type: "tween", duration: 0.3, ease: "easeOut" }} className={`px-4 py-2   cursor-pointer  ${activeSection === "home" ? "border-b-2 border-purple-500 text-white font-bold text-lg" : 'text-slate-800'} `}>Home</motion.li>
+                            <motion.li initial={{ color: "#C4C4C4", textShadow: "0px 0px 0px rgba(255, 255, 255, 0)" }} whileHover={{ scale: 1.1, color: "#F7F7F7", textShadow: "0px 0px 8px rgba(255, 255, 255, 0.8)" }} transition={{ type: "tween", duration: 0.3, ease: "easeOut" }} className={`px-4 py-2   cursor-pointer ${activeSection === "features" ? "border-b-2 border-purple-500 text-white font-bold text-lg" : 'text-slate-800'}  `}>Features</motion.li>
+                            <motion.li initial={{ color: "#C4C4C4", textShadow: "0px 0px 0px rgba(255, 255, 255, 0)" }} whileHover={{ scale: 1.1, color: "#F7F7F7", textShadow: "0px 0px 8px rgba(255, 255, 255, 0.8)" }} transition={{ type: "tween", duration: 0.3, ease: "easeOut" }} className={`px-4 py-2    cursor-pointer ${activeSection === "howto" ? "border-b-2 border-purple-500 text-white font-bold text-lg" : 'text-slate-800'}  `}>How to</motion.li>
+                            <motion.li initial={{ color: "#C4C4C4", textShadow: "0px 0px 0px rgba(255, 255, 255, 0)" }} whileHover={{ scale: 1.1, color: "#F7F7F7", textShadow: "0px 0px 8px rgba(255, 255, 255, 0.8)" }} transition={{ type: "tween", duration: 0.3, ease: "easeOut" }} className={`px-4 py-2   cursor-pointer ${activeSection === "contact" ? "border-b-2 border-purple-500 text-white font-bold text-lg" : 'text-slate-800'}  `}>Contact Us</motion.li>
                         </ul>
                     </motion.div>
                 </div>
@@ -82,6 +94,7 @@ function Home() {
 
             </motion.nav>
             <section
+                ref={homeRef}
                 id='home'
                 className='heropattern flex flex-col justify-center items-center min-h-screen object-cover bg-center  '
 
@@ -123,12 +136,210 @@ function Home() {
 
             </section>
 
-            <section id='features' className='min-h-screen bg-black'>
-                <div className='overflow-x-hidden'>
+            <section ref={featuresRef} id='features' className='min-h-screen   bg-black'>
+                <div className='overflow-x-hidden mb-10'>
                     <Marqueeslider />
+                </div>
+                <div className='mx-auto p-2  max-w-3xl md:max-w-4xl lg:max-w-7xl'>
+                    <div className=' flex justify-center  '>
+                        <motion.div
+                            initial={{ opacity: 0, x: -50 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 1 }}
+                            viewport={{ amount: 0.5 }}
+                            className='text-white mr-2 flex flex-col justify-center items-center'>
+                            <h1 className='font-extrabold text-3xl transition-all ease-in-out md:text-5xl lg:text-7xl bg-gradient-to-r from-purple-500 via-red-500 to-yellow-500 bg-clip-text text-transparent'>Personalized <span className='text-white/70 '>PortFoio</span></h1>
+                            <div className='mt-10 ml-5 flex transition-all ease-in-out justify-center md:items-start lg:items-center lg:justify-between items-center  '>
+                                <div className='p-5 md:w-1/3 lg:2/4 transition-all ease-in-out md:border-r-2 border-blue-900 mr-5'>
+                                    <motion.div
+                                        initial={{ opacity: 0, x: -50 }}
+                                        whileInView={{ opacity: 1, x: 0 }}
+                                        transition={{ duration: 1 }}
+                                        viewport={{ amount: 0.5, once: true }}
+                                    >
+                                        <div className='flex items-center justify-left'>
+                                            <Radio className='mr-2' />
+                                            <h1 className='text-xl font-bold'>Live <span className='text-white/80 font-medium'>Preview</span></h1>
+
+                                        </div>
+
+
+                                        <p className='text-white/60 transition-all ease-in-out text-lg md:text-md lg:text-lg '>See your changes instantly with live preview.
+                                            As you fill out the form, watch your input update in real-time.
+                                            Make edits confidently and visualize results immediately.</p>
+                                    </motion.div>
+                                    <motion.div
+                                        initial={{ opacity: 0, x: -50 }}
+                                        whileInView={{ opacity: 1, x: 0 }}
+                                        transition={{ duration: 1 }}
+                                        viewport={{ amount: 0.9, once: true }}>
+                                        <div className='flex items-center mt-10 justify-left'>
+
+                                            <ChartColumnStacked className='mr-2' />
+                                            <h1 className='text-xl font-bold'>Different <span className='text-white/80 font-medium'>Categories</span></h1>
+
+                                        </div>
+
+
+                                        <p className='text-white/60 transition-all ease-in-out text-lg md:text-md lg:text-lg'>Includes different categories like Skills, Projects, and Social.
+                                            Organize your information clearly by category.
+                                            Easily manage each section for a complete profile.</p>
+
+                                    </motion.div>
+                                    <motion.div
+                                        initial={{ opacity: 0, x: -50 }}
+                                        whileInView={{ opacity: 1, x: 0 }}
+                                        transition={{ duration: 1 }}
+                                        viewport={{ amount: 0.9, once: true }}>
+                                        <div className='flex items-center mt-10 justify-left'>
+
+                                            <BadgePlus className='mr-2' />
+                                            <h1 className='text-xl font-bold'>Regular <span className='text-white/80 font-medium'>Updates</span></h1>
+
+                                        </div>
+
+
+                                        <p className='text-white/60 transition-all ease-in-out md:text-md text-lg lg:text-lg'>Stay informed with regular updates.
+                                            Receive the latest changes and improvements automatically.
+                                            Keep your information fresh and up-to-date</p>
+                                    </motion.div>
+                                </div>
+                                <div className=' md:w-2/3 transition-all ease-in-out lg:w-2/4'>
+                                    <motion.img
+                                        whileHover={{ scale: 1.1 }}
+                                        transition={{ duration: 1, type: "spring", stiffness: 300, damping: 15 }}
+                                        viewport={{ amount: 0.5, once: true }} className='hidden md:block shadow-2xl shadow-blue-900 rounded-sm w-full h-auto' src='input.png' />
+                                </div>
+                            </div>
+                        </motion.div>
+
+
+                    </div>
                 </div>
             </section>
 
+            <section ref={howtoRef} className='howtopattern min-h-screen flex justify-center items-center  object-cover' id='howto'>
+                <div className='lg:max-w-7xl md:max-w-4xl max-w-3xl'>
+                    <motion.div
+                        initial={{ opacity: 0, x: -50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 1 }}
+                        viewport={{ amount: 0.5 }}
+                        className='text-white mr-2 flex flex-col justify-center items-center'>
+                        <h1 className='font-extrabold text-3xl transition-all ease-in-out md:text-5xl lg:text-7xl bg-gradient-to-r from-purple-500 via-red-500 to-yellow-500 bg-clip-text text-transparent'>How <span className='text-white/70 '>To</span></h1>
+                        <div className='mt-10 mb-10 ml-5 flex transition-all ease-in-out justify-center md:items-start lg:items-center lg:justify-between items-center  '>
+                            <div className=' md:w-2/3 transition-all ease-in-out lg:w-3/5'>
+                                <motion.img
+                                    whileHover={{ scale: 1.1 }}
+                                    transition={{ duration: 0.2, type: "spring", stiffness: 300, damping: 15 }}
+                                    viewport={{ amount: 0.5, once: true }} className='hidden md:block shadow-2xl shadow-purple-300 rounded-sm w-full h-auto' src='imgur.png' />
+                            </div>
+                            <div className='p-5 md:w-1/3 lg:w-2/5 transition-all ease-in-out md:border-l-2 border-blue-900 ml-10'>
+                                <motion.div
+                                    initial={{ opacity: 0, x: -50 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 1 }}
+                                    viewport={{ amount: 0.5, once: true }}
+                                >
+                                    <div className='flex items-center justify-end '>
+                                        <Image className='mr-2' />
+                                        <h1 className='text-xl text-right font-bold'>Photo <span className='text-white/80 font-medium'>Style</span></h1>
+
+                                    </div>
+
+
+                                    <p className='text-white transition-all text-right ease-in-out text-lg md:text-md lg:text-lg '>
+                                        Upload your personal picture and project banner to Imgur.
+                                        Share the image URLs.
+                                        These will be used for your portfolio images.</p>
+                                </motion.div>
+
+                            </div>
+
+                        </div>
+
+                        <div className='mt-20 ml-5 flex transition-all ease-in-out justify-center md:items-start lg:items-center lg:justify-between items-center  '>
+
+                            <div className='p-5 md:w-1/3 lg:w-2/5 transition-all ease-in-out md:border-r-2 border-blue-900 mr-10'>
+                                <motion.div
+                                    initial={{ opacity: 0, x: -50 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    transition={{ duration: 1 }}
+                                    viewport={{ amount: 0.5, once: true }}
+                                >
+                                    <div className='flex items-center justify-start '>
+                                        <LocateFixed className='mr-2' />
+                                        <h1 className='text-xl text-left font-bold'>Portify <span className='text-white/80 font-medium'>Address</span></h1>
+
+                                    </div>
+
+
+                                    <p className='text-white transition-all text-left ease-in-out text-xl md:text-md lg:text-lg '>
+                                        Your portfolio will be available under your username tag.
+                                        For example: www.portify.com/ravi.</p>
+                                </motion.div>
+
+                            </div>
+                            <div className=' md:w-2/3 transition-all ease-in-out lg:w-3/5'>
+                                <motion.img
+                                    whileHover={{ scale: 1.1 }}
+                                    transition={{ duration: 0.2, type: "spring", stiffness: 300, damping: 15 }}
+                                    viewport={{ amount: 0.5, once: true }} className='hidden md:block shadow-2xl shadow-purple-300 rounded-sm w-full h-auto' src='url.png' />
+                            </div>
+
+                        </div>
+                    </motion.div>
+
+
+                </div>
+            </section>
+            <section ref={contactusRef} className="contactus min-h-screen flex flex-col justify-center items-center bg-gray-100 p-10" id="contactus">
+
+                <motion.div
+                    initial={{ opacity: 0, x: -100 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ type: "tween", duration: 1 }}
+                    viewport={{ amount: 0.5 }}
+                    className="bg-black/5 backdrop-blur-sm shadow-lg rounded-2xl overflow-hidden w-full md:max-w-4xl lg:max-w-7xl">
+                    <img
+                        src="portifylogo.png"
+                        alt="PORTIFY"
+                        className="mb-6 w-full md:max-w-4xl  lg:max-w-7xl "
+                    />
+                    <iframe
+                        src="https://docs.google.com/forms/d/e/1FAIpQLSen2gvCScPKJF_acspwP1z4HspMT1j6DXKCIEBUddgzvjzXQQ/viewform?embedded=true"
+                        style={{ width: "100%", height: "750px", border: "none" }}
+                        title="Contact Form"
+                    >
+                        Loading…
+                    </iframe>
+                </motion.div>
+            </section>
+
+            <section id='footer'>
+
+                <footer className="bg-gray-900 text-gray-300 pt-10">
+                    <div className="max-w-7xl mx-auto px-6 text-center">
+
+                        <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-500 via-red-500 to-yellow-500 bg-clip-text text-transparent">
+                            Portify
+                        </h2>
+                        <p className="mt-3 text-sm max-w-xl mx-auto">
+                            Create professional portfolios with ease. Showcase your skills, projects, and achievements in style.
+                        </p>
+                    </div>
+
+
+                    <div className="h-1 mt-8 bg-gradient-to-r from-purple-500 via-red-500 to-yellow-500"></div>
+
+
+                    <div className="py-4 text-center text-sm">
+                        © {new Date().getFullYear()} Portify. All rights reserved.
+                    </div>
+                </footer>
+
+
+            </section>
         </div >
     )
 }
