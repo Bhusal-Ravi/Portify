@@ -4,6 +4,7 @@ import { Menu, X, Zap, Telescope, Radio, ChartColumnStacked, BadgePlus, Image, L
 import { motion, spring } from 'framer-motion';
 import Marqueeslider from './Marqueeslider';
 import { useInView } from 'react-intersection-observer';
+import Login from './Login';
 
 
 
@@ -27,6 +28,16 @@ function Home() {
         navigate('/username')
     }
 
+    function scrollToSection(sectionId) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+            element.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            })
+        }
+    }
+
     return (
 
         <div className='min-h-screen '>
@@ -34,8 +45,10 @@ function Home() {
 
             {/*NavBar*/}
             <motion.nav initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ type: "tween", duration: 1, ease: "easeOut" }} className=' shadow-2xl shadow-purple-600  fixed z-10 top-5 max-w-4xl mx-auto left-5 right-5  rounded-xl  bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-sm border border-white/20   py-5 px-5 flex text-white justify-between  items-center '>
-                <div className='transition-all hover:scale-110 duration-300 ease-in-out  cursor-pointer'>
-                    <h1 className='text-sm md:text-lg md:font-bold '>Portify</h1>
+                <div className='relative transition-all hover:scale-110 duration-300 ease-in-out  cursor-pointer'>
+                    <div className='absolute -z-10 inset-0 bg-gradient-to-r from-purple-500 via-red-500 to-yellow-500 blur-lg animate-pulse'></div>
+
+                    <div><h1 className=' relative text-sm md:text-lg md:font-bold '>Portify</h1></div>
                 </div>
                 {/*Medium Screen Nav*/}
                 <div className='hidden md:flex '>
@@ -46,19 +59,25 @@ function Home() {
                         className=' rounded-lg   '
                     >
                         <ul className="list-none flex text-gray-800">
-                            <motion.li initial={{ color: "#C4C4C4", textShadow: "0px 0px 0px rgba(255, 255, 255, 0)" }} whileHover={{ scale: 1.1, color: "#F7F7F7", textShadow: "0px 0px 8px rgba(255, 255, 255, 0.8)" }} transition={{ type: "tween", duration: 0.3, ease: "easeOut" }} className={`px-4 py-2   cursor-pointer  ${activeSection === "home" ? "border-b-2 border-purple-500 text-white font-bold text-lg" : 'text-slate-800'} `}>Home</motion.li>
-                            <motion.li initial={{ color: "#C4C4C4", textShadow: "0px 0px 0px rgba(255, 255, 255, 0)" }} whileHover={{ scale: 1.1, color: "#F7F7F7", textShadow: "0px 0px 8px rgba(255, 255, 255, 0.8)" }} transition={{ type: "tween", duration: 0.3, ease: "easeOut" }} className={`px-4 py-2   cursor-pointer ${activeSection === "features" ? "border-b-2 border-purple-500 text-white font-bold text-lg" : 'text-slate-800'}  `}>Features</motion.li>
-                            <motion.li initial={{ color: "#C4C4C4", textShadow: "0px 0px 0px rgba(255, 255, 255, 0)" }} whileHover={{ scale: 1.1, color: "#F7F7F7", textShadow: "0px 0px 8px rgba(255, 255, 255, 0.8)" }} transition={{ type: "tween", duration: 0.3, ease: "easeOut" }} className={`px-4 py-2    cursor-pointer ${activeSection === "howto" ? "border-b-2 border-purple-500 text-white font-bold text-lg" : 'text-slate-800'}  `}>How to</motion.li>
-                            <motion.li initial={{ color: "#C4C4C4", textShadow: "0px 0px 0px rgba(255, 255, 255, 0)" }} whileHover={{ scale: 1.1, color: "#F7F7F7", textShadow: "0px 0px 8px rgba(255, 255, 255, 0.8)" }} transition={{ type: "tween", duration: 0.3, ease: "easeOut" }} className={`px-4 py-2   cursor-pointer ${activeSection === "contact" ? "border-b-2 border-purple-500 text-white font-bold text-lg" : 'text-slate-800'}  `}>Contact Us</motion.li>
+                            <motion.li onClick={() => scrollToSection('home')} initial={{ color: "#C4C4C4", textShadow: "0px 0px 0px rgba(255, 255, 255, 0)" }} whileHover={{ scale: 1.1, color: "#F7F7F7", textShadow: "0px 0px 8px rgba(255, 255, 255, 0.8)" }} transition={{ type: "tween", duration: 0.3, ease: "easeOut" }} className={`px-4 py-2   cursor-pointer  ${activeSection === "home" ? "border-b-2 border-purple-500 text-white font-bold text-lg" : 'text-slate-800'} `}>Home</motion.li>
+
+                            <motion.li onClick={() => scrollToSection('features')} initial={{ color: "#C4C4C4", textShadow: "0px 0px 0px rgba(255, 255, 255, 0)" }} whileHover={{ scale: 1.1, color: "#F7F7F7", textShadow: "0px 0px 8px rgba(255, 255, 255, 0.8)" }} transition={{ type: "tween", duration: 0.3, ease: "easeOut" }} className={`px-4 py-2   cursor-pointer ${activeSection === "features" ? "border-b-2 border-purple-500 text-white font-bold text-lg" : 'text-slate-800'}  `}>Features</motion.li>
+
+                            <motion.li onClick={() => scrollToSection('howto')} initial={{ color: "#C4C4C4", textShadow: "0px 0px 0px rgba(255, 255, 255, 0)" }} whileHover={{ scale: 1.1, color: "#F7F7F7", textShadow: "0px 0px 8px rgba(255, 255, 255, 0.8)" }} transition={{ type: "tween", duration: 0.3, ease: "easeOut" }} className={`px-4 py-2    cursor-pointer ${activeSection === "howto" ? "border-b-2 border-purple-500 text-white font-bold text-lg" : 'text-slate-800'}  `}>How to</motion.li>
+
+                            <motion.li onClick={() => scrollToSection('contactus')} initial={{ color: "#C4C4C4", textShadow: "0px 0px 0px rgba(255, 255, 255, 0)" }} whileHover={{ scale: 1.1, color: "#F7F7F7", textShadow: "0px 0px 8px rgba(255, 255, 255, 0.8)" }} transition={{ type: "tween", duration: 0.3, ease: "easeOut" }} className={`px-4 py-2   cursor-pointer ${activeSection === "contact" ? "border-b-2 border-purple-500 text-white font-bold text-lg" : 'text-slate-800'}  `}>Contact Us</motion.li>
+
+
+
+
+
                         </ul>
                     </motion.div>
                 </div>
                 <div className='group '>
 
-                    <button className='cursor-pointer group-hover:shadow-2xl transition duration-300 group-hover:shadow-purple-600/80 h-8 w-22 md:h-10 md:w-32 p-[1.5px] pt-[1px] flex justify-center items-center rounded-full bg-gradient-to-r from-purple-500 via-red-500 to-yellow-500'>
+                    <Login />
 
-                        <div className='h-full w-full text-sm font-thin flex p-1 justify-center items-center rounded-full bg-gradient-to-r from-gray-600 to-gray-800 group-hover:from-gray-500 group-hover:to-gray-600 group-hover:transition group-hover:duration-300 '><span> <img className='h-3 w-3 md:h-5 md:w-5 md:mr-5 mr-2' src='google.png' /></span>Sign In</div>
-                    </button>
                 </div>
 
                 {/*NMobile Nav*/}
@@ -79,10 +98,10 @@ function Home() {
                             className='absolute top-full right-6 mt-2 bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-3xl border border-white/20 rounded-lg shadow-lg min-w-[150px] py-2'
                         >
                             <ul className="list-none text-white/80">
-                                <motion.li whileHover={{ scale: 1.1, color: "#1B9469" }} transition={{ type: spring, stiffness: 300, damping: 5 }} className="px-4 py-2 cursor-pointer text-white/80 ">Home</motion.li>
-                                <motion.li whileHover={{ scale: 1.1, color: "#1B9469" }} transition={{ type: spring, stiffness: 300, damping: 5 }} className="px-4 py-2 cursor-pointer text-white/80 ">Features</motion.li>
-                                <motion.li whileHover={{ scale: 1.1, color: "#1B9469" }} transition={{ type: spring, stiffness: 300, damping: 5 }} className="px-4 py-2 cursor-pointer text-white/80 ">How to</motion.li>
-                                <motion.li whileHover={{ scale: 1.1, color: "#1B9469" }} transition={{ type: spring, stiffness: 300, damping: 5 }} className="px-4 py-2 cursor-pointer text-white/80 ">Contact Us</motion.li>
+                                <motion.li onClick={() => scrollToSection('home')} whileHover={{ scale: 1.1, color: "#1B9469" }} transition={{ type: spring, stiffness: 300, damping: 5 }} className="px-4 py-2 cursor-pointer text-white/80 ">Home</motion.li>
+                                <motion.li onClick={() => scrollToSection('features')} whileHover={{ scale: 1.1, color: "#1B9469" }} transition={{ type: spring, stiffness: 300, damping: 5 }} className="px-4 py-2 cursor-pointer text-white/80 ">Features</motion.li>
+                                <motion.li onClick={() => scrollToSection('howto')} whileHover={{ scale: 1.1, color: "#1B9469" }} transition={{ type: spring, stiffness: 300, damping: 5 }} className="px-4 py-2 cursor-pointer text-white/80 ">How to</motion.li>
+                                <motion.li onClick={() => scrollToSection('contactus')} whileHover={{ scale: 1.1, color: "#1B9469" }} transition={{ type: spring, stiffness: 300, damping: 5 }} className="px-4 py-2 cursor-pointer text-white/80 ">Contact Us</motion.li>
                             </ul>
                         </motion.div>
                     )
