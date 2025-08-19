@@ -25,7 +25,7 @@ function Home() {
                     'home'
 
     function handlePortfolio() {
-        navigate('/username')
+        navigate('/userprofile')
     }
 
     function scrollToSection(sectionId) {

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { AnimatePresence, motion } from 'framer-motion';
 
 function Username() {
     const [userName, setUserName] = useState({ url: "" });
@@ -18,13 +19,15 @@ function Username() {
                 body: JSON.stringify(userName)
             })
             const result = await response.json()
-            console.log()
 
             if (result.error) {
                 setError(result.message);
+                setTimeout(() => {
+                    setError(null)
+                }, 2000)
             } else {
                 setError(false);
-                setSuccess({ status: true, message: `UserName Set Successully` });
+                setSuccess({ status: true, message: `Username Set Successfully` });
                 setTimeout(() => navigate(`/form/${userName.url}`), 2000);
             }
 
@@ -36,30 +39,67 @@ function Username() {
     function handleUserName(e) {
         setUserName({ url: e.target.value })
     }
-    function handleSubmit() {
+
+    function handleSubmit(e) {
+        e.preventDefault();
         checkUserName()
     }
 
     return (
-        <div className='flex  min-h-screen  max-w-4xl mx-auto justify-center items-center '>
+        <div className='bg-gradient-to-r from-slate-900 to-purple-900 w-full max-w-md mx-auto p-4 sm:p-5 rounded-lg shadow-lg'>
+            <div className='flex flex-col items-center justify-center'>
+                <h1 className='text-xl sm:text-2xl font-bold text-white text-center'>Choose A Username</h1>
+                <p className='text-white/70 text-sm sm:text-base text-center mt-1'>
+                    Username must be unique and in lowercase
+                </p>
 
-            <div className='bg-gradient-to-r from-slate-600 to-indigo-700 w-full  h-100 rounded-md'>
-                <div className='flex flex-col items-center justify-center mt-5'>
-                    <h1 className='font-bold text-2xl text-white  '>Choose A UserName</h1>
-                    <p className='text-white/50 font-thin '>UserName Must be unique and in lowercase</p>
-                    <div className='flex flex-col justify-center items-center'>
+                <form onSubmit={handleSubmit} className='w-full mt-6'>
+                    <div className='flex flex-col w-full'>
                         <input
                             type='text'
                             value={userName.url}
                             onChange={handleUserName}
-                            placeholder='Enter UserName'
-                            className='bg-white/40 text-white font-bold mt-10 flex  w-2xl h-20 rounded-md px-5 shadow-sm '
+                            placeholder='Enter username'
+                            className='bg-white/20 text-white placeholder-white/50 font-medium w-full 
+                                      h-14 sm:h-16 rounded-lg px-4 focus:outline-none focus:ring-2 
+                                      focus:ring-purple-500 focus:border-transparent'
+                            required
                         />
-                        <button onClick={handleSubmit} className='mt-4 text-white rounded-md bg-emerald-600 px-5 cursor-pointer py-1 shadow-sm shadow-emerald-400 transition-all duration-300 hover:scale-105 hover:shadow-lg '>Submit</button>
-                        {error && <p className='bg-rose-600 text-white rounded-md px-2 py-1 font-semibold mt-5'>{error}</p>}
-                        {success.status && <div className='flex justify-center items-center mt-5'><p className='bg-green-600 text-white rounded-md px-2 py-1 font-semibold '>{success.message}</p><span className='w-5 h-5 rounded-full border-2 border-t-transparent animate-spin border-emerald-400 ml-2'></span></div>}
+
+                        <button
+                            type='submit'
+                            className='mt-4 text-white rounded-lg bg-emerald-600 w-full 
+                                      py-3 sm:py-3 shadow-sm hover:bg-emerald-700 transition-all 
+                                      duration-300 active:scale-95'
+                        >
+                            Submit
+                        </button>
                     </div>
-                </div>
+                </form>
+
+                <AnimatePresence>
+                    {error && (
+                        <motion.p
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            transition={{ duration: 0.2 }}
+                            className='bg-rose-600 text-white rounded-lg px-3 py-2 text-sm 
+                                      font-medium mt-4 w-full text-center'
+                        >
+                            {error}
+                        </motion.p>
+                    )}
+                </AnimatePresence>
+
+                {success.status && (
+                    <div className='flex items-center justify-center mt-4 space-x-2'>
+                        <p className='bg-green-600 text-white rounded-lg px-3 py-2 text-sm font-medium'>
+                            {success.message}
+                        </p>
+                        <span className='w-4 h-4 rounded-full border-2 border-t-transparent animate-spin border-emerald-200'></span>
+                    </div>
+                )}
             </div>
         </div>
     )

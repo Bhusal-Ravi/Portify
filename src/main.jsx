@@ -9,6 +9,8 @@ import Username from './components/Username.jsx';
 import Form from './components/Form.jsx';
 
 import PortFolio from './components/PortFolio.jsx';
+import UserProfile from './components/UserProfile.jsx';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
 
 
 
@@ -31,6 +33,9 @@ const router = createBrowserRouter([
       }, {
         path: '/:url',
         element: <PortFolio />
+      }, {
+        path: '/userprofile',
+        element: <ProtectedRoute><UserProfile /></ProtectedRoute>
       }
     ]
   }

@@ -1,0 +1,261 @@
+import React, { useContext, useEffect, useState } from 'react'
+import { UserContext } from './AuthContext'
+import Username from './Username';
+import { ChevronDown, ChevronUp, Eye, Pencil, Trash } from 'lucide-react';
+import { FiGithub } from "react-icons/fi";
+import {
+    FaStackOverflow, FaInstagram, FaSteam,
+    FaTwitter, FaCss3Alt, FaPython, FaNodeJs, FaReact, FaJava, FaRust, FaGitAlt
+} from "react-icons/fa";
+import { IoLogoJavascript } from "react-icons/io";
+import { FaHtml5, FaGolang } from "react-icons/fa6";
+import { RiTailwindCssFill } from "react-icons/ri";
+import { DiDjango } from "react-icons/di";
+import { SiNumpy, SiTensorflow } from "react-icons/si";
+import { AnimatePresence, motion, spring } from 'framer-motion';
+
+
+
+
+
+function UserProfile() {
+
+    const socialicons = [{ GitHub: <FiGithub />, label: "GitHub" },
+    { StackOverflow: <FaStackOverflow />, label: "StackOverflow" },
+    { Instagram: <FaInstagram />, label: "Instagram" },
+    { Steam: <FaSteam />, label: "Steam" },
+    { Twitter: <FaTwitter />, label: "Twitter" }]
+
+    const skillicons = [
+        { JavaScript: <IoLogoJavascript />, label: "JavaScript" },
+        { HTML: <FaHtml5 />, label: "HTML" },
+        { Css: <FaCss3Alt />, label: "Css" },
+        { Tailwind: <RiTailwindCssFill />, label: "Tailwind" },
+        { Python: <FaPython />, label: "Python" },
+        { NodeJs: <FaNodeJs />, label: "NodeJs" },
+        { Django: <DiDjango />, label: "Django" },
+        { React: <FaReact />, label: "React" },
+        { Java: <FaJava />, label: "Java" },
+        { GoLang: <FaGolang />, label: "GoLang" },
+        { Rust: <FaRust />, label: "Rust" },
+        { Numpy: <SiNumpy />, label: "Numpy" },
+        { TensorFlow: <SiTensorflow />, label: "TensorFlow" },
+        { GitGithub: <FaGitAlt />, label: "GitGithub" },
+
+    ]
+
+    const { user } = useContext(UserContext);
+    const [profile, setProfile] = useState({});
+    const [portfolioList, setPortfolioList] = useState({})
+    const [toggleList, setToggleList] = useState(false)
+    const siteUrl = "https://localhost:5173"
+
+    useEffect(() => {
+        setProfile(user)
+    }, [user])
+
+
+
+
+    async function fetchPortfolio() {
+        try {
+            const response = await fetch(`http://localhost:5001/api/portfoliolist/${user._id}`, {
+                credentials: 'include',
+                method: "GET"
+            })
+
+            const result = await response.json();
+
+            if (result.error === false) {
+                setPortfolioList(result.list);
+                console.log(result.list)
+
+            }
+
+        } catch (error) {
+            console.log("Error Getting Portfolio list", error);
+        }
+    }
+
+    useEffect(() => {
+        fetchPortfolio()
+    }, [user])
+
+    return (
+        <div className='userprofile min-h-screen relative flex flex-col items-center justify-start px-4'>
+
+            <div className='w-full max-w-md mt-10 shadow-purple-500 shadow-2xl bg-gradient-to-r from-slate-900 to-purple-900 p-4 rounded-md'>
+                <div className='flex flex-col sm:flex-row items-center justify-center'>
+                    <img
+                        className='h-16 w-16 sm:h-20 sm:w-20 rounded-full mb-4 sm:mb-0 sm:mr-5'
+                        src={`${profile.avatar}`}
+                        alt="Profile"
+                    />
+                    <h1 className='font-bold text-xl sm:text-2xl text-center sm:text-left'>
+                        <span className='bg-gradient-to-r from-purple-500 via-red-500 to-yellow-500 bg-clip-text text-transparent'>
+                            Welcome!
+                        </span>
+                        <span className='ml-2 text-white'>{profile.name}</span>
+                    </h1>
+                </div>
+            </div>
+
+
+            <div className='w-full max-w-md mt-8'>
+                <Username />
+                <AnimatePresence>
+                    {!toggleList && (
+                        <motion.div
+                            initial={{ opacity: 0, x: -30 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -30 }}
+                            transition={{ type: "tween" }}
+                            className='flex flex-col items-center justify-center mt-6'>
+                            <h1 className='font-semibold text-lg'>Previous Portfolio</h1>
+                            <button
+                                onClick={() => setToggleList(prev => !prev)}
+                                className='hover:scale-110 transition-all duration-300 cursor-pointer'
+                            >
+                                <ChevronDown />
+                            </button>
+                        </motion.div >
+                    )}
+                </AnimatePresence>
+
+
+                <AnimatePresence mode='wait'>
+                    {toggleList && (
+
+                        <motion.div
+                            initial={{ opacity: 0, x: -30 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            exit={{ opacity: 0, x: -30 }}
+                            transition={{ type: "tween", duration: 0.5 }}
+                            className='mt-6 w-full bg-white/30 backdrop-blur-md border-purple-500 border-2 rounded-lg p-4'
+                        >
+                            <div className='flex flex-col items-center'>
+                                <h1 className='text-xl sm:text-2xl font-bold text-center'>
+                                    All of your previous <span className='bg-gradient-to-r from-purple-500 via-red-500 to-yellow-700 bg-clip-text text-transparent'>Portfolios</span>
+                                </h1>
+                                <button
+                                    onClick={() => setToggleList(prev => !prev)}
+                                    className='mt-2 mb-4 hover:scale-110 transition-all duration-300 cursor-pointer animate-pulse'
+                                >
+                                    <ChevronUp />
+                                </button>
+                            </div>
+
+                            {portfolioList.length > 0 ? (
+                                <div className='space-y-4'>
+                                    {portfolioList.map((item, index) => (
+                                        <motion.div
+                                            initial={{ opacity: 0, x: -20 }}
+                                            whileInView={{ opacity: 1, x: 0 }}
+                                            transition={{ type: "tween", duration: 0.5 }}
+                                            viewport={{ amount: 0.5 }}
+
+                                            key={index}
+                                            className='relative bg-black rounded-lg shadow-lg shadow-black/50 '
+                                        >
+
+                                            <div className='flex absolute top-2 right-2 gap-3 bg-black p-1 sm:p-2 rounded-md'>
+                                                <div className='group relative'>
+                                                    <p className='absolute z-50 -translate-y-10 opacity-0 transition-all duration-300 group-hover:opacity-100 -translate-x-1/2 left-1/2 bg-black/80 rounded-md px-2 py-1 text-xs text-white whitespace-nowrap'>
+                                                        View
+                                                    </p>
+                                                    <Eye className='text-purple-500 h-4 w-4 sm:h-5 sm:w-5' />
+                                                </div>
+                                                <div className='group relative'>
+                                                    <p className='absolute -translate-y-10 opacity-0 transition-all duration-300 group-hover:opacity-100 -translate-x-1/2 left-1/2 bg-black/80 rounded-md px-2 py-1 text-xs text-white whitespace-nowrap'>
+                                                        Edit
+                                                    </p>
+                                                    <Pencil className='text-yellow-500 h-4 w-4 sm:h-5 sm:w-5' />
+                                                </div>
+                                                <div className='group relative'>
+                                                    <p className='absolute -translate-y-10 opacity-0 transition-all duration-300 group-hover:opacity-100 -translate-x-1/2 left-1/2 bg-black/80 rounded-md px-2 py-1 text-xs text-white whitespace-nowrap'>
+                                                        Delete
+                                                    </p>
+                                                    <Trash className='text-red-500 h-4 w-4 sm:h-5 sm:w-5' />
+                                                </div>
+                                            </div>
+
+
+                                            <div className='flex h-16 items-center justify-center bg-white px-2'>
+                                                <p className='text-sm sm:text-base truncate w-full text-center'>
+                                                    {siteUrl}/<span className='font-semibold bg-gradient-to-r from-purple-500 via-red-500 to-yellow-700 bg-clip-text text-transparent'>
+                                                        {item.url}
+                                                    </span>
+                                                </p>
+                                            </div>
+
+
+                                            <div className='p-3 text-white'>
+
+                                                <div className='flex flex-col sm:flex-row items-center justify-between mb-3'>
+                                                    <div className='flex items-center mb-2 sm:mb-0'>
+                                                        {item.profileimg && (
+                                                            <img
+                                                                className='h-8 w-8 sm:h-10 sm:w-10 rounded-full object-cover mr-2 sm:mr-3'
+                                                                src={`${item.profileimg}`}
+                                                                alt="Profile"
+                                                            />
+                                                        )}
+                                                        <h2 className='text-sm sm:text-base'>{item.username}</h2>
+                                                    </div>
+
+
+                                                    <div className='flex flex-wrap justify-center'>
+                                                        {item.social.map((items, index) => (
+                                                            <div key={index} className='relative m-1 group/icon'>
+                                                                <div className='text-xs bg-slate-900/90 text-white px-2 py-1 rounded-md font-medium absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover/icon:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10'>
+                                                                    {items.title}
+                                                                </div>
+                                                                <a
+                                                                    target='_blank'
+                                                                    rel='noopener noreferrer'
+                                                                    className='w-fit cursor-pointer bg-slate-800 rounded-full flex justify-center items-center p-1 sm:p-2 text-white hover:bg-slate-700 transition-all duration-300 shadow-md group-hover/main:shadow-emerald-400'
+                                                                >
+                                                                    {socialicons.map((item) => item[items.title])}
+                                                                </a>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+
+
+                                                <p className='text-xs sm:text-sm text-center mb-3'>{item.tag}</p>
+
+
+                                                <div className='flex flex-wrap justify-center gap-1 sm:gap-2'>
+                                                    {item.skills.map((items, index) => (
+                                                        <div key={index} className='relative group/icon'>
+                                                            <div className='text-xs bg-slate-900/90 text-white px-2 py-1 rounded-md font-medium absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover/icon:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10'>
+                                                                {items.title}
+                                                            </div>
+                                                            <a
+                                                                target='_blank'
+                                                                rel='noopener noreferrer'
+                                                                className='w-fit cursor-pointer bg-slate-800 transition-all duration-300 m-0.5 shadow-sm group-hover:shadow-emerald-400 group-hover/main:scale-110 group-hover/icon:bg-slate-900 rounded-full flex justify-center items-center p-1 sm:p-2 text-white'
+                                                            >
+                                                                {skillicons.map((item) => item[items.title])}
+                                                            </a>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+                                        </motion.div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className='text-center py-4'>No previous Portfolio Found</div>
+                            )}
+                        </motion.div>
+
+                    )}
+                </AnimatePresence>
+            </div>
+        </div>
+    )
+}
+
+export default UserProfile
