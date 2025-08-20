@@ -24,3 +24,8 @@ html {
         radial-gradient(at 40% 52%, hsla(250, 97%, 60%, 1) 0px, transparent 50%),
         radial-gradient(at 19% 30%, hsla(71, 63%, 65%, 1) 0px, transparent 50%);
 }
+
+.customurl {
+    background-image: url('curve.svg');
+
+}

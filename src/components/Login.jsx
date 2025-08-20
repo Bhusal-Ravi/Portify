@@ -38,7 +38,7 @@ function Login() {
                 </div>
 
             ) : (
-                <button className='cursor-pointer group-hover:shadow-2xl transition duration-300 group-hover:shadow-purple-600/80 h-8 w-22 md:h-10 md:w-32 p-[1.5px] pt-[1px] flex justify-center items-center rounded-full bg-gradient-to-r from-purple-500 via-red-500 to-yellow-500'>
+                <button onClick={handleLogin} className='cursor-pointer group-hover:shadow-2xl transition duration-300 group-hover:shadow-purple-600/80 h-8 w-22 md:h-10 md:w-32 p-[1.5px] pt-[1px] flex justify-center items-center rounded-full bg-gradient-to-r from-purple-500 via-red-500 to-yellow-500'>
 
                     <div className='h-full w-full text-sm font-thin flex p-1 justify-center items-center rounded-full bg-gradient-to-r from-gray-600 to-gray-800 group-hover:from-gray-500 group-hover:to-gray-600 group-hover:transition group-hover:duration-300 '><span> <img className='h-3 w-3 md:h-5 md:w-5 md:mr-5 mr-2' src='google.png' /></span>Login</div>
                 </button>

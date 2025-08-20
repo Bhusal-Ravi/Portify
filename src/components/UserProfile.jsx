@@ -131,7 +131,7 @@ function UserProfile() {
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -30 }}
                             transition={{ type: "tween", duration: 0.5 }}
-                            className='mt-6 w-full bg-white/30 backdrop-blur-md border-purple-500 border-2 rounded-lg p-4'
+                            className='mt-6 w-full bg-white/30 backdrop-blur-sm border-purple-500 border-2 rounded-lg p-4'
                         >
                             <div className='flex flex-col items-center'>
                                 <h1 className='text-xl sm:text-2xl font-bold text-center'>
@@ -158,7 +158,7 @@ function UserProfile() {
                                             className='relative bg-black rounded-lg shadow-lg shadow-black/50 '
                                         >
 
-                                            <div className='flex absolute top-2 right-2 gap-3 bg-black p-1 sm:p-2 rounded-md'>
+                                            <div className='flex absolute top-0 right-0 gap-2 bg-black p-1 sm:p-2 rounded-md'>
                                                 <div className='group relative'>
                                                     <p className='absolute z-50 -translate-y-10 opacity-0 transition-all duration-300 group-hover:opacity-100 -translate-x-1/2 left-1/2 bg-black/80 rounded-md px-2 py-1 text-xs text-white whitespace-nowrap'>
                                                         View
@@ -180,9 +180,9 @@ function UserProfile() {
                                             </div>
 
 
-                                            <div className='flex h-16 items-center justify-center bg-white px-2'>
-                                                <p className='text-sm sm:text-base truncate w-full text-center'>
-                                                    {siteUrl}/<span className='font-semibold bg-gradient-to-r from-purple-500 via-red-500 to-yellow-700 bg-clip-text text-transparent'>
+                                            <div className='customurl flex h-16 items-end justify-center bg-white px-2'>
+                                                <p className='text-sm sm:text-base bg-white rounded-md py-1 mx-5 shadow-sm font-semibold truncate text-black   w-full text-center'>
+                                                    {siteUrl}/<span className='font-semibold  bg-gradient-to-r from-purple-500 via-red-500 to-yellow-700 bg-clip-text text-transparent'>
                                                         {item.url}
                                                     </span>
                                                 </p>
