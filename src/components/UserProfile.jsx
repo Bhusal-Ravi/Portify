@@ -155,7 +155,7 @@ function UserProfile() {
                                             viewport={{ amount: 0.5 }}
 
                                             key={index}
-                                            className='relative bg-black rounded-lg shadow-lg shadow-black/50 '
+                                            className='relative  bg-black rounded-lg shadow-lg shadow-black/50 '
                                         >
 
                                             <div className='flex absolute top-0 right-0 gap-2 bg-black p-1 sm:p-2 lg:p-3 rounded-md'>
@@ -247,7 +247,7 @@ function UserProfile() {
                                     ))}
                                 </div>
                             ) : (
-                                <div className='text-center py-4 lg:py-6'>No previous Portfolio Found</div>
+                                <div className='text-center py-4 lg:py-6'>No previous Portfolios Found</div>
                             )}
                         </motion.div>
 
