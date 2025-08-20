@@ -84,14 +84,14 @@ function UserProfile() {
     return (
         <div className='userprofile min-h-screen relative flex flex-col items-center justify-start px-4'>
 
-            <div className='w-full max-w-md mt-10 shadow-purple-500 shadow-2xl bg-gradient-to-r from-slate-900 to-purple-900 p-4 rounded-md'>
+            <div className='w-full max-w-md lg:max-w-lg mt-10 shadow-purple-500 shadow-2xl bg-gradient-to-r from-slate-900 to-purple-900 p-4 lg:p-6 rounded-md'>
                 <div className='flex flex-col sm:flex-row items-center justify-center'>
                     <img
-                        className='h-16 w-16 sm:h-20 sm:w-20 rounded-full mb-4 sm:mb-0 sm:mr-5'
+                        className='h-16 w-16 sm:h-20 sm:w-20 lg:h-24 lg:w-24 rounded-full mb-4 sm:mb-0 sm:mr-5'
                         src={`${profile.avatar}`}
                         alt="Profile"
                     />
-                    <h1 className='font-bold text-xl sm:text-2xl text-center sm:text-left'>
+                    <h1 className='font-bold text-xl sm:text-2xl lg:text-3xl text-center sm:text-left'>
                         <span className='bg-gradient-to-r from-purple-500 via-red-500 to-yellow-500 bg-clip-text text-transparent'>
                             Welcome!
                         </span>
@@ -101,7 +101,7 @@ function UserProfile() {
             </div>
 
 
-            <div className='w-full max-w-md mt-8'>
+            <div className='w-full max-w-md sm:max-w-md md:max-w-2xl lg:max-w-4xl transition-all ease-in-out duration-500 flex flex-col justify-center items-center mt-8'>
                 <Username />
                 <AnimatePresence>
                     {!toggleList && (
@@ -111,7 +111,7 @@ function UserProfile() {
                             exit={{ opacity: 0, x: -30 }}
                             transition={{ type: "tween" }}
                             className='flex flex-col items-center justify-center mt-6'>
-                            <h1 className='font-semibold text-lg'>Previous Portfolio</h1>
+                            <h1 className='font-semibold text-lg lg:text-xl'>Previous Portfolio</h1>
                             <button
                                 onClick={() => setToggleList(prev => !prev)}
                                 className='hover:scale-110 transition-all duration-300 cursor-pointer'
@@ -131,10 +131,10 @@ function UserProfile() {
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -30 }}
                             transition={{ type: "tween", duration: 0.5 }}
-                            className='mt-6 w-full bg-white/30 backdrop-blur-sm border-purple-500 border-2 rounded-lg p-4'
+                            className='mt-6 w-full bg-white/30 backdrop-blur-sm border-purple-500 border-2 rounded-lg p-4 lg:p-6'
                         >
                             <div className='flex flex-col items-center'>
-                                <h1 className='text-xl sm:text-2xl font-bold text-center'>
+                                <h1 className='text-xl sm:text-2xl lg:text-3xl font-bold text-center'>
                                     All of your previous <span className='bg-gradient-to-r from-purple-500 via-red-500 to-yellow-700 bg-clip-text text-transparent'>Portfolios</span>
                                 </h1>
                                 <button
@@ -146,7 +146,7 @@ function UserProfile() {
                             </div>
 
                             {portfolioList.length > 0 ? (
-                                <div className='space-y-4'>
+                                <div className='space-y-4 lg:space-y-6'>
                                     {portfolioList.map((item, index) => (
                                         <motion.div
                                             initial={{ opacity: 0, x: -20 }}
@@ -158,30 +158,30 @@ function UserProfile() {
                                             className='relative bg-black rounded-lg shadow-lg shadow-black/50 '
                                         >
 
-                                            <div className='flex absolute top-0 right-0 gap-2 bg-black p-1 sm:p-2 rounded-md'>
+                                            <div className='flex absolute top-0 right-0 gap-2 bg-black p-1 sm:p-2 lg:p-3 rounded-md'>
                                                 <div className='group relative'>
                                                     <p className='absolute z-50 -translate-y-10 opacity-0 transition-all duration-300 group-hover:opacity-100 -translate-x-1/2 left-1/2 bg-black/80 rounded-md px-2 py-1 text-xs text-white whitespace-nowrap'>
                                                         View
                                                     </p>
-                                                    <Eye className='text-purple-500 h-4 w-4 sm:h-5 sm:w-5' />
+                                                    <Eye className='text-purple-500 h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6' />
                                                 </div>
                                                 <div className='group relative'>
                                                     <p className='absolute -translate-y-10 opacity-0 transition-all duration-300 group-hover:opacity-100 -translate-x-1/2 left-1/2 bg-black/80 rounded-md px-2 py-1 text-xs text-white whitespace-nowrap'>
                                                         Edit
                                                     </p>
-                                                    <Pencil className='text-yellow-500 h-4 w-4 sm:h-5 sm:w-5' />
+                                                    <Pencil className='text-yellow-500 h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6' />
                                                 </div>
                                                 <div className='group relative'>
                                                     <p className='absolute -translate-y-10 opacity-0 transition-all duration-300 group-hover:opacity-100 -translate-x-1/2 left-1/2 bg-black/80 rounded-md px-2 py-1 text-xs text-white whitespace-nowrap'>
                                                         Delete
                                                     </p>
-                                                    <Trash className='text-red-500 h-4 w-4 sm:h-5 sm:w-5' />
+                                                    <Trash className='text-red-500 h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6' />
                                                 </div>
                                             </div>
 
 
-                                            <div className='customurl flex h-16 items-end justify-center bg-white px-2'>
-                                                <p className='text-sm sm:text-base bg-white rounded-md py-1 mx-5 shadow-sm font-semibold truncate text-black   w-full text-center'>
+                                            <div className='customurl object-cover flex h-18 md:h-25 lg:h-32 transition-all ease-in-out items-end justify-center bg-white px-2'>
+                                                <p className='text-sm sm:text-base lg:text-lg bg-white rounded-md py-1 lg:py-2 mx-5 shadow-sm font-semibold truncate text-black   w-full text-center'>
                                                     {siteUrl}/<span className='font-semibold  bg-gradient-to-r from-purple-500 via-red-500 to-yellow-700 bg-clip-text text-transparent'>
                                                         {item.url}
                                                     </span>
@@ -189,31 +189,31 @@ function UserProfile() {
                                             </div>
 
 
-                                            <div className='p-3 text-white'>
+                                            <div className='p-3 lg:p-5 text-white'>
 
-                                                <div className='flex flex-col sm:flex-row items-center justify-between mb-3'>
+                                                <div className='flex flex-col sm:flex-row items-center justify-between mb-3 md:mb-8 lg:mb-10 transition-all ease-in-out '>
                                                     <div className='flex items-center mb-2 sm:mb-0'>
                                                         {item.profileimg && (
                                                             <img
-                                                                className='h-8 w-8 sm:h-10 sm:w-10 rounded-full object-cover mr-2 sm:mr-3'
+                                                                className='h-8 w-8 sm:h-10 sm:w-10 lg:h-12 lg:w-12 rounded-full object-cover mr-2 sm:mr-3'
                                                                 src={`${item.profileimg}`}
                                                                 alt="Profile"
                                                             />
                                                         )}
-                                                        <h2 className='text-sm sm:text-base'>{item.username}</h2>
+                                                        <h2 className='text-sm sm:text-base lg:text-lg'>{item.username}</h2>
                                                     </div>
 
 
                                                     <div className='flex flex-wrap justify-center'>
                                                         {item.social.map((items, index) => (
-                                                            <div key={index} className='relative m-1 group/icon'>
+                                                            <div key={index} className='relative m-1 lg:m-2 group/icon'>
                                                                 <div className='text-xs bg-slate-900/90 text-white px-2 py-1 rounded-md font-medium absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover/icon:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10'>
                                                                     {items.title}
                                                                 </div>
                                                                 <a
                                                                     target='_blank'
                                                                     rel='noopener noreferrer'
-                                                                    className='w-fit cursor-pointer bg-slate-800 rounded-full flex justify-center items-center p-1 sm:p-2 text-white hover:bg-slate-700 transition-all duration-300 shadow-md group-hover/main:shadow-emerald-400'
+                                                                    className='w-fit cursor-pointer bg-slate-800 rounded-full flex justify-center items-center p-1 sm:p-2 lg:p-3 text-white hover:bg-slate-700 transition-all duration-300 shadow-md group-hover/main:shadow-emerald-400'
                                                                 >
                                                                     {socialicons.map((item) => item[items.title])}
                                                                 </a>
@@ -223,19 +223,19 @@ function UserProfile() {
                                                 </div>
 
 
-                                                <p className='text-xs sm:text-sm text-center mb-3'>{item.tag}</p>
+                                                <p className='text-xs sm:text-sm lg:text-base text-center mb-3 md:mb-8 lg:mb-10 transiton-all duration-200 ease-in-out'>{item.tag}</p>
 
 
-                                                <div className='flex flex-wrap justify-center gap-1 sm:gap-2'>
+                                                <div className='flex flex-wrap justify-center gap-1 mx-0 md:mx-10 lg:mx-16 sm:gap-2 lg:gap-3 transition-all ease-in-out duration-500'>
                                                     {item.skills.map((items, index) => (
-                                                        <div key={index} className='relative group/icon'>
-                                                            <div className='text-xs bg-slate-900/90 text-white px-2 py-1 rounded-md font-medium absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover/icon:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10'>
+                                                        <div key={index} className='relative group/icon '>
+                                                            <div className='text-xs  transition-all bg-slate-900/90 text-white px-2 py-1 rounded-md font-medium absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover/icon:opacity-100  duration-200 pointer-events-none whitespace-nowrap z-10'>
                                                                 {items.title}
                                                             </div>
                                                             <a
                                                                 target='_blank'
                                                                 rel='noopener noreferrer'
-                                                                className='w-fit cursor-pointer bg-slate-800 transition-all duration-300 m-0.5 shadow-sm group-hover:shadow-emerald-400 group-hover/main:scale-110 group-hover/icon:bg-slate-900 rounded-full flex justify-center items-center p-1 sm:p-2 text-white'
+                                                                className='w-fit cursor-pointer bg-slate-800 transition-all duration-300 m-0.5 lg:m-1 shadow-sm group-hover:shadow-emerald-400 group-hover/main:scale-110 group-hover/icon:bg-slate-900 rounded-full flex justify-center items-center p-1 sm:p-2 lg:p-3 text-white'
                                                             >
                                                                 {skillicons.map((item) => item[items.title])}
                                                             </a>
@@ -247,7 +247,7 @@ function UserProfile() {
                                     ))}
                                 </div>
                             ) : (
-                                <div className='text-center py-4'>No previous Portfolio Found</div>
+                                <div className='text-center py-4 lg:py-6'>No previous Portfolio Found</div>
                             )}
                         </motion.div>
 
