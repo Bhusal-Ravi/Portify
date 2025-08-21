@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { UserContext } from './AuthContext'
 import Username from './Username';
-import { ChevronDown, ChevronUp, Eye, Pencil, Trash } from 'lucide-react';
+import { ChevronDown, ChevronUp, Eye, Pencil, RotateCcw, Trash } from 'lucide-react';
 import { FiGithub } from "react-icons/fi";
 import {
     FaStackOverflow, FaInstagram, FaSteam,
@@ -48,6 +48,7 @@ function UserProfile() {
     const [profile, setProfile] = useState({});
     const [portfolioList, setPortfolioList] = useState({})
     const [toggleList, setToggleList] = useState(false)
+    const [refresh, setRefresh] = useState(0)
     const siteUrl = "https://localhost:5173"
 
     useEffect(() => {
@@ -68,6 +69,7 @@ function UserProfile() {
 
             if (result.error === false) {
                 setPortfolioList(result.list);
+                setRefresh(prev => prev + 1)
                 console.log(result.list)
 
             }
@@ -81,8 +83,20 @@ function UserProfile() {
         fetchPortfolio()
     }, [user])
 
+    useEffect(() => {
+
+    }, [refresh])
+
     return (
-        <div className='userprofile min-h-screen relative flex flex-col items-center justify-start px-4'>
+        <div className='userprofile  transition-all duration-300 ease-in-out min-h-screen relative flex flex-col items-center justify-start px-4'>
+            <div className='hidden md:block text-2xl transition-all duration-400 ease-in-out lg:text-4xl text-white font-bold lg:ml-10  absolute top-5 left-5 '>
+                <div className='bg-gradient-to-r animate-pulse absolute inset-0 transition-all duration-400 ease-in-out  from-purple-500 to-red-500 to yellow-500 blur-md z-10 h-10 w-35 lg:h-15 lg:w-39'></div>
+                <h1 className=' relative z-50  transition-all duration-400 ease-in-out left-5 lg:top-2 text-center'>Portify</h1>
+
+
+            </div>
+
+
 
             <div className='w-full max-w-md lg:max-w-lg mt-10 shadow-purple-500 shadow-2xl bg-gradient-to-r from-slate-900 to-purple-900 p-4 lg:p-6 rounded-md'>
                 <div className='flex flex-col sm:flex-row items-center justify-center'>
@@ -101,8 +115,23 @@ function UserProfile() {
             </div>
 
 
-            <div className='w-full max-w-md sm:max-w-md md:max-w-2xl lg:max-w-4xl transition-all ease-in-out duration-500 flex flex-col justify-center items-center mt-8'>
+            <div className='w-full relative  max-w-md sm:max-w-md md:max-w-2xl lg:max-w-4xl transition-all ease-in-out duration-500 flex flex-col justify-center items-center mt-8'>
                 <Username />
+                <div className='hidden 2xl:flex  absolute right-0 px-5 py-5 top-0  max-w-[350px]  translate-x-[400px]  bg-black/20 border-2 border-purple-300 rounded-lg backdrop-blur-md text-white '>
+                    <div className='flex flex-wrap flex-col justify-center items-center'>
+                        <h1 className='text-xl font-bold'>Simple Working</h1>
+                        <ul className='list-disc mx-5 mt-2 '>
+                            <li className='mt-8 transition-all hover:text-purple-200 cursor-pointer'>Choose a unique username.</li>
+                            <li className='mt-5 transition-all hover:text-purple-200 cursor-pointer'>Your username will uniquely identify your portfolio.</li>
+                            <li className='mt-5 transition-all hover:text-purple-200 cursor-pointer'>Once set, your portfolio will be accessible at portify.com/(username).</li>
+                            <li className='mt-5 transition-all hover:text-purple-200 cursor-pointer'>Click "Submit" to proceed to the form page.</li>
+                            <li className='mt-5 transition-all hover:text-purple-200 cursor-pointer'>Complete the form to generate your personalized portfolio.</li>
+                            <li className='mt-5 transition-all hover:text-purple-200 cursor-pointer'>Currently, only one theme is available.</li>
+                            <li className='mt-5 transition-all hover:text-purple-200 cursor-pointer'>More themes will be introduced after the MVP release.</li>
+
+                        </ul>
+                    </div>
+                </div>
                 <AnimatePresence>
                     {!toggleList && (
                         <motion.div
@@ -131,8 +160,14 @@ function UserProfile() {
                             animate={{ opacity: 1, x: 0 }}
                             exit={{ opacity: 0, x: -30 }}
                             transition={{ type: "tween", duration: 0.5 }}
-                            className='mt-6 w-full bg-white/30 backdrop-blur-sm border-purple-500 border-2 rounded-lg p-4 lg:p-6'
+                            className='mt-6 w-full bg-white/30 backdrop-blur-sm relative border-purple-500 border-2 rounded-lg p-4 lg:p-6'
                         >
+                            <div className='group  absolute bg-black p-2 rounded-full top-5 right-5 '>
+
+                                <button onClick={fetchPortfolio} className=''><span className='opacity-0 absolute top-0 -translate-y-7 py-1 text-white text-xs font-medium -translate-x-5 bg-black rounded-md px-2 transition-all ease-in-out duration-200   group-hover:opacity-100'>Refresh</span>
+                                    <RotateCcw className='h-5 w-5 text-purple-500 group-hover:scale-110 transition-all duration-300 cursor-pointer  ' />
+                                </button>
+                            </div>
                             <div className='flex flex-col items-center'>
                                 <h1 className='text-xl sm:text-2xl lg:text-3xl font-bold text-center'>
                                     All of your previous <span className='bg-gradient-to-r from-purple-500 via-red-500 to-yellow-700 bg-clip-text text-transparent'>Portfolios</span>
