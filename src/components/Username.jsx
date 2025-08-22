@@ -86,7 +86,7 @@ function Username() {
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, y: -10 }}
                             transition={{ duration: 0.2 }}
-                            className='bg-rose-600 text-white rounded-lg px-3 py-2 lg:px-4 lg:py-3 text-sm lg:text-base
+                            className='bg-rose-600   text-white rounded-lg px-3 py-2  lg:px-4 lg:py-3 text-sm lg:text-base
                                       font-medium mt-4 lg:mt-6 w-full text-center'
                         >
                             {error}
