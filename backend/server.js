@@ -11,6 +11,7 @@ const usernameRoute=require('./routes/setUsername')
 const portfolioRoute= require('./routes/setPortfolio');
 const getPortfolioRoute= require('./routes/getPortfolio')
 const portfoliolist= require('./routes/portfollioList')
+const portfoliocard= require('./routes/portfoliocard')
 
 const app= express();
 
@@ -52,6 +53,7 @@ app.use('/api',usernameRoute);
 app.use('/api',portfolioRoute);
 app.use('/api',getPortfolioRoute);
 app.use('/api',portfoliolist);
+app.use('/api',portfoliocard);
 connectdb();
 
 const PORT= process.env.PORT || 5000

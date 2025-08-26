@@ -50,11 +50,26 @@ function UserProfile() {
     const [toggleList, setToggleList] = useState(false)
     const [refresh, setRefresh] = useState(0)
     const [queryPannel, setQueryPannel] = useState(false)
+    const [cardResult, setCardResult] = useState({ error: false, message: "Welcome" })
+    const [notification, setNotification] = useState(false)
     const siteUrl = "https://localhost:5173"
 
     useEffect(() => {
         setProfile(user)
     }, [user])
+
+
+    useEffect(() => {
+        function notificationControl() {
+            setNotification(true)
+            setTimeout(() => {
+                setNotification(false)
+            }, 2000)
+        }
+
+        notificationControl();
+
+    }, [cardResult])
 
 
 
@@ -67,6 +82,7 @@ function UserProfile() {
             })
 
             const result = await response.json();
+            console.log(result)
 
             if (result.error === false) {
                 setPortfolioList(result.list);
@@ -82,11 +98,31 @@ function UserProfile() {
 
     useEffect(() => {
         fetchPortfolio()
-    }, [user])
+    }, [user, cardResult])
 
     useEffect(() => {
 
     }, [refresh])
+
+    async function cardHandle(option, cardId) {
+        try {
+            const response = await fetch(`http://localhost:5001/api/portfoliocard/${option}/${cardId}`, {
+                method: "PUT",
+                credentials: "include"
+
+            })
+
+            const result = await response.json();
+            console.log(result)
+
+            setCardResult(result);
+
+        } catch (error) {
+            console.log("Error in card option", error)
+        }
+    }
+
+
 
     return (
         <div className='userprofile  transition-all duration-300 ease-in-out min-h-screen relative flex flex-col items-center justify-start px-4'>
@@ -97,9 +133,25 @@ function UserProfile() {
 
             </div>
 
+
+            <AnimatePresence>        {/*Notification*/}
+                {
+                    notification &&
+                    <motion.div
+                        initial={{ opacity: 0, x: 30 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: 30 }}
+                        transition={{ type: "tween" }}
+                        className={`fixed top-4  ${cardResult.error === true ? "bg-red-500" : "bg-emerald-500"} p-2 rounded-2xl shadow-xl shadow-black   `}>
+                        <p>{cardResult.message}</p>
+                    </motion.div>
+                }
+            </AnimatePresence>
+
+
             {!queryPannel ? (
 
-                <div className='fixed z-100  top-2 right-2 sm:top-5 sm:right-8 md:right-2 backdrop-blur-md bg-black/30 p-2 rounded-full'>
+                <div className='absolute z-100  top-2 right-2 sm:top-5 sm:right-8 md:right-2 backdrop-blur-md bg-black/30 p-2 rounded-full'>
 
                     <button onClick={() => setQueryPannel((prev) => !prev)} className=''><div>
 
@@ -107,8 +159,8 @@ function UserProfile() {
 
                     </div></button>
                 </div>) : (
-                <div className='absolute z-100 flex bg-black/50 backdrop-blur-sm w-full justify-center items-center min-h-screen'>
-                    <div className=' relative flex shadow-xl shadow-purple-500 hover:scale-105 transition-all duration-300 bg-black border-2 border-purple-500 text-white/80 p-5 rounded-xl flex-wrap flex-col justify-center items-center'>
+                <div className='absolute z-100 flex bg-black/50 backdrop-blur-sm w-full  justify-center items-center min-h-screen'>
+                    <div className=' relative flex shadow-xl shadow-purple-500 mx-10 hover:scale-105 transition-all duration-300 bg-black border-2 border-purple-500 text-white/80 p-5 rounded-xl flex-wrap flex-col justify-center items-center'>
                         <X onClick={() => setQueryPannel((prev) => !prev)} className='cursor-pointer absolute top-5 right-5 text-red-500 md:right-10 md:top-5 md:h-8 md:w-8 lg:h-10 lg:w-10' />
                         <h1 className='text-xl font-bold'>Simple Working</h1>
                         <ul className='list-disc mx-5 mt-2 '>
@@ -221,10 +273,12 @@ function UserProfile() {
                                                     <Pencil className='text-yellow-500 h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6' />
                                                 </div>
                                                 <div className='group relative'>
-                                                    <p className='absolute -translate-y-10 opacity-0 transition-all duration-300 group-hover:opacity-100 -translate-x-1/2 left-1/2 bg-black/80 rounded-md px-2 py-1 text-xs text-white whitespace-nowrap'>
-                                                        Delete
-                                                    </p>
-                                                    <Trash className='text-red-500 h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6' />
+                                                    <button onClick={() => cardHandle("delete", item._id)}>
+                                                        <p className='absolute -translate-y-10 opacity-0 transition-all duration-300 group-hover:opacity-100 -translate-x-1/2 left-1/2 bg-black/80 rounded-md px-2 py-1 text-xs text-white whitespace-nowrap'>
+                                                            Delete
+                                                        </p>
+                                                        <Trash className='text-red-500 h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6' />
+                                                    </button>
                                                 </div>
                                             </div>
 
