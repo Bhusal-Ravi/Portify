@@ -13,6 +13,7 @@ import { RiTailwindCssFill } from "react-icons/ri";
 import { DiDjango } from "react-icons/di";
 import { SiNumpy, SiTensorflow } from "react-icons/si";
 import { AnimatePresence, motion, spring } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -52,7 +53,8 @@ function UserProfile() {
     const [queryPannel, setQueryPannel] = useState(false)
     const [cardResult, setCardResult] = useState({ error: false, message: "Welcome" })
     const [notification, setNotification] = useState(false)
-    const siteUrl = "https://localhost:5173"
+    const navigate = useNavigate();
+    const siteUrl = "http://localhost:5173"
 
     useEffect(() => {
         setProfile(user)
@@ -104,9 +106,13 @@ function UserProfile() {
 
     }, [refresh])
 
-    async function cardHandle(option, cardId) {
+    function handleFormEdit(editurl) {
+        navigate(`/formedit/${editurl}`)
+    }
+
+    async function cardHandle(option, cardUrl) {
         try {
-            const response = await fetch(`http://localhost:5001/api/portfoliocard/${option}/${cardId}`, {
+            const response = await fetch(`http://localhost:5001/api/portfoliocard/${option}/${cardUrl}`, {
                 method: "PUT",
                 credentials: "include"
 
@@ -264,16 +270,21 @@ function UserProfile() {
                                                     <p className='absolute z-50 -translate-y-10 opacity-0 transition-all duration-300 group-hover:opacity-100 -translate-x-1/2 left-1/2 bg-black/80 rounded-md px-2 py-1 text-xs text-white whitespace-nowrap'>
                                                         View
                                                     </p>
-                                                    <Eye className='text-purple-500 h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6' />
+                                                    <a href={`${siteUrl}/${item.url}`} target="_blank" rel="noopener noreferrer">
+                                                        <Eye className='text-purple-500 h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6' />
+                                                    </a>
                                                 </div>
                                                 <div className='group relative'>
-                                                    <p className='absolute -translate-y-10 opacity-0 transition-all duration-300 group-hover:opacity-100 -translate-x-1/2 left-1/2 bg-black/80 rounded-md px-2 py-1 text-xs text-white whitespace-nowrap'>
-                                                        Edit
-                                                    </p>
-                                                    <Pencil className='text-yellow-500 h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6' />
+                                                    <button onClick={() => handleFormEdit(item.url)}>
+                                                        <p className='absolute -translate-y-10 opacity-0 transition-all duration-300 group-hover:opacity-100 -translate-x-1/2 left-1/2 bg-black/80 rounded-md px-2 py-1 text-xs text-white whitespace-nowrap'>
+                                                            Edit
+                                                        </p>
+
+                                                        <Pencil className='text-yellow-500 h-4 w-4 sm:h-5 sm:w-5 lg:h-6 lg:w-6' />
+                                                    </button>
                                                 </div>
-                                                <div className='group relative'>
-                                                    <button onClick={() => cardHandle("delete", item._id)}>
+                                                <div className='group  relative'>
+                                                    <button className='cursor-pointer' onClick={() => cardHandle("delete", item.url)}>
                                                         <p className='absolute -translate-y-10 opacity-0 transition-all duration-300 group-hover:opacity-100 -translate-x-1/2 left-1/2 bg-black/80 rounded-md px-2 py-1 text-xs text-white whitespace-nowrap'>
                                                             Delete
                                                         </p>

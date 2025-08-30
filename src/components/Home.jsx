@@ -22,7 +22,7 @@ function Home() {
         featuresInView ? 'features' :
             howtoView ? 'howto' :
                 contactusView ? 'contact' :
-                    'home'
+                    ''
 
     function handlePortfolio() {
         navigate('/userprofile')

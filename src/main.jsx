@@ -11,6 +11,7 @@ import Form from './components/Form.jsx';
 import PortFolio from './components/PortFolio.jsx';
 import UserProfile from './components/UserProfile.jsx';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
+import Formedit from './components/Formedit.jsx';
 
 
 
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
         path: '/form/:url',
         element: <Form />
       }, {
+        path: '/formedit/:editurl',
+        element: <Formedit />
+      },
+      {
         path: '/username',
         element: <Username />
       }, {

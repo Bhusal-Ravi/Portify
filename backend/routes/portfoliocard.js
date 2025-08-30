@@ -1,6 +1,6 @@
 const express= require("express")
 const router = express.Router();
-
+const Url= require("../models/Url")
 const Portfolio= require("../models/Portfolio");
 
 
@@ -12,17 +12,44 @@ router.put('/portfoliocard/delete/:id',async(req,res)=>{
             res.status(401).json({error:true,message:"Not Authorized"});
         }
         
-        const id= req.params.id;
-        console.log(id)
+        const url= req.params.id;
+        console.log(url)
 
-        const deleted= await Portfolio.deleteOne({_id:id});
+        const deleted= await Portfolio.deleteOne({url:url});
         console.log(deleted)
         if(deleted.deletedCount>0){
+            const urlCheck= await Url.findOneAndDelete({url:url})
+            
             res.status(200).json({error:false,message:"Deleted Successfully"})
         }else {
             res.status(404).json({error:true,message:"Delete Failed"})
         }
 
+    }catch(error){
+        console.log(error)
+    }
+})
+
+
+router.post('/portfoliocard/update/:url',async(req,res)=>{
+    try{
+        const url= req.params.url;
+
+
+    }catch(error){
+
+    }
+})
+
+router.get('/portfoliocard/formdetail/:url',async(req,res)=>{
+    try{
+        const url= req.params.url;
+        const data=await Portfolio.findOne({url:url})
+        if(data){
+            res.status(200).json({error:false,message:"Found Portfolio",data:data})
+        }else{
+            res.status(404).json({error:true,message:"Portfolio Not Found"});
+        }
     }catch(error){
         console.log(error)
     }
