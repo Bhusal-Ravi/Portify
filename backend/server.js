@@ -12,6 +12,7 @@ const portfolioRoute= require('./routes/setPortfolio');
 const getPortfolioRoute= require('./routes/getPortfolio')
 const portfoliolist= require('./routes/portfollioList')
 const portfoliocard= require('./routes/portfoliocard')
+const emailRoute= require("./routes/email")
 
 const app= express();
 
@@ -54,6 +55,7 @@ app.use('/api',portfolioRoute);
 app.use('/api',getPortfolioRoute);
 app.use('/api',portfoliolist);
 app.use('/api',portfoliocard);
+app.use('/api',emailRoute)
 connectdb();
 
 const PORT= process.env.PORT || 5000

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Menu, X, Zap, Telescope, Radio, ChartColumnStacked, BadgePlus, Image, LocateFixed } from 'lucide-react';
-import { motion, spring } from 'framer-motion';
+import { motion, spring, AnimatePresence } from 'framer-motion';
 import Marqueeslider from './Marqueeslider';
 import { useInView } from 'react-intersection-observer';
 import Login from './Login';
+import { set } from 'react-hook-form';
 
 
 
@@ -12,6 +13,8 @@ function Home() {
 
     const navigate = useNavigate();
     const [menueShow, setMenueShow] = useState(false)
+    const [notification, setNotification] = useState({ message: "", error: false, status: false })
+    const [messageSending, setMessageSending] = useState(false)
 
     const [homeRef, homeInView] = useInView({ threshold: 0.5 });
     const [featuresRef, featuresInView] = useInView({ threshold: 0.5 });
@@ -38,11 +41,75 @@ function Home() {
         }
     }
 
+    async function sendMail(data) {
+        try {
+            setMessageSending(true)
+            const response = await fetch(`http://localhost:5001/api/mail`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data)
+            })
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const result = await response.json();
+
+            console.log(result)
+            setNotification({ message: result.message, status: true, error: result.error })
+            setMessageSending(false)
+
+
+            setTimeout(() => {
+                setNotification({ message: "", status: false, error: result.error })
+            }, 2000)
+
+
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    function handleContactSubmit(e) {
+        e.preventDefault();
+
+        const form = e.target;
+        const name = form.name.value;
+        const email = form.email.value;
+        const message = form.message.value;
+
+        console.log({ name, email, message });
+        const final = { name: name, email: email, message: message }
+
+        sendMail(final)
+
+        form.reset();
+
+
+
+    };
+
     return (
 
         <div className='min-h-screen '>
 
-
+            <AnimatePresence>
+                {notification.status && (
+                    <motion.div
+                        key={notification.message}
+                        className={`fixed z-100  top-5 left-5 ${notification.error === false ? "bg-emerald-400" : "bg-rose-400"} text-white text-lg font-bold rounded-full py-2 px-5`}
+                        initial={{ x: 50, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                        exit={{ x: 50, opacity: 0 }}
+                        transition={{ type: "tween", duration: 0.5 }}
+                    >
+                        <p>{notification.message}</p>
+                    </motion.div>
+                )}
+            </AnimatePresence>
             {/*NavBar*/}
             <motion.nav initial={{ opacity: 0, x: -10 }} whileInView={{ opacity: 1, x: 0 }} transition={{ type: "tween", duration: 1, ease: "easeOut" }} className=' shadow-2xl shadow-purple-600  fixed z-10 top-5 max-w-4xl mx-auto left-5 right-5  rounded-xl  bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-sm border border-white/20   py-5 px-5 flex text-white justify-between  items-center '>
                 <div className='relative transition-all hover:scale-110 duration-300 ease-in-out  cursor-pointer'>
@@ -312,26 +379,73 @@ function Home() {
 
                 </div>
             </section>
-            <section ref={contactusRef} className="contactus min-h-screen flex flex-col justify-center items-center bg-gray-100 p-10" id="contactus">
+            <section ref={contactusRef} className="contactus relative min-h-screen flex flex-col justify-center items-center bg-gray-100 p-10 md:pt-[1px]   lg:pt-[250px]" id="contactus">
+                <svg xmlns="http://www.w3.org/2000/svg" className=' z-5 absolute top-0 left-0' viewBox="0 0 1440 320"><path fill="#cf50b1" fill-opacity="1" d="M0,192L17.1,165.3C34.3,139,69,85,103,64C137.1,43,171,53,206,80C240,107,274,149,309,165.3C342.9,181,377,171,411,149.3C445.7,128,480,96,514,96C548.6,96,583,128,617,128C651.4,128,686,96,720,74.7C754.3,53,789,43,823,74.7C857.1,107,891,181,926,218.7C960,256,994,256,1029,218.7C1062.9,181,1097,107,1131,69.3C1165.7,32,1200,32,1234,32C1268.6,32,1303,32,1337,53.3C1371.4,75,1406,117,1423,138.7L1440,160L1440,0L1422.9,0C1405.7,0,1371,0,1337,0C1302.9,0,1269,0,1234,0C1200,0,1166,0,1131,0C1097.1,0,1063,0,1029,0C994.3,0,960,0,926,0C891.4,0,857,0,823,0C788.6,0,754,0,720,0C685.7,0,651,0,617,0C582.9,0,549,0,514,0C480,0,446,0,411,0C377.1,0,343,0,309,0C274.3,0,240,0,206,0C171.4,0,137,0,103,0C68.6,0,34,0,17,0L0,0Z"></path></svg>
 
                 <motion.div
                     initial={{ opacity: 0, x: -100 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     transition={{ type: "tween", duration: 1 }}
                     viewport={{ amount: 0.5 }}
-                    className="bg-black/5 backdrop-blur-sm shadow-lg rounded-2xl overflow-hidden w-full md:max-w-4xl lg:max-w-7xl">
-                    <img
-                        src="portifylogo.png"
-                        alt="PORTIFY"
-                        className="mb-6 w-full md:max-w-4xl  lg:max-w-7xl "
-                    />
-                    <iframe
-                        src="https://docs.google.com/forms/d/e/1FAIpQLSen2gvCScPKJF_acspwP1z4HspMT1j6DXKCIEBUddgzvjzXQQ/viewform?embedded=true"
-                        style={{ width: "100%", height: "750px", border: "none" }}
-                        title="Contact Form"
-                    >
-                        Loading…
-                    </iframe>
+                    className="bg-black/5 z-2 relative backdrop-blur-sm shadow-lg rounded-2xl overflow-hidden w-full md:max-w-4xl lg:max-w-7xl">
+                    <h1
+                        className="mb-6 absolute top-5 left-5 text-2xl font-bold text-white "
+                    >Porfity</h1>
+                    <div className="max-w-4xl mx-auto px-6">
+                        <h2 className="text-3xl font-bold mb-4 text-center text-purple-400">Contact Us</h2>
+                        <p className="text-center text-gray-300 mb-8">
+                            Have a question or want to collaborate? Send us a message!
+                        </p>
+
+                        <form onSubmit={handleContactSubmit} className="bg-gray-900 p-10 rounded-xl shadow-lg">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                                <div className="space-y-6">
+                                    <div>
+                                        <label className="block mb-2 font-semibold text-gray-200" htmlFor="name">Name</label>
+                                        <input
+                                            type="text"
+                                            id="name"
+                                            required="true"
+                                            placeholder="Your Name"
+                                            className="w-full p-4 rounded-lg bg-black text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block mb-2 font-semibold text-gray-200" htmlFor="email">Email</label>
+                                        <input
+                                            type="email"
+                                            id="email"
+                                            required="true"
+                                            placeholder="Your Email"
+                                            className="w-full p-4 rounded-lg bg-black text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                        />
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label className="block mb-2 font-semibold text-gray-200" htmlFor="message">Message</label>
+                                    <textarea
+                                        id="message"
+                                        required="true"
+                                        rows={8}
+                                        placeholder="Type your message..."
+                                        className="w-full p-4 rounded-lg bg-black text-white border border-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                                        style={{ height: 'calc(100% - 2rem)' }}
+                                    ></textarea>
+                                </div>
+                            </div>
+
+                            <button
+                                type="submit"
+                                className="w-full mt-8 flex justify-center animate-center cursor-pointer text-white bg-purple-600 hover:bg-purple-700 active:bg-purple-800 font-semibold py-4 px-6 rounded-lg shadow-md transition-colors text-lg"
+                            >
+                                Send Message
+                                {messageSending && (<span className='ml-5 h-6 w-6 inline-block transition-all animate-spin rounded-full border-2 border-transparent border-t-white'></span>)}
+                            </button>
+                        </form>
+                    </div>
+
                 </motion.div>
             </section>
 

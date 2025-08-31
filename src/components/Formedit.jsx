@@ -217,7 +217,7 @@ function Formedit() {
                         (<motion.div
                             className={`fixed  top-5 left-1/2 transform -translate-x-1/2 ${notification.error === false ? "bg-emerald-400" : "bg-rose-400"} text-white text-lg font-bold rounded-full py-2 px-5`}
                             initial={{ x: 50, opacity: 0 }}
-                            whileInView={{ x: 0, opacity: 1 }}
+                            animate={{ x: 0, opacity: 1 }}
                             exit={{ x: 50, opacity: 0 }}
                             transition={{ type: "tween", duration: 0.5 }}
                         >

@@ -212,10 +212,10 @@ function UserProfile() {
                             exit={{ opacity: 0, x: -30 }}
                             transition={{ type: "tween" }}
                             className='flex flex-col items-center justify-center mt-6'>
-                            <h1 className='font-semibold text-lg lg:text-xl'>Previous Portfolio</h1>
+                            <h1 className='font-semibold text-white text-lg lg:text-xl'>Previous <span className='bg-gradient-to-r from-purple-500 via-red-500 to-yellow-500 bg-clip-text text-transparent'>Portfolios</span></h1>
                             <button
                                 onClick={() => setToggleList(prev => !prev)}
-                                className='hover:scale-110 transition-all duration-300 cursor-pointer'
+                                className='hover:scale-110 text-white transition-all duration-300 cursor-pointer'
                             >
                                 <ChevronDown />
                             </button>
