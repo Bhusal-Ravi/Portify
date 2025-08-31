@@ -34,10 +34,45 @@ router.put('/portfoliocard/delete/:id',async(req,res)=>{
 router.post('/portfoliocard/update/:url',async(req,res)=>{
     try{
         const url= req.params.url;
+        const data= req.body;
+        const userId=req.user._id
+        const portfolioCheck= await Portfolio.findOne({url:url})
+        console.log(portfolioCheck)
+        const {username,tag,description,profileimg,skills,social,projects}=data;
+        console.log(url,userId)
+        if(portfolioCheck && portfolioCheck.userId.toString()===userId){
+            const update= await Portfolio.findOneAndUpdate({url:url,userId:userId},
+                {
+                    $set:{
+                        username,
+                        tag,
+                        description,
+                        profileimg,
+                        skills,
+                        social,
+                        projects
+                    },
+                    
+                },
+                {new:true}
+                
+            );
+             console.log("Updated Portfolio", update)
+
+              if(!update){
+            res.status(404).json({error:true,message:"Update Failed"})
+        }else{
+            res.status(200).json({error:false,message:"Successfully Updated"})
+        } 
+        }
+
+       
+
+       
 
 
     }catch(error){
-
+        console.log(error)
     }
 })
 
@@ -54,6 +89,9 @@ router.get('/portfoliocard/formdetail/:url',async(req,res)=>{
         console.log(error)
     }
 })
+
+
+
 
 
 module.exports= router

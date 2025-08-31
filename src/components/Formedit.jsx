@@ -12,17 +12,19 @@ import { FaHtml5, FaGolang } from "react-icons/fa6";
 import { RiTailwindCssFill } from "react-icons/ri";
 import { DiDjango } from "react-icons/di";
 import { SiNumpy, SiTensorflow } from "react-icons/si";
+import { motion, spring, AnimatePresence } from 'framer-motion';
 
 
 function Formedit() {
     const { editurl } = useParams();
     const [backendMessage, setBackendMessage] = useState("")
     const [formData, setFormData] = useState({});
+    const [notification, setNotification] = useState({ message: "", status: false, error: false })
 
     async function onSubmit(data) {
         try {
             console.log(data)
-            const response = await fetch(`http://localhost:5001/api/portfoliocard/update/${url}`, {
+            const response = await fetch(`http://localhost:5001/api/portfoliocard/update/${editurl}`, {
                 method: 'POST',
                 credentials: "include",
 
@@ -34,6 +36,12 @@ function Formedit() {
             })
 
             const result = await response.json();
+            if (result) {
+                setNotification({ message: result.message, status: true, error: result.error })
+                setTimeout(() => {
+                    setNotification({ message: "", status: false })
+                }, 2000)
+            }
             console.log(result)
 
             setBackendMessage(result.message)
@@ -70,6 +78,7 @@ function Formedit() {
     ]
     const [socialForm, setSocialForm] = useState([])
     const [skillForm, setSkillForm] = useState([])
+
 
 
 
@@ -200,6 +209,23 @@ function Formedit() {
                         </p>
                     </div>
                 </div>
+
+                {/*Notification Div*/}
+                <AnimatePresence>
+                    {
+                        notification.status &&
+                        (<motion.div
+                            className={`fixed  top-5 left-1/2 transform -translate-x-1/2 ${notification.error === false ? "bg-emerald-400" : "bg-rose-400"} text-white text-lg font-bold rounded-full py-2 px-5`}
+                            initial={{ x: 50, opacity: 0 }}
+                            whileInView={{ x: 0, opacity: 1 }}
+                            exit={{ x: 50, opacity: 0 }}
+                            transition={{ type: "tween", duration: 0.5 }}
+                        >
+                            <p>{notification.message}</p>
+                        </motion.div>
+                        )
+                    }
+                </AnimatePresence>
 
                 {/* Main Grid Layout */}
                 <div className='grid grid-cols-1 xl:grid-cols-7 gap-6'>

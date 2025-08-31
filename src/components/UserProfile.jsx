@@ -275,7 +275,7 @@ function UserProfile() {
                                                     </a>
                                                 </div>
                                                 <div className='group relative'>
-                                                    <button onClick={() => handleFormEdit(item.url)}>
+                                                    <button className='cursor-pointer' onClick={() => handleFormEdit(item.url)}>
                                                         <p className='absolute -translate-y-10 opacity-0 transition-all duration-300 group-hover:opacity-100 -translate-x-1/2 left-1/2 bg-black/80 rounded-md px-2 py-1 text-xs text-white whitespace-nowrap'>
                                                             Edit
                                                         </p>
