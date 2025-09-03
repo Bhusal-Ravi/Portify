@@ -391,6 +391,12 @@ function Form() {
                                 </div>
                             )}
 
+                            {/* Experience Section */}
+                            <div>
+                                Experience
+                            </div>
+
+
                             {/* Projects Section */}
                             <div className='bg-slate-600/50 rounded-lg p-6 shadow-sm transition-all duration-400 hover:scale-105 hover:shadow-white'>
                                 <h2 className='text-xl font-bold text-white text-center mb-6'>Projects</h2>
