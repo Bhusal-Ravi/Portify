@@ -37,11 +37,11 @@ router.post('/portfoliocard/update/:url',async(req,res)=>{
         const data= req.body;
         const userId=req.user._id
         const portfolioCheck= await Portfolio.findOne({url:url})
-        console.log(portfolioCheck)
-        const {username,tag,description,profileimg,skills,social,projects}=data;
-        console.log(url,userId)
+        const {username,tag,description,profileimg,skills,social,projects,experience}=data;
+
         if(portfolioCheck && portfolioCheck.userId.toString()===userId){
-            const update= await Portfolio.findOneAndUpdate({url:url,userId:userId},
+            const update= await Portfolio.findOneAndUpdate(
+                {url:url,userId:userId},
                 {
                     $set:{
                         username,
@@ -50,31 +50,23 @@ router.post('/portfoliocard/update/:url',async(req,res)=>{
                         profileimg,
                         skills,
                         social,
-                        projects
+                        projects,
+                        experience
                     },
-                    
                 },
                 {new:true}
-                
             );
-             console.log("Updated Portfolio", update)
-
-              if(!update){
-            res.status(404).json({error:true,message:"Update Failed"})
-        }else{
-            res.status(200).json({error:false,message:"Successfully Updated"})
-        } 
+            if(!update){
+                res.status(404).json({error:true,message:"Update Failed"})
+            }else{
+                res.status(200).json({error:false,message:"Successfully Updated"})
+            } 
         }
-
-       
-
-       
-
-
     }catch(error){
         console.log(error)
     }
 })
+
 
 router.get('/portfoliocard/formdetail/:url',async(req,res)=>{
     try{

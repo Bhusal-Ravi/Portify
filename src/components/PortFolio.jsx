@@ -219,6 +219,71 @@ function PortFolio() {
 
             </div>
 
+            {/* Experience Section - Full Screen */}
+            {portfolio.experience && portfolio.experience.length > 0 && (
+                <div className='relative min-h-screen min-w-7xl flex flex-col justify-center items-center py-8 px-4'>
+                    <div className='bg-slate-700/50 min-h-[80vh] w-full transition-all duration-700 hover:bg-slate-800 group flex flex-col justify-center items-center p-5 group/main rounded-md'>
+                        <h1 className='absolute top-50 font-bold text-3xl text-white mb-8 transition-all duration-400 group-hover:text-emerald-400'>
+                            Experience
+                        </h1>
+                        {/* Motivational/placeholder text */}
+                        <div className='w-full flex justify-center items-center mt-2 mb-6'>
+                            <p className='text-indigo-200/80 text-xs italic text-center'>
+                                "Every role is a chapter in my story — here are some highlights!"
+                            </p>
+                        </div>
+
+                        <div className='flex flex-col gap-6 w-full max-w-4xl mt-10 mb-20'>
+                            {portfolio.experience.map((exp, index) => (
+                                <motion.div
+                                    key={index}
+                                    initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                                    transition={{ delay: index * 0.1, duration: 0.5 }}
+                                    viewport={{ once: true, amount: 0.5 }}
+                                    className='bg-slate-800/70 p-6 rounded-lg shadow-md transition-all duration-700 hover:shadow-emerald-400'
+                                >
+                                    <div className='flex flex-col md:flex-row md:items-center md:justify-between mb-2'>
+                                        <div>
+                                            <h2 className='text-white font-semibold text-xl'>
+                                                {exp.title || "Untitled Role"}
+                                            </h2>
+                                            <p className='text-emerald-400 text-sm font-light'>
+                                                {exp.company || "Company"}
+                                            </p>
+                                        </div>
+                                        <p className='text-sm text-white/70 mt-2 md:mt-0'>
+                                            {exp.startdate} - {exp.endDate || (exp.current ? "Present" : "")}
+                                        </p>
+                                    </div>
+
+                                    {exp.location && (
+                                        <p className='text-xs text-slate-300 italic mb-3'>{exp.location}</p>
+                                    )}
+
+                                    {exp.highlight && exp.highlight.length > 0 && (
+                                        <ul className='list-disc list-inside text-white/80 text-sm space-y-1'>
+                                            {Array.isArray(exp.highlight)
+                                                ? exp.highlight.map((point, i) => (
+                                                    <li key={i} className='transition-all duration-700 group-hover/main:text-emerald-400'>
+                                                        {point}
+                                                    </li>
+                                                ))
+                                                : (
+                                                    <li className='transition-all duration-700 group-hover/main:text-emerald-400'>
+                                                        {exp.highlight}
+                                                    </li>
+                                                )}
+                                        </ul>
+                                    )}
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            )}
+
+
             {/* Skills Section - Full Screen */}
             {portfolio.skills.length > 0 && (
                 <div className=' relative min-h-screen min-w-7xl flex flex-col justify-center items-center py-8 px-4'>

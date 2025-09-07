@@ -93,7 +93,8 @@ function Formedit() {
             profileimg: "",
             projects: [],
             social: [],
-            skills: []
+            skills: [],
+            experience: []
         }
     });
     const { fields: projectsFileds, append: appendProject, remove: removeProject } = useFieldArray({
@@ -111,6 +112,10 @@ function Formedit() {
         name: "skills"
     })
 
+    const { fields: experienceFields, append: appendExperience, remove: removeExperience } = useFieldArray({
+        control,
+        name: "experience"
+    });
 
     {/*Watch*/ }
     const username = watch("username")
@@ -119,6 +124,8 @@ function Formedit() {
     const socials = watch("social")
     const skills = watch("skills")
     const tag = watch("tag")
+    const experience = watch("experience")
+
 
     function handleProjectAppend() {
         console.log("append")
@@ -257,8 +264,12 @@ function Formedit() {
                             </div>
                         </div>
 
+
+
+
+
                         {/* Skills Section */}
-                        <div className='bg-slate-600/50 p-4 rounded-lg shadow-md transiton-all duration-400 hover:scale-105 hover:shadow-white'>
+                        <div className='bg-slate-600/50 p-4 mt-10 rounded-lg shadow-md transiton-all duration-400 hover:scale-105 hover:shadow-white'>
                             <h3 className='text-lg font-semibold text-white mb-4 text-center'>Skills</h3>
                             <div className='flex flex-wrap justify-center gap-3'>
                                 {skillicons.map((items, index) => (
@@ -410,6 +421,102 @@ function Formedit() {
                                     </div>
                                 </div>
                             )}
+                            {/* Experience Section */}
+
+                            <div className='bg-slate-600/50 rounded-lg p-6 shadow-sm transition-all duration-400 hover:scale-105 hover:shadow-white'>
+                                <h2 className='text-xl font-bold text-white text-center mb-6'>Experience</h2>
+                                <div className='space-y-6'>
+                                    {experienceFields.map((item, index) => (
+                                        <div key={index} className='bg-slate-700 p-5 rounded-lg'>
+                                            <div className='flex items-center justify-between mb-4'>
+                                                <h3 className='text-lg font-thin text-white'>Experience {index + 1}</h3>
+                                                <button
+                                                    type='button'
+                                                    onClick={() => removeExperience(index)}
+                                                    className='text-red-400 hover:text-red-300 transition-all duration-200 hover:scale-110'
+                                                >
+                                                    <Trash className='w-5 h-5' />
+                                                </button>
+                                            </div>
+
+                                            <div className='space-y-4'>
+                                                <div>
+                                                    <label className='block text-white font-medium mb-2'>Job Title</label>
+                                                    <input
+                                                        type='text'
+                                                        placeholder='Software Engineer'
+                                                        className='w-full p-3 bg-slate-800 text-white border border-slate-600 rounded-lg'
+                                                        {...register(`experience.${index}.title`, { required: "This field is required" })}
+                                                    />
+                                                </div>
+
+                                                <div>
+                                                    <label className='block text-white font-medium mb-2'>Company</label>
+                                                    <input
+                                                        type='text'
+                                                        placeholder='Company Name'
+                                                        className='w-full p-3 bg-slate-800 text-white border border-slate-600 rounded-lg'
+                                                        {...register(`experience.${index}.company`, { required: "This field is required" })}
+                                                    />
+                                                </div>
+
+                                                <div className='grid grid-cols-2 gap-4'>
+                                                    <div>
+                                                        <label className='block text-white font-medium mb-2'>Start Date</label>
+                                                        <input
+                                                            type='text'
+                                                            placeholder='Jan 2020'
+                                                            className='w-full p-3 bg-slate-800 text-white border border-slate-600 rounded-lg'
+                                                            {...register(`experience.${index}.startdate`)}
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <label className='block text-white font-medium mb-2'>End Date</label>
+                                                        <input
+                                                            type='text'
+                                                            placeholder='Dec 2022 or Present'
+                                                            className='w-full p-3 bg-slate-800 text-white border border-slate-600 rounded-lg'
+                                                            {...register(`experience.${index}.endDate`)}
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <label className='block text-white font-medium mb-2'>Location</label>
+                                                    <input
+                                                        type='text'
+                                                        placeholder='Remote / City'
+                                                        className='w-full p-3 bg-slate-800 text-white border border-slate-600 rounded-lg'
+                                                        {...register(`experience.${index}.location`)}
+                                                    />
+                                                </div>
+
+                                                <div>
+                                                    <label className='block text-white font-medium mb-2'>Highlights</label>
+                                                    <textarea
+                                                        placeholder='Key achievements...'
+                                                        className='w-full p-3 bg-slate-800 text-white border border-slate-600 rounded-lg resize-none'
+                                                        rows={3}
+                                                        {...register(`experience.${index}.highlight`)}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+
+                                    <div className='flex justify-center mt-6'>
+                                        <button
+                                            type='button'
+                                            onClick={() =>
+                                                appendExperience({ title: "", company: "", startdate: "", endDate: "", location: "", highlight: "" })
+                                            }
+                                            className='bg-emerald-600 hover:bg-emerald-700 text-white p-4 rounded-full transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl'
+                                        >
+                                            <Plus className='w-8 h-8' />
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
 
                             {/* Skills Section */}
                             {skillFields.length > 0 && (
@@ -622,6 +729,42 @@ function Formedit() {
                                 ) : (<div className='flex min-h-screen justify-center items-center'><p className='font-semibold text-black/50 text-sm '>Live preview of your portfolio will appear here as you update the form</p></div>)}
                             </div>
 
+
+                            {/* Experience Preview */}
+                            {experience.length > 0 && (
+                                <div className='bg-slate-700/50 transition-all duration-700 hover:bg-slate-800 group flex flex-col justify-center items-center mt-4 p-5 group/main rounded-md'>
+                                    <h1 className='font-bold text-lg text-white mb-2 transition-all duration-400 group-hover:text-emerald-400'>Experience</h1>
+                                    <div className='flex flex-col gap-4 w-full'>
+                                        {experience.map((exp, index) => (
+                                            <div key={index} className='bg-slate-800/70 w-full rounded-lg p-4 shadow-md transition-all duration-700 hover:shadow-emerald-400'>
+                                                <div className='flex flex-col md:flex-row md:items-center md:justify-between'>
+                                                    <div>
+                                                        <h2 className='text-white font-semibold text-lg'>{exp.title || "Untitled Role"}</h2>
+                                                        <p className='text-emerald-400 text-sm font-light'>{exp.company || "Company"}</p>
+                                                    </div>
+                                                    <p className='text-sm text-white/70 mt-2 md:mt-0'>
+                                                        {exp.startdate} - {exp.endDate || "Present"}
+                                                    </p>
+                                                </div>
+
+                                                {exp.location && <p className='text-xs text-slate-300 italic mt-1'>{exp.location}</p>}
+
+                                                {exp.highlight && (
+                                                    <ul className='list-disc list-inside text-white/80 text-sm mt-2 space-y-1'>
+                                                        {Array.isArray(exp.highlight)
+                                                            ? exp.highlight.map((point, i) => (
+                                                                <li key={i} className='transition-all duration-700 group-hover/main:text-emerald-400'>
+                                                                    {point}
+                                                                </li>
+                                                            ))
+                                                            : <li className='transition-all duration-700 group-hover/main:text-emerald-400'>{exp.highlight}</li>}
+                                                    </ul>
+                                                )}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
 
 
 

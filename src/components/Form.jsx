@@ -79,12 +79,18 @@ function Form() {
         defaultValues: {
             projects: [],
             social: [],
-            skills: []
+            skills: [],
+            experience: [],
         }
     });
     const { fields: projectsFileds, append: appendProject, remove: removeProject } = useFieldArray({
         control,
         name: "projects"
+    })
+
+    const { fields: experienceFields, append: appendExperience, remove: removeExperience } = useFieldArray({
+        control,
+        name: "experience"
     })
 
     const { fields: socialFields, append: appendSocial, remove: removeSocial } = useFieldArray({
@@ -105,10 +111,15 @@ function Form() {
     const socials = watch("social")
     const skills = watch("skills")
     const tag = watch("tag")
+    const experience = watch("experience")
 
     function handleProjectAppend() {
         console.log("append")
         appendProject({ title: "", description: "", link: "" });
+    }
+    function handleExperienceAppend() {
+        console.log("append experience:", experience)
+        appendExperience({ title: "", company: "", startdate: "", endDate: '', current: false, location: "", highlight: [""], })
     }
     function handleSocialAppend(social) {
         console.log("Appending social:", social);
@@ -127,6 +138,10 @@ function Form() {
     }
     function handleProjectRemove(index) {
         removeProject(index)
+    }
+
+    function handleExperienceRemove(index) {
+        removeExperience(index);
     }
 
 
@@ -233,7 +248,7 @@ function Form() {
 
                     {/* Center - Form Section */}
                     <div className='xl:col-span-3 bg-gradient-to-r  from-blue-800/50 via-indigo-400-800/50 to-blue-900/50  rounded-lg shadow-lg  transition-all duration-400 hover:shadow-blue-500  p-6'>
-                        <form onSubmit={handleSubmit(onSubmit)} className='space-y-6'>
+                        <form onSubmit={handleSubmit(onSubmit)} className='space-y-6' encType='multipart/form-data'>
 
                             {/* About You Section */}
                             <div className='bg-slate-600/50 transition-all duration-400 hover:scale-105 hover:shadow-white rounded-lg p-6 shadow-sm'>
@@ -291,6 +306,12 @@ function Form() {
                                                 required: "This field is required",
                                                 validate: (value) => profileUrlCheck(value) || "please provide a valid imgur link"
                                             })}
+                                        />
+                                        <input
+                                            type='file'
+                                            name='image'
+                                            className='w-1/2 mt-5 cursor-pointer file:p-2 bg-slate-800 rounded-lg file:mr-10 text-white font-bold flex justify-center items-center file:bg-blue-500 file:cursor-pointer hover:file:bg-blue-700 file:text-white file:rounded-md '
+
                                         />
                                         {errors.profile && (
                                             <div className='mt-2'>
@@ -392,8 +413,97 @@ function Form() {
                             )}
 
                             {/* Experience Section */}
-                            <div>
-                                Experience
+                            <div className='bg-slate-600/50 rounded-lg p-6 shadow-sm transition-all duration-400 hover:scale-105 hover:shadow-white'>
+                                <h2 className='text-xl font-bold text-white text-center mb-6'>Experience</h2>
+                                <div className='space-y-6'>
+                                    {experienceFields.map((item, index) => (
+                                        <div key={index} className='bg-slate-700 p-5 rounded-lg'>
+                                            <div className='flex items-center justify-between mb-4'>
+                                                <h3 className='text-lg font-thin text-white'>Experience {index + 1}</h3>
+                                                <button
+                                                    type='button'
+                                                    onClick={() => handleExperienceRemove(index)}
+                                                    className='text-red-400 hover:text-red-300 transition-all duration-200 hover:scale-110'
+                                                >
+                                                    <Trash className='w-5 h-5' />
+                                                </button>
+                                            </div>
+
+                                            <div className='space-y-4'>
+                                                <div>
+                                                    <label className='block text-white font-medium mb-2'>Job Title</label>
+                                                    <input
+                                                        type='text'
+                                                        placeholder='Software Engineer'
+                                                        className='w-full p-3 bg-slate-800 text-white border border-slate-600 rounded-lg'
+                                                        {...register(`experience.${index}.title`, { required: "This field is required" })}
+                                                    />
+                                                </div>
+
+                                                <div>
+                                                    <label className='block text-white font-medium mb-2'>Company</label>
+                                                    <input
+                                                        type='text'
+                                                        placeholder='Company Name'
+                                                        className='w-full p-3 bg-slate-800 text-white border border-slate-600 rounded-lg'
+                                                        {...register(`experience.${index}.company`, { required: "This field is required" })}
+                                                    />
+                                                </div>
+
+                                                <div className='grid grid-cols-2 gap-4'>
+                                                    <div>
+                                                        <label className='block text-white font-medium mb-2'>Start Date</label>
+                                                        <input
+                                                            type='text'
+                                                            placeholder='Jan 2020'
+                                                            className='w-full p-3 bg-slate-800 text-white border border-slate-600 rounded-lg'
+                                                            {...register(`experience.${index}.startdate`)}
+                                                        />
+                                                    </div>
+                                                    <div>
+                                                        <label className='block text-white font-medium mb-2'>End Date</label>
+                                                        <input
+                                                            type='text'
+                                                            placeholder='Dec 2022 or Present'
+                                                            className='w-full p-3 bg-slate-800 text-white border border-slate-600 rounded-lg'
+                                                            {...register(`experience.${index}.endDate`)}
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                <div>
+                                                    <label className='block text-white font-medium mb-2'>Location</label>
+                                                    <input
+                                                        type='text'
+                                                        placeholder='New York, Remote'
+                                                        className='w-full p-3 bg-slate-800 text-white border border-slate-600 rounded-lg'
+                                                        {...register(`experience.${index}.location`)}
+                                                    />
+                                                </div>
+
+                                                <div>
+                                                    <label className='block text-white font-medium mb-2'>Highlights</label>
+                                                    <textarea
+                                                        placeholder='Key achievements...'
+                                                        className='w-full p-3 bg-slate-800 text-white border border-slate-600 rounded-lg resize-none'
+                                                        rows={3}
+                                                        {...register(`experience.${index}.highlight`)}
+                                                    />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+
+                                    <div className='flex justify-center mt-6'>
+                                        <button
+                                            type='button'
+                                            onClick={handleExperienceAppend}
+                                            className='bg-emerald-600 hover:bg-emerald-700 text-white p-4 rounded-full transition-all duration-200 hover:scale-105 shadow-lg hover:shadow-xl'
+                                        >
+                                            <Plus className='w-8 h-8' />
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
 
 
@@ -578,6 +688,56 @@ function Form() {
                                 ) : (<div className='flex min-h-screen justify-center items-center'><p className='font-semibold text-black/50 text-sm '>Live preview of your portfolio will appear here as you update the form</p></div>)}
                             </div>
 
+
+                            {/* Experience Preview */}
+                            {experience.length > 0 && (
+                                <div className='bg-slate-700/50 transition-all duration-700 hover:bg-slate-800 group flex flex-col justify-center items-center mt-4 p-5 group/main rounded-md'>
+                                    <h1 className='font-bold text-lg text-white mb-2 transition-all duration-400 group-hover:text-emerald-400'>
+                                        Experience
+                                    </h1>
+
+                                    <div className='flex flex-col w-full gap-4'>
+                                        {experience.map((exp, index) => (
+                                            <div
+                                                key={index}
+                                                className='bg-slate-800/70 w-full rounded-lg p-4 shadow-md transition-all duration-700 hover:shadow-emerald-400'
+                                            >
+                                                <div className='flex flex-col md:flex-row md:items-center md:justify-between'>
+                                                    <div>
+                                                        <h2 className='text-white font-semibold text-lg'>
+                                                            {exp.title || "Untitled Role"}
+                                                        </h2>
+                                                        <p className='text-emerald-400 text-sm font-light'>
+                                                            {exp.company || "Company"}
+                                                        </p>
+                                                    </div>
+                                                    <p className='text-sm text-white/70 mt-2 md:mt-0'>
+                                                        {exp.startdate} - {exp.endDate || (exp.current ? "Present" : "")}
+                                                    </p>
+                                                </div>
+
+                                                {exp.location && (
+                                                    <p className='text-xs text-slate-300 mt-1 italic'>
+                                                        {exp.location}
+                                                    </p>
+                                                )}
+
+                                                {exp.highlight && exp.highlight.length > 0 && (
+                                                    <ul className='list-disc list-inside text-white/80 text-sm mt-2 space-y-1'>
+                                                        {Array.isArray(exp.highlight)
+                                                            ? exp.highlight.map((point, i) => (
+                                                                <li key={i} className='transition-all duration-700 group-hover/main:text-emerald-400'>
+                                                                    {point}
+                                                                </li>
+                                                            ))
+                                                            : <li className='transition-all duration-700 group-hover/main:text-emerald-400'>{exp.highlight}</li>}
+                                                    </ul>
+                                                )}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            )}
 
 
 

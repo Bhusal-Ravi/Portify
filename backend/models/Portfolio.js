@@ -6,7 +6,6 @@ const PortfolioSchema= new mongoose.Schema({
         ref:'User',
         required:true
     },
-   
     urlId:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Url',
@@ -20,7 +19,7 @@ const PortfolioSchema= new mongoose.Schema({
         type:String,
         required:true
     },
-     profileimg:{
+    profileimg:{
         type:String,
         required:true
     },
@@ -34,30 +33,27 @@ const PortfolioSchema= new mongoose.Schema({
     projects:[
         {
             title:{type:String,required:true},
-             description: { type: String },
-      link: { type: String },
-      img:{type:String}
+            description: { type: String },
+            link: { type: String },
+            img:{type:String}
         }
     ],
-
     skills:[{
-        title:{
-            type:String
-        }
+        title:{ type:String }
     }],
     social:[{
-        title:{
-            type:String
-        },
-        link:{
-            type:String
-        }
-
+        title:{ type:String },
+        link:{ type:String }
+    }],
+    experience:[{
+        title:{ type:String, required:true },
+        company:{ type:String, required:true },
+        startdate:{ type:String },
+        endDate:{ type:String },
+        current:{ type:Boolean, default:false },
+        location:{ type:String },
+        highlight:[{ type:String }]
     }]
-
-
-    
 })
-
 
 module.exports=mongoose.model('Portfolio',PortfolioSchema)
