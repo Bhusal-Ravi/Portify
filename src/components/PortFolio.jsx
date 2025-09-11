@@ -118,7 +118,7 @@ function PortFolio() {
                                 initial={{ opacity: 0, y: -40, color: '#f0fdf4' }}
                                 animate={{ opacity: 1, y: 0, color: '#34d399' }}
                                 transition={{ delay: 0.7, duration: 0.7 }}
-                                className='absolute top-40 text-3xl font-bold'
+                                className='absolute top-8 text-3xl font-bold'
                             >
                                 About Me
                             </motion.h1>
@@ -180,7 +180,7 @@ function PortFolio() {
                                     animate={{ opacity: 1, y: 0 }}
                                     transition={{ delay: 0.6, duration: 0.6 }}
                                     viewport={{ once: true, amount: 0.3 }}
-                                    className='absolute bottom-30 flex flex-col justify-center items-center flex-wrap gap-2'
+                                    className='absolute bottom-8 flex flex-col justify-center items-center flex-wrap gap-2'
                                 >
                                     <h1 className='font-light mr-2 text-emerald-400'>Connect With Me</h1>
                                     <div className='flex gap-4'>
@@ -222,12 +222,12 @@ function PortFolio() {
             {/* Experience Section - Full Screen */}
             {portfolio.experience && portfolio.experience.length > 0 && (
                 <div className='relative min-h-screen min-w-7xl flex flex-col justify-center items-center py-8 px-4'>
-                    <div className='bg-slate-700/50 min-h-[80vh] w-full transition-all duration-700 hover:bg-slate-800 group flex flex-col justify-center items-center p-5 group/main rounded-md'>
-                        <h1 className='absolute top-50 font-bold text-3xl text-white mb-8 transition-all duration-400 group-hover:text-emerald-400'>
+                    <div className='bg-slate-700/50 min-h-[80vh] w-full transition-all duration-700 hover:bg-slate-800 group flex flex-col justify-start items-center p-5 group/main rounded-md relative'>
+                        <h1 className='absolute top-8 font-bold text-3xl text-white mb-8 transition-all duration-400 group-hover:text-emerald-400'>
                             Experience
                         </h1>
                         {/* Motivational/placeholder text */}
-                        <div className='w-full flex justify-center items-center mt-2 mb-6'>
+                        <div className='w-full flex justify-center items-center mt-16 mb-6'>
                             <p className='text-indigo-200/80 text-xs italic text-center'>
                                 "Every role is a chapter in my story — here are some highlights!"
                             </p>
@@ -290,10 +290,10 @@ function PortFolio() {
 
                     <div
 
-                        className='bg-slate-700/50 min-h-[80vh] w-full transition-all duration-700 hover:bg-slate-800 group flex flex-col justify-center items-center p-5 group/main rounded-md'>
-                        <h1 className=' absolute top-50 font-bold text-3xl text-white mb-8 transition-all duration-400 group-hover:text-emerald-400'>Skills</h1>
+                        className='bg-slate-700/50 min-h-[80vh] w-full transition-all duration-700 hover:bg-slate-800 group flex flex-col justify-start items-center p-5 group/main rounded-md relative'>
+                        <h1 className='absolute top-8 font-bold text-3xl text-white mb-8 transition-all duration-400 group-hover:text-emerald-400'>Skills</h1>
                         {/* Motivational/placeholder text for Skills section */}
-                        <div className='w-full flex justify-center items-center mt-2 mb-6'>
+                        <div className='w-full flex justify-center items-center mt-16 mb-6'>
                             <p className='text-indigo-200/80 text-xs italic text-center'>
                                 "Skills are the tools that turn dreams into reality. Here are some of mine!"
                             </p>
@@ -338,9 +338,9 @@ function PortFolio() {
             {portfolio.projects.length > 0 && (
                 <div className=' min-w-7xl flex flex-col justify-center items-center py-8 px-4'>
                     <div className='w-full max-w-6xl bg-gradient-to-r from-blue-800/10 via-indigo-400-800/10 to-blue-900/10 rounded-lg shadow-sm p-6'>
-                        <div className='bg-gradient-to-br from-slate-900 via-indigo-400 group to-slate-900 p-5 flex flex-col justify-center items-center rounded-md min-h-[80vh]'>
-                            <h1 className='font-bold text-white text-3xl mb-8 transition-all duration-700 group-hover:text-emerald-400'>Projects</h1>
-                            <div className='flex flex-col   gap-6 mt-10 mb-20 w-full max-w-4xl '>
+                        <div className='bg-gradient-to-br from-slate-900 via-indigo-400 group to-slate-900 p-5 flex flex-col justify-start items-center rounded-md min-h-[80vh] relative'>
+                            <h1 className='absolute top-8 font-bold text-white text-3xl mb-8 transition-all duration-700 group-hover:text-emerald-400'>Projects</h1>
+                            <div className='flex flex-col   gap-6 mt-20 mb-20 w-full max-w-4xl '>
                                 {portfolio.projects.length > 0 &&
                                     portfolio.projects.map((items, index) => (
                                         <motion.div
