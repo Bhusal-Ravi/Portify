@@ -174,6 +174,10 @@ function Form() {
         } else return false
     }
 
+    async function handleFileSubmit(){
+
+    }
+
 
 
 
@@ -298,6 +302,7 @@ function Form() {
                                         )}
 
                                         <label className='block text-white font-medium mb-2 mt-2'>Image Link</label>
+                                        
                                         <input
                                             type='text'
                                             placeholder='Upload Your Image in imgur.com -> Provide the link to the image'
@@ -307,12 +312,16 @@ function Form() {
                                                 validate: (value) => profileUrlCheck(value) || "please provide a valid imgur link"
                                             })}
                                         />
+                                       <div>
                                         <input
                                             type='file'
-                                            name='image'
+                                            name='profileimage'
                                             className='w-1/2 mt-5 cursor-pointer file:p-2 bg-slate-800 rounded-lg file:mr-10 text-white font-bold flex justify-center items-center file:bg-blue-500 file:cursor-pointer hover:file:bg-blue-700 file:text-white file:rounded-md '
-
+                                            onChange={handleFileSubmit}
                                         />
+                                       
+                                        </div>
+                                       
                                         {errors.profile && (
                                             <div className='mt-2'>
                                                 <span className='font-thin text-md text-red-400'>

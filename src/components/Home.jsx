@@ -182,7 +182,7 @@ function Home() {
             <section
                 ref={homeRef}
                 id='home'
-                className='heropattern flex flex-col justify-center items-center min-h-screen object-cover bg-center  '
+                className='heropattern flex flex-col justify-center items-center min-h-screen object-cover bg-center pt-20'
 
             >
 
@@ -192,7 +192,7 @@ function Home() {
                         initial={{ x: -150, y: 150 }}
                         whileInView={{ x: 0, y: 0 }}
                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                        className="text-white/50 font-extrabold text-4xl md:text-7xl lg:text-9xl transition-all ease-in-out duration-200"
+                        className="text-white/50 font-extrabold text-2xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-9xl transition-all ease-in-out duration-200"
                     >
                         Stop Searching,
                     </motion.h1>
@@ -202,16 +202,16 @@ function Home() {
                         initial={{ x: 150, y: -150 }}
                         whileInView={{ x: 0, y: 0 }}
                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                        className="text-white/90 mt-1 font-extrabold text-4xl md:text-7xl lg:text-9xl drop-shadow-2xl drop-shadow-white/40 transition-all ease-in-out duration-300"
+                        className="text-white/90 mt-1 font-extrabold text-2xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-9xl drop-shadow-2xl drop-shadow-white/40 transition-all ease-in-out duration-300"
                     >
                         Start{" "}
                         <span className="bg-gradient-to-r from-purple-500 via-red-500 to-yellow-500 bg-clip-text text-transparent">
                             Creating!
                         </span>
                     </motion.h1>
-                    <div className='mt-10 text-white/60 text-md md:text-xl lg:text-2xl font-md flex flex-col justify-center text-center text-wrap max-w-3xl md:max-w-4xl lg:max-w-7xl px-5'>
+                    <div className='mt-10 text-white/60 text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-md flex flex-col justify-center text-center text-wrap max-w-3xl md:max-w-4xl lg:max-w-7xl px-5'>
                         <motion.p initial={{ opacity: 0, y: 100 }} whileInView={{ y: 0, opacity: 1 }} transition={{ type: "tween", delay: 0.5, duration: 0.5 }} className=' '>Skip the code. Portify, your Personal Portfolio <span className='bg-gradient-to-r from-purple-500 via-red-500 to-yellow-500 bg-clip-text text-transparent transition-all ease-in-out duration-200'>Designer,</span></motion.p>
-                        <motion.p initial={{ opacity: 0, y: 100 }} whileInView={{ y: 0, opacity: 1 }} transition={{ type: "tween", delay: 0.5, duration: 0.5 }}>Builds a stunning showcase for your skills fast. Impress, don’t <span className='bg-gradient-to-r from-purple-500 via-red-500 to-yellow-500 bg-clip-text text-transparent transition-all ease-in-out duration-300'>stress!</span></motion.p>
+                        <motion.p initial={{ opacity: 0, y: 100 }} whileInView={{ y: 0, opacity: 1 }} transition={{ type: "tween", delay: 0.5, duration: 0.5 }}>Builds a stunning showcase for your skills fast. Impress, don't <span className='bg-gradient-to-r from-purple-500 via-red-500 to-yellow-500 bg-clip-text text-transparent transition-all ease-in-out duration-300'>stress!</span></motion.p>
                     </div>
                 </div>
 
@@ -316,9 +316,9 @@ function Home() {
                         <div className='mt-10 mb-10 ml-5 flex transition-all ease-in-out justify-center md:items-start lg:items-center lg:justify-between items-center  '>
                             <div className=' md:w-2/3 transition-all ease-in-out lg:w-3/5'>
                                 <motion.img
-                                    whileHover={{ scale: 1.1 }}
+                                    whileHover={{ scale: 1.05 }}
                                     transition={{ duration: 0.2, type: "spring", stiffness: 300, damping: 15 }}
-                                    viewport={{ amount: 0.5, once: true }} className='hidden md:block shadow-2xl shadow-purple-300 rounded-sm w-full h-auto' src='imgur.png' />
+                                    viewport={{ amount: 0.5, once: true }} className='hidden md:block shadow-2xl shadow-purple-300 rounded-sm w-full h-auto max-w-md mx-auto' src='imgur.png' />
                             </div>
                             <div className='p-5 md:w-1/3 lg:w-2/5 transition-all ease-in-out md:border-l-2 border-blue-900 ml-10'>
                                 <motion.div
@@ -368,9 +368,9 @@ function Home() {
                             </div>
                             <div className=' md:w-2/3 transition-all ease-in-out lg:w-3/5'>
                                 <motion.img
-                                    whileHover={{ scale: 1.1 }}
+                                    whileHover={{ scale: 1.05 }}
                                     transition={{ duration: 0.2, type: "spring", stiffness: 300, damping: 15 }}
-                                    viewport={{ amount: 0.5, once: true }} className='hidden md:block shadow-2xl shadow-purple-300 rounded-sm w-full h-auto' src='url.png' />
+                                    viewport={{ amount: 0.5, once: true }} className='hidden md:block shadow-2xl shadow-purple-300 rounded-sm w-full h-auto max-w-md mx-auto' src='url.png' />
                             </div>
 
                         </div>
