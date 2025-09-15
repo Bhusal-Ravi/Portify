@@ -12,6 +12,7 @@ import { set } from 'react-hook-form';
 function Home() {
 
     const navigate = useNavigate();
+     const appUrl=import.meta.env.VITE_BACKEND_API
     const [menueShow, setMenueShow] = useState(false)
     const [notification, setNotification] = useState({ message: "", error: false, status: false })
     const [messageSending, setMessageSending] = useState(false)
@@ -44,7 +45,7 @@ function Home() {
     async function sendMail(data) {
         try {
             setMessageSending(true)
-            const response = await fetch(`http://localhost:5001/api/mail`, {
+            const response = await fetch(`${appUrl}/api/mail`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

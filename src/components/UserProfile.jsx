@@ -55,6 +55,7 @@ function UserProfile() {
     const [notification, setNotification] = useState(false)
     const navigate = useNavigate();
     const siteUrl = "http://localhost:5173"
+     const appUrl=import.meta.env.VITE_BACKEND_API
 
     useEffect(() => {
         setProfile(user)
@@ -78,7 +79,7 @@ function UserProfile() {
 
     async function fetchPortfolio() {
         try {
-            const response = await fetch(`http://localhost:5001/api/portfoliolist/${user._id}`, {
+            const response = await fetch(`${appUrl}/api/portfoliolist/${user._id}`, {
                 credentials: 'include',
                 method: "GET"
             })
@@ -112,7 +113,7 @@ function UserProfile() {
 
     async function cardHandle(option, cardUrl) {
         try {
-            const response = await fetch(`http://localhost:5001/api/portfoliocard/${option}/${cardUrl}`, {
+            const response = await fetch(`${appUrl}/api/portfoliocard/${option}/${cardUrl}`, {
                 method: "PUT",
                 credentials: "include"
 

@@ -16,6 +16,7 @@ import { motion, scale } from 'framer-motion';
 
 function PortFolio() {
     const { url } = useParams();
+     const appUrl=import.meta.env.VITE_BACKEND_API
     const [portfolio, setPortfolio] = useState({
         username: '',
         description: '',
@@ -28,7 +29,7 @@ function PortFolio() {
     useEffect(() => {
         async function fetchPortfolio() {
             try {
-                const response = await fetch(`http://localhost:5001/api/getportfolio/${url}`, {
+                const response = await fetch(`${appUrl}/api/getportfolio/${url}`, {
                     method: 'GET'
                 })
 

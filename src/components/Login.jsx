@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 function Login() {
     const { user, loading } = useContext(UserContext)
+     const appUrl=import.meta.env.VITE_BACKEND_API
 
     const [loggedIn, setLoggedIn] = useState(false)
     const [profile, setProfile] = useState({})
@@ -17,7 +18,7 @@ function Login() {
         }
     }, [user, loading])
     function handleLogin() {
-        window.open('http://localhost:5001/auth/google', "_self");
+        window.open(`${appUrl}/auth/google`, "_self");
     }
 
 

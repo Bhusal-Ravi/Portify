@@ -4,12 +4,13 @@ import { UserContext } from './AuthContext'
 
 function Logout() {
     const [backendMessage, setBackendMessage] = useState(null)
+     const appUrl=import.meta.env.VITE_BACKEND_API
     const [showMessage, setShowMessage] = useState(false)
     const { logout } = useContext(UserContext);
     const navigate = useNavigate();
     async function handleLogout() {
         try {
-            const response = await fetch(`http://localhost:5001/auth/logout`, {
+            const response = await fetch(`${appUrl}/auth/logout`, {
                 method: "POST",
                 credentials: 'include'
             })

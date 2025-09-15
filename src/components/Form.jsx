@@ -17,12 +17,13 @@ import { useRef } from 'react';
 
 function Form() {
     const { url } = useParams();
+     const appUrl=import.meta.env.VITE_BACKEND_API
     const [backendMessage, setBackendMessage] = useState("")
 
     async function onSubmit(data) {
         try {
             console.log(data)
-            const response = await fetch(`http://localhost:5001/api/setportfolio/${url}`, {
+            const response = await fetch(`${appUrl}/api/setportfolio/${url}`, {
                 method: 'POST',
                 credentials: "include",
 
@@ -187,7 +188,7 @@ function Form() {
         const formData= new FormData();
         formData.append("profileimage",file);
 
-        const response= await fetch('http://localhost:5001/api/imageupload',{
+        const response= await fetch(`${appUrl}/api/imageupload`,{
             method:'POST',
             body:formData,
         });
@@ -225,7 +226,7 @@ function Form() {
                 const formData= new FormData();
                 formData.append('projectimage',file)
 
-                const response= await fetch('http://localhost:5001/api/projectimage',{
+                const response= await fetch(`${appUrl}/api/projectimage`,{
                     method:'POST',
                     body:formData
                 })

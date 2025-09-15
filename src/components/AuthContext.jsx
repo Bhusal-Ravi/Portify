@@ -1,16 +1,19 @@
 import React, { createContext, useEffect, useState } from 'react'
 
 
+
 export const UserContext = createContext();
 
+
 function AuthContext({ children }) {
+    const appUrl=import.meta.env.VITE_BACKEND_API
     const [user, setUser] = useState(null)
     const [loading, setLoading] = useState(false)
 
     async function checkLoginSuccess() {
         try {
 
-            const response = await fetch(`http://localhost:5001/auth/login/success`, {
+            const response = await fetch(`${appUrl}/auth/login/success`, {
                 credentials: 'include', // for cookies
                 headers: {
                     'Content-Type': 'application/json',

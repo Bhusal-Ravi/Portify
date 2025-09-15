@@ -17,6 +17,7 @@ import { motion, spring, AnimatePresence } from 'framer-motion';
 
 function Formedit() {
     const { editurl } = useParams();
+     const appUrl=import.meta.env.VITE_BACKEND_API
     const [backendMessage, setBackendMessage] = useState("")
     const [formData, setFormData] = useState({});
     const [notification, setNotification] = useState({ message: "", status: false, error: false })
@@ -24,7 +25,7 @@ function Formedit() {
     async function onSubmit(data) {
         try {
             console.log(data)
-            const response = await fetch(`http://localhost:5001/api/portfoliocard/update/${editurl}`, {
+            const response = await fetch(`${appUrl}/api/portfoliocard/update/${editurl}`, {
                 method: 'POST',
                 credentials: "include",
 
@@ -182,7 +183,7 @@ function Formedit() {
 
     async function handleFormData() {
         try {
-            const response = await fetch(`http://localhost:5001/api/portfoliocard/formdetail/${editurl}`)
+            const response = await fetch(`${appUrl}/api/portfoliocard/formdetail/${editurl}`)
             const result = await response.json();
 
             if (result.error === false) {

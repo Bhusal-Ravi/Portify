@@ -7,10 +7,11 @@ function Username() {
     const [error, setError] = useState(false);
     const [success, setSuccess] = useState({ status: false })
     const navigate = useNavigate();
+     const appUrl=import.meta.env.VITE_BACKEND_API
 
     async function checkUserName() {
         try {
-            const response = await fetch('http://localhost:5001/api/urlcheck', {
+            const response = await fetch(`${appUrl}/api/urlcheck`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
