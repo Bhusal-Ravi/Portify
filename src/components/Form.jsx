@@ -12,6 +12,7 @@ import { FaHtml5, FaGolang } from "react-icons/fa6";
 import { RiTailwindCssFill } from "react-icons/ri";
 import { DiDjango } from "react-icons/di";
 import { SiNumpy, SiTensorflow } from "react-icons/si";
+import { useRef } from 'react';
 
 
 function Form() {
@@ -69,13 +70,15 @@ function Form() {
     ]
     const [socialForm, setSocialForm] = useState([])
     const [skillForm, setSkillForm] = useState([])
+    const [profilePicture,setPorfilePicture]= useState([]);
+    const [projectPicture,setProjectPicture]= useState([])
 
 
 
 
 
 
-    const { register, control, watch, handleSubmit, formState: { errors } } = useForm({
+    const { register, control, watch, handleSubmit,setValue, formState: { errors } } = useForm({
         defaultValues: {
             projects: [],
             social: [],
@@ -174,9 +177,82 @@ function Form() {
         } else return false
     }
 
-    async function handleFileSubmit(){
+    const profilepicRef= useRef();
+
+    async function handleFileSubmit(e,imageType){
+        try{
+        const file= e.target.files[0];
+        if(!file) return
+
+        const formData= new FormData();
+        formData.append("profileimage",file);
+
+        const response= await fetch('http://localhost:5001/api/imageupload',{
+            method:'POST',
+            body:formData,
+        });
+
+        
+
+        const result =await response.json();
+
+        setBackendMessage(result.message)
+        if(result.error===false){
+            setPorfilePicture(result.url)
+        }
+       
+        if(result.error===true){
+             e.target.value='';
+        }
+           
+        
+        console.log(result)
+
+
+
+        }catch(error){
+            console.log(error)
+        }
 
     }
+
+
+
+    async function handleProjectFileSubmit(e,index){
+        try{
+                const file= e.target.files[0];
+                if(!file)return
+                const formData= new FormData();
+                formData.append('projectimage',file)
+
+                const response= await fetch('http://localhost:5001/api/projectimage',{
+                    method:'POST',
+                    body:formData
+                })
+        const result =await response.json();
+
+        setBackendMessage(result.message)
+        if(result.error===false){
+            setValue(`projects.${index}.img`,result.url)
+        }
+       
+        if(result.error===true){
+             e.target.value='';
+        }
+           
+        
+        console.log(result)
+
+
+
+        }catch(error){
+            console.log(error)
+        }
+
+    }
+
+    
+       
 
 
 
@@ -303,9 +379,13 @@ function Form() {
 
                                         <label className='block text-white font-medium mb-2 mt-2'>Image Link</label>
                                         
+                                        <div className='flex flex-col bg-black/10 p-5  rounded-md'>
                                         <input
                                             type='text'
-                                            placeholder='Upload Your Image in imgur.com -> Provide the link to the image'
+                                            
+                                             ref={profilepicRef}
+                                             value={profilePicture}
+                                            placeholder='Upload Your Profile Picture Below, We will handle the rest'
                                             className='w-full p-3 bg-slate-800 text-white border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent placeholder-slate-400 transition-all duration-200'
                                             {...register("profileimg", {
                                                 required: "This field is required",
@@ -315,11 +395,13 @@ function Form() {
                                        <div>
                                         <input
                                             type='file'
+                                            accept="image/png, image/jpeg, image/jpg"
                                             name='profileimage'
                                             className='w-1/2 mt-5 cursor-pointer file:p-2 bg-slate-800 rounded-lg file:mr-10 text-white font-bold flex justify-center items-center file:bg-blue-500 file:cursor-pointer hover:file:bg-blue-700 file:text-white file:rounded-md '
                                             onChange={handleFileSubmit}
                                         />
                                        
+                                        </div>
                                         </div>
                                        
                                         {errors.profile && (
@@ -350,7 +432,7 @@ function Form() {
                                     <h2 className='text-xl font-bold text-white text-center mb-6'>Social Links</h2>
                                     <div className='space-y-4'>
                                         {socialFields.map((items, index) => (
-                                            <div key={index} className='bg-slate-700 p-4 rounded-lg'>
+                                            <div key={items.id} className='bg-slate-700 p-4 rounded-lg'>
                                                 <div className='flex items-center justify-between mb-3'>
                                                     <div className='flex items-center gap-3'>
                                                         <span className='text-white text-lg'>{socialicons.map((item) => item[items.title])}</span>
@@ -398,7 +480,7 @@ function Form() {
                                     <div className='flex flex-wrap justify-center gap-3'>
                                         {skillFields.map((item, index) => (
                                             <div
-                                                key={index}
+                                                key={item.id}
                                                 className='bg-slate-800 rounded-full text-white py-3 px-4 flex items-center gap-3 hover:bg-slate-700 transition-all duration-200 shadow-md hover:shadow-lg'
                                             >
                                                 <div className='flex items-center gap-2'>
@@ -426,7 +508,7 @@ function Form() {
                                 <h2 className='text-xl font-bold text-white text-center mb-6'>Experience</h2>
                                 <div className='space-y-6'>
                                     {experienceFields.map((item, index) => (
-                                        <div key={index} className='bg-slate-700 p-5 rounded-lg'>
+                                        <div key={item.id} className='bg-slate-700 p-5 rounded-lg'>
                                             <div className='flex items-center justify-between mb-4'>
                                                 <h3 className='text-lg font-thin text-white'>Experience {index + 1}</h3>
                                                 <button
@@ -522,7 +604,7 @@ function Form() {
 
                                 <div className='space-y-6'>
                                     {projectsFileds.map((item, index) => (
-                                        <div key={index} className='bg-slate-700 p-5 rounded-lg'>
+                                        <div key={item.id} className='bg-slate-700 p-5 rounded-lg'>
                                             <div className='flex items-center justify-between mb-4'>
                                                 <h3 className='text-lg font-thin text-white'>Project {index + 1}</h3>
                                                 <button
@@ -543,6 +625,8 @@ function Form() {
                                                         className='w-full p-3 bg-slate-800 text-white border border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent placeholder-slate-400 transition-all duration-200'
                                                         {...register(`projects.${index}.title`, { required: "This field is required", minLength: { value: 5, message: "Minimum length is 5" } })}
                                                     />
+
+                                                  
                                                 </div>
 
 
@@ -553,13 +637,23 @@ function Form() {
                                                         </span>
                                                     </div>
                                                 )}
-                                                <div>
+                                                <div className='bg-black/10 p-5 rounded-md  flex flex-col'>
                                                     <label className='block text-white font-medium mb-2'>Project ScreenShot Link</label>
                                                     <input
                                                         type='text'
-                                                        placeholder='Upload Screen On Imgur(Link Input)...'
+                                                        key={index}
+
+                                                        placeholder='Upload Project ScreenShot Below'
                                                         className='w-full p-3 bg-slate-800 text-white border border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent placeholder-slate-400 transition-all duration-200'
                                                         {...register(`projects.${index}.img`)}
+                                                    />
+                                                      <input
+                                                        type='file'
+                                                        accept='image/jpeg image/png image/jpg'
+                                                         className='w-1/2 mt-5 cursor-pointer file:p-2 bg-slate-800 rounded-lg file:mr-10 text-white font-bold flex justify-center items-center file:bg-blue-500 file:cursor-pointer hover:file:bg-blue-700 file:text-white file:rounded-md '
+                                                        key={index}
+                                                        onChange={(e)=>handleProjectFileSubmit(e,index)}
+
                                                     />
                                                 </div>
 
@@ -661,7 +755,7 @@ function Form() {
                                                     {socials.length > 0 &&
 
                                                         socials.map((items, index) => (
-                                                            <div key={index} className='relative group/icon'>
+                                                            <div key={`social-preview-${index}`} className='relative group/icon'>
 
                                                                 <div className='text-xs bg-slate-900/90 text-white px-2 py-1 rounded-md font-medium absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover/icon:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10'>
                                                                     {items.title}
@@ -758,7 +852,7 @@ function Form() {
 
                                         {skills.length > 0 &&
                                             skills.map((items, index) => (
-                                                <div key={index} className='relative group/icon'>
+                                                <div key={`skill-preview-${index}`} className='relative group/icon'>
 
                                                     <div className='text-xs bg-slate-900/90 text-white px-2 py-1 rounded-md font-medium absolute -top-8 left-1/2 transform -translate-x-1/2 opacity-0 group-hover/icon:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10'>
                                                         {items.title}
@@ -786,7 +880,7 @@ function Form() {
                                     <h1 className='font-bold text-white text-lg transition-all duration-700 group-hover:text-emerald-400'>Projects</h1>
                                     {projects.length > 0 &&
                                         projects.map((items, index) => (
-                                            <div className=' relative group/main m-3 bg-slate-700/50 transition-all duration-700 hover:bg-slate-800 flex  flex-col justify-center items-center overflow-hidden rounded-md w-full p-3'>
+                                            <div key={`project-preview-${index}`} className=' relative group/main m-3 bg-slate-700/50 transition-all duration-700 hover:bg-slate-800 flex  flex-col justify-center items-center overflow-hidden rounded-md w-full p-3'>
                                                 <div className=' flex flex-row justify-center items-center'>
                                                     <div className='rounded-full  '>
                                                         {items.link && (<img
