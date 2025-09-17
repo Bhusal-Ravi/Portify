@@ -54,7 +54,7 @@ function UserProfile() {
     const [cardResult, setCardResult] = useState({ error: false, message: "Welcome" })
     const [notification, setNotification] = useState(false)
     const navigate = useNavigate();
-    const siteUrl = "http://localhost:5173"
+    const siteUrl = "http://portlify.me"
      const appUrl=import.meta.env.VITE_BACKEND_API
 
     useEffect(() => {
