@@ -16,16 +16,16 @@ router.post('/setportfolio/:url',async(req,res)=>{
             urlId =  checkUrl._id 
         }
 
-        const {username,tag,description,profileimg,skills,social,projects,experience}=portfolio;
+        const {username,theme,tag,description,profileimg,skills,social,projects,experience}=portfolio;
         
         let newPortFolio="";
 
         const prevPortFolio= await Portfolio.findOne({url:url})
         if(prevPortFolio){
             await Portfolio.deleteOne({url:url})
-            newPortFolio= await Portfolio.create({userId,urlId,url,profileimg,username,tag,description,skills,social,projects,experience})
+            newPortFolio= await Portfolio.create({userId,urlId,url,theme,profileimg,username,tag,description,skills,social,projects,experience})
         }else{
-            newPortFolio= await Portfolio.create({userId,urlId,url,profileimg,username,tag,description,skills,social,projects,experience})
+            newPortFolio= await Portfolio.create({userId,urlId,url,theme,profileimg,username,tag,description,skills,social,projects,experience})
         }
         res.status(200).json({error:false,message:"PortFolio Created"})
     }catch(error){

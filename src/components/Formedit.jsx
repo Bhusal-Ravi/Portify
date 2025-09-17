@@ -13,6 +13,7 @@ import { RiTailwindCssFill } from "react-icons/ri";
 import { DiDjango } from "react-icons/di";
 import { SiNumpy, SiTensorflow } from "react-icons/si";
 import { motion, spring, AnimatePresence } from 'framer-motion';
+import { useRef } from 'react';
 
 
 function Formedit() {
@@ -21,6 +22,8 @@ function Formedit() {
     const [backendMessage, setBackendMessage] = useState("")
     const [formData, setFormData] = useState({});
     const [notification, setNotification] = useState({ message: "", status: false, error: false })
+    const [profilePicture,setPorfilePicture]= useState([]);
+    const [projectPicture,setProjectPicture]= useState([])
 
     async function onSubmit(data) {
         try {
@@ -80,13 +83,7 @@ function Formedit() {
     const [socialForm, setSocialForm] = useState([])
     const [skillForm, setSkillForm] = useState([])
 
-
-
-
-
-
-
-    const { register, control, watch, reset, handleSubmit, formState: { errors } } = useForm({   //the reset is used to preload the form with fetched data check the handle formdata function reset is used there
+    const { register, control, watch, reset, setValue, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
             username: "",
             tag: "",
@@ -118,7 +115,6 @@ function Formedit() {
         name: "experience"
     });
 
-    {/*Watch*/ }
     const username = watch("username")
     const description = watch("description")
     const projects = watch("projects");
@@ -127,6 +123,7 @@ function Formedit() {
     const tag = watch("tag")
     const experience = watch("experience")
 
+    const profilepicRef= useRef();
 
     function handleProjectAppend() {
         console.log("append")
@@ -151,8 +148,6 @@ function Formedit() {
         removeProject(index)
     }
 
-
-
     function formatUrl(url) {
         if (!url.startsWith("http://") && !url.startsWith("https://"))
             return `http://${url}`
@@ -174,11 +169,71 @@ function Formedit() {
         } else return false
     }
 
-
     function profileUrlCheck(value) {
         if (value.includes("imgur.com")) {
             return true
         } else return false
+    }
+
+    async function handleFileSubmit(e,imageType){
+        try{
+        const file= e.target.files[0];
+        if(!file) return
+
+        const formData= new FormData();
+        formData.append("profileimage",file);
+
+        const response= await fetch(`${appUrl}/api/imageupload`,{
+            method:'POST',
+            body:formData,
+        });
+
+        const result =await response.json();
+
+        setBackendMessage(result.message)
+        if(result.error===false){
+            setPorfilePicture(result.url)
+            setValue("profileimg", result.url)
+        }
+       
+        if(result.error===true){
+             e.target.value='';
+        }
+        
+        console.log(result)
+
+        }catch(error){
+            console.log(error)
+        }
+    }
+
+    async function handleProjectFileSubmit(e,index){
+        try{
+                const file= e.target.files[0];
+                if(!file)return
+                const formData= new FormData();
+                formData.append('projectimage',file)
+
+                const response= await fetch(`${appUrl}/api/projectimage`,{
+                    method:'POST',
+                    body:formData
+                })
+        const result =await response.json();
+
+        setBackendMessage(result.message)
+        if(result.error===false){
+            setValue(`projects.${index}.img`,result.url)
+        }
+       
+        if(result.error===true){
+             e.target.value='';
+        }
+        
+        console.log(result)
+
+        }catch(error){
+            console.log(error)
+        }
     }
 
     async function handleFormData() {
@@ -200,14 +255,9 @@ function Formedit() {
         handleFormData()
     }, [])
 
-
-
-
-
     return (
         <div className='w-full min-h-screen bg-gradient-to-r from-slate-900 via-indigo-400 to-slate-900 flex flex-col justify-start items-center py-8 px-4'>
             <div className='max-w-7xl w-full'>
-                {/* Header Section */}
                 <div className='text-center mb-8 flex flex-col justify-center items-center'>
                     <h1 className='text-3xl font-bold text-white mb-3'>Edit Portfolio</h1>
 
@@ -218,7 +268,6 @@ function Formedit() {
                     </div>
                 </div>
 
-                {/*Notification Div*/}
                 <AnimatePresence>
                     {
                         notification.status &&
@@ -235,14 +284,11 @@ function Formedit() {
                     }
                 </AnimatePresence>
 
-                {/* Main Grid Layout */}
                 <div className='grid grid-cols-1 xl:grid-cols-7 gap-6'>
 
-                    {/* Left Sidebar - Selection Panel */}
                     <div className='xl:col-span-1 bg-gradient-to-r  from-blue-800/50 via-indigo-400-800/50 to-blue-900/50 rounded-lg shadow-lg transition-all duration-400 hover:shadow-blue-500 p-4'>
                         <h2 className='text-lg font-semibold text-white  drop-shadow-black mb-4 text-center'>Select Items</h2>
 
-                        {/* Socials Section */}
                         <div className='bg-slate-600/50 p-4 rounded-lg mb-6 shadow-md transition-all duration-400 hover:scale-105 hover:shadow-white'>
                             <h3 className='text-lg font-semibold text-white mb-4 text-center'>Socials</h3>
                             <div className='flex flex-wrap justify-center gap-3'>
@@ -265,11 +311,6 @@ function Formedit() {
                             </div>
                         </div>
 
-
-
-
-
-                        {/* Skills Section */}
                         <div className='bg-slate-600/50 p-4 mt-10 rounded-lg shadow-md transiton-all duration-400 hover:scale-105 hover:shadow-white'>
                             <h3 className='text-lg font-semibold text-white mb-4 text-center'>Skills</h3>
                             <div className='flex flex-wrap justify-center gap-3'>
@@ -293,11 +334,9 @@ function Formedit() {
                         </div>
                     </div>
 
-                    {/* Center - Form Section */}
                     <div className='xl:col-span-3 bg-gradient-to-r  from-blue-800/50 via-indigo-400-800/50 to-blue-900/50  rounded-lg shadow-lg  transition-all duration-400 hover:shadow-blue-500  p-6'>
-                        <form onSubmit={handleSubmit(onSubmit)} className='space-y-6'>
+                        <form onSubmit={handleSubmit(onSubmit)} className='space-y-6' encType='multipart/form-data'>
 
-                            {/* About You Section */}
                             <div className='bg-slate-600/50 transition-all duration-400 hover:scale-105 hover:shadow-white rounded-lg p-6 shadow-sm'>
                                 <h2 className='text-xl font-bold text-white text-center mb-6'>About You</h2>
 
@@ -345,15 +384,30 @@ function Formedit() {
                                         )}
 
                                         <label className='block text-white font-medium mb-2 mt-2'>Image Link</label>
+                                        
+                                        <div className='flex flex-col bg-black/10 p-5  rounded-md'>
                                         <input
                                             type='text'
-                                            placeholder='Upload Your Image in imgur.com -> Provide the link to the image'
+                                            ref={profilepicRef}
+                                            value={profilePicture}
+                                            placeholder='Upload Your Profile Picture Below, We will handle the rest'
                                             className='w-full p-3 bg-slate-800 text-white border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent placeholder-slate-400 transition-all duration-200'
                                             {...register("profileimg", {
                                                 required: "This field is required",
                                                 validate: (value) => profileUrlCheck(value) || "please provide a valid imgur link"
                                             })}
                                         />
+                                       <div>
+                                        <input
+                                            type='file'
+                                            accept="image/png, image/jpeg, image/jpg"
+                                            name='profileimage'
+                                            className='w-1/2 mt-5 cursor-pointer file:p-2 bg-slate-800 rounded-lg file:mr-10 text-white font-bold flex justify-center items-center file:bg-blue-500 file:cursor-pointer hover:file:bg-blue-700 file:text-white file:rounded-md '
+                                            onChange={handleFileSubmit}
+                                        />
+                                       </div>
+                                        </div>
+
                                         {errors.profile && (
                                             <div className='mt-2'>
                                                 <span className='font-thin text-md text-red-400'>
@@ -376,7 +430,6 @@ function Formedit() {
                                 </div>
                             </div>
 
-                            {/* Socials Section */}
                             {socialFields.length > 0 && (
                                 <div className='bg-slate-600/50 rounded-lg p-6 shadow-sm transition-all duration-400 hover:scale-105 hover:shadow-white'>
                                     <h2 className='text-xl font-bold text-white text-center mb-6'>Social Links</h2>
@@ -422,7 +475,6 @@ function Formedit() {
                                     </div>
                                 </div>
                             )}
-                            {/* Experience Section */}
 
                             <div className='bg-slate-600/50 rounded-lg p-6 shadow-sm transition-all duration-400 hover:scale-105 hover:shadow-white'>
                                 <h2 className='text-xl font-bold text-white text-center mb-6'>Experience</h2>
@@ -519,7 +571,6 @@ function Formedit() {
                                 </div>
                             </div>
 
-                            {/* Skills Section */}
                             {skillFields.length > 0 && (
                                 <div className='bg-slate-600/50 rounded-lg p-6 shadow-sm transition-all duration-400 hover:scale-105 hover:shadow-white'>
                                     <h2 className='text-xl font-bold text-white text-center mb-6'>Your Skills</h2>
@@ -549,7 +600,6 @@ function Formedit() {
                                 </div>
                             )}
 
-                            {/* Projects Section */}
                             <div className='bg-slate-600/50 rounded-lg p-6 shadow-sm transition-all duration-400 hover:scale-105 hover:shadow-white'>
                                 <h2 className='text-xl font-bold text-white text-center mb-6'>Projects</h2>
 
@@ -578,7 +628,6 @@ function Formedit() {
                                                     />
                                                 </div>
 
-
                                                 {errors.projects?.[index]?.title && (
                                                     <div className='mt-2'>
                                                         <span className='text-md  font-thin text-red-400'>
@@ -586,16 +635,24 @@ function Formedit() {
                                                         </span>
                                                     </div>
                                                 )}
-                                                <div>
+                                                <div className='bg-black/10 p-5 rounded-md  flex flex-col'>
                                                     <label className='block text-white font-medium mb-2'>Project ScreenShot Link</label>
                                                     <input
                                                         type='text'
-                                                        placeholder='Upload Screen On Imgur(Link Input)...'
+                                                        key={index}
+                                                        placeholder='Upload Project ScreenShot Below'
                                                         className='w-full p-3 bg-slate-800 text-white border border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent placeholder-slate-400 transition-all duration-200'
                                                         {...register(`projects.${index}.img`)}
                                                     />
-                                                </div>
+                                                      <input
+                                                        type='file'
+                                                        accept='image/jpeg image/png image/jpg'
+                                                         className='w-1/2 mt-5 cursor-pointer file:p-2 bg-slate-800 rounded-lg file:mr-10 text-white font-bold flex justify-center items-center file:bg-blue-500 file:cursor-pointer hover:file:bg-blue-700 file:text-white file:rounded-md '
+                                                        key={index}
+                                                        onChange={(e)=>handleProjectFileSubmit(e,index)}
 
+                                                    />
+                                                </div>
 
                                                 {errors.projects?.[index]?.img && (
                                                     <div className='mt-2'>
@@ -647,7 +704,6 @@ function Formedit() {
                                 </div>
                             </div>
 
-                            {/* Submit Button */}
                             <div className='flex justify-center pt-4'>
                                 <button
                                     type='submit'
@@ -659,8 +715,6 @@ function Formedit() {
                         </form>
                     </div>
 
-                    {/* Right Sidebar - Preview Section */}
-
                     <div className='xl:col-span-3 bg-gradient-to-r  from-blue-800/50 via-indigo-400-800/50 to-blue-900/50  rounded-lg shadow-sm  p-6'>
                         <h2 className='text-xl text-white font-semibold   text-center mb-6'>Live Preview</h2>
                         <div className='bg-slate-100/  rounded-lg p-6 h-full flex flex-col justify-start'>
@@ -669,7 +723,6 @@ function Formedit() {
                                 {username ? (
                                     <div className='bg-slate-700/50 group/main transition-colors duration-700 hover:bg-slate-800 flex flex-col items-center font-semibold rounded-md px-4 py-4 w-full text-white'>
 
-                                        {/* Row: Image + Name */}
                                         {username && (
                                             <div className='flex flex-col items-center mb-4'>
                                                 <div className='h-25 w-25 flex justify-center  border-2 border-emerald-400 shadow-lg transition-all duration-700  group-hover/main:shadow-emerald-800 rounded-full items-center mr-5 mb-2 overflow-hidden'>
@@ -686,7 +739,6 @@ function Formedit() {
                                             </div>
                                         )}
 
-                                        {/* Socials Below */}
                                         {socials.length > 0 && (
                                             <div className='flex flex-col justify-center items-center flex-wrap gap-2'>
                                                 <h1 className='font-light mr-2 text-emerald-400'>Connect With Me</h1>
@@ -714,10 +766,7 @@ function Formedit() {
                                             </div>
                                         )}
 
-
-
                                         <hr className='w-full mt-5 opacity-50 transition duration-700  group-hover/main:text-emerald-400'></hr>
-
 
                                         <div className='w-full flex justify-center items-center mt-5'>
                                             <p className='break-words flex  overflow-auto text-md transition-all duration-700 group-hover/main:text-emerald-400 font-light md:text-base'>
@@ -730,8 +779,6 @@ function Formedit() {
                                 ) : (<div className='flex min-h-screen justify-center items-center'><p className='font-semibold text-black/50 text-sm '>Live preview of your portfolio will appear here as you update the form</p></div>)}
                             </div>
 
-
-                            {/* Experience Preview */}
                             {experience.length > 0 && (
                                 <div className='bg-slate-700/50 transition-all duration-700 hover:bg-slate-800 group flex flex-col justify-center items-center mt-4 p-5 group/main rounded-md'>
                                     <h1 className='font-bold text-lg text-white mb-2 transition-all duration-400 group-hover:text-emerald-400'>Experience</h1>
@@ -767,9 +814,6 @@ function Formedit() {
                                 </div>
                             )}
 
-
-
-                            {/*Skills*/}
                             {skills.length > 0 && (
                                 <div className='bg-slate-700/50 transition-all duration-700 hover:bg-slate-800 group flex flex-col justify-center items-center mt-4 p-5 group/main rounded-md'>
                                     <h1 className='font-bold text-lg text-white mb-2 transition-all duration-400 group-hover:text-emerald-400'>Skills</h1>
@@ -797,15 +841,12 @@ function Formedit() {
                                 </div>
                             )}
 
-
-
-                            {/*Projects*/}
                             {projects.length > 0 && (
                                 <div className='bg-gradient-to-br from-slate-900 via-indigo-400 group to-slate-900 mt-5 p-2 flex flex-col justify-center items-center rounded-md'>
                                     <h1 className='font-bold text-white text-lg transition-all duration-700 group-hover:text-emerald-400'>Projects</h1>
                                     {projects.length > 0 &&
                                         projects.map((items, index) => (
-                                            <div className=' relative group/main m-3 bg-slate-700/50 transition-all duration-700 hover:bg-slate-800 flex  flex-col justify-center items-center overflow-hidden rounded-md w-full p-3'>
+                                            <div key={index} className=' relative group/main m-3 bg-slate-700/50 transition-all duration-700 hover:bg-slate-800 flex  flex-col justify-center items-center overflow-hidden rounded-md w-full p-3'>
                                                 <div className=' flex flex-row justify-center items-center'>
                                                     <div className='rounded-full  '>
                                                         {items.link && (<img
@@ -851,10 +892,6 @@ function Formedit() {
             </div>
 
         </div>
-
-
-
-
     )
 }
 

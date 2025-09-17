@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Trash, Plus, ExternalLink } from 'lucide-react';
+import { Trash, Plus, ExternalLink, CircleCheckBig } from 'lucide-react';
 import { useLocation, useParams } from 'react-router-dom';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { FiGithub } from "react-icons/fi";
@@ -72,7 +72,8 @@ function Form() {
     const [socialForm, setSocialForm] = useState([])
     const [skillForm, setSkillForm] = useState([])
     const [profilePicture,setPorfilePicture]= useState([]);
-    const [projectPicture,setProjectPicture]= useState([])
+    const [projectPicture,setProjectPicture]= useState([]);
+    const [theme,setTheme]= useState("default")
 
 
 
@@ -85,6 +86,7 @@ function Form() {
             social: [],
             skills: [],
             experience: [],
+            theme: 'default'
         }
     });
     const { fields: projectsFileds, append: appendProject, remove: removeProject } = useFieldArray({
@@ -107,6 +109,7 @@ function Form() {
         name: "skills"
     })
 
+    
 
     {/*Watch*/ }
     const username = watch("username")
@@ -217,6 +220,10 @@ function Form() {
 
     }
 
+    function handleThemeSelect(value){
+            setTheme(value);
+    }
+
 
 
     async function handleProjectFileSubmit(e,index){
@@ -271,6 +278,45 @@ function Form() {
                             Your portfolio will be available at: <span className='text-emerald-600 font-semibold'>www.xyz.com/{url}</span>
                         </p>
                     </div>
+                </div>
+
+
+                <div className='flex flex-col justify-center bg-white/20 p-2 rounded-md items-center mt-5 mb-10'>
+                <div className='flex flex-col items-center justify-center'>
+                    <h1 className='font-semibold text-white '>Choose Themes</h1>
+                    <p className='text-sm text-white'>You can view the themes on HomePage, Select one as you like</p>
+                    <div className='mt-5 justify-center items-center flex '>
+                       
+                        <div className='relative mr-3 h-30 w-50'>
+                        {theme==="default" &&
+                        (<div className={`absolute w-full h-full inset-0 z-10 bg-black/20 rounded-md `}></div>
+                        )}
+                        {theme==="default" && (
+                            <div className='absolute right-1 top-1 text-emerald-400 '>
+                            <CircleCheckBig/>
+                        </div>)}
+                        <button className='cursor-pointer h-30 w-50 hover:scale-105 transition-all duration-300' onClick={()=>handleThemeSelect("default")}>
+                        <img src='/default_theme.png' className='h-30 w-50 object-cover rounded-lg'/>
+                        </button>
+                        </div>
+
+                         <div className='relative h-30 w-50'>
+                        {theme==="proximity" &&
+                        (<div className={`absolute w-full h-full inset-0 z-10 bg-black/20 rounded-md `}></div>
+                        )}
+                        {theme==="proximity" && (
+                            <div className='absolute right-1 top-1 text-emerald-400 '>
+                            <CircleCheckBig/>
+                        </div>)}
+                        <button className='cursor-pointer h-30 w-50 hover:scale-105 transition-all duration-300' onClick={()=>handleThemeSelect("proximity")}>
+                        <img src='/default_theme.png' className='h-30 w-50 object-cover rounded-lg'/>
+                        </button>
+                        </div>
+                    </div>
+</div>
+<div className='bg-white-30'>
+
+</div>
                 </div>
 
                 {/* Main Grid Layout */}
@@ -330,6 +376,16 @@ function Form() {
                     {/* Center - Form Section */}
                     <div className='xl:col-span-3 bg-gradient-to-r  from-blue-800/50 via-indigo-400-800/50 to-blue-900/50  rounded-lg shadow-lg  transition-all duration-400 hover:shadow-blue-500  p-6'>
                         <form onSubmit={handleSubmit(onSubmit)} className='space-y-6' encType='multipart/form-data'>
+
+                                <div className='flex p-5 rounded-md bg-slate-600/50 flex-col justify-center items-center'>
+                                    <h1 className='font-bold text-xl text-white'>Selected Theme</h1>
+                                   <div className='flex mt-2 flex-row justify-center items-center'>
+                                    <label className='mr-2 text-emerald-300'>{theme.toUpperCase()}</label>
+                                    <input type='radio' name='theme'  value={theme}
+                                            {...register("theme", { required: true })}
+                                    />
+                               </div>
+                                </div>
 
                             {/* About You Section */}
                             <div className='bg-slate-600/50 transition-all duration-400 hover:scale-105 hover:shadow-white rounded-lg p-6 shadow-sm'>

@@ -15,6 +15,10 @@ const PortfolioSchema= new mongoose.Schema({
         type:String,
         required:true
     },
+    theme:{
+        type:String,
+        required:true
+    },
     username:{
         type:String,
         required:true
