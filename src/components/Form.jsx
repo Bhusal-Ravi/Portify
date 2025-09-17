@@ -310,7 +310,7 @@ function Form() {
                             <CircleCheckBig/>
                         </div>)}
                         <button className='cursor-pointer h-30 w-50 hover:scale-105 transition-all duration-300' onClick={()=>handleThemeSelect("proximity")}>
-                        <img src='/default_theme.png' className='h-30 w-50 object-cover rounded-lg'/>
+                        <img src='/proximity.jpeg' className='h-30 w-50 object-cover rounded-lg'/>
                         </button>
                         </div>
                     </div>
