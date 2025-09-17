@@ -28,8 +28,8 @@ app.use(
             ttl: 60*60*24
         }),
         cookie:{
-            secure:false,
-            sameSite:'lax',
+            secure:true,
+            sameSite:'none',
             maxAge: 60*60*24*1000,
             httpOnly: true
         }
