@@ -12,6 +12,7 @@ import { RiTailwindCssFill } from "react-icons/ri";
 import { DiDjango } from "react-icons/di";
 import { SiNumpy, SiTensorflow } from "react-icons/si";
 import { motion, scale } from 'framer-motion';
+import Proximity from './Themes/Proximity';
 
 
 function PortFolio() {
@@ -23,7 +24,8 @@ function PortFolio() {
         tag: '',
         social: [],
         skills: [],
-        projects: []
+        projects: [],
+        theme:''
     })
 
     useEffect(() => {
@@ -97,6 +99,7 @@ function PortFolio() {
         }
     }
 
+    if(portfolio.theme==="proximity") return <Proximity url={url} />
     return (
         <div className='w-full flex flex-col justify-center items-center bg-gradient-to-r from-slate-900 via-indigo-400 to-slate-900 min-h-screen relative overflow-hidden'>
             {/* Decorative background shapes */}

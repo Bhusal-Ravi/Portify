@@ -21,6 +21,7 @@ function Form() {
     const [backendMessage, setBackendMessage] = useState("")
 
     async function onSubmit(data) {
+        
         try {
             console.log(data)
             const response = await fetch(`${appUrl}/api/setportfolio/${url}`, {
@@ -176,7 +177,7 @@ function Form() {
 
 
     function profileUrlCheck(value) {
-        if (value.includes("imgur.com")) {
+        if (value) {
             return true
         } else return false
     }
