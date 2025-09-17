@@ -29,7 +29,7 @@ function AuthContext({ children }) {
                 console.log('Not authorized:', result.message)
             }
 
-            setUser(result.user)
+            
 
         } catch (error) {
             console.error('Auth error:', error);
