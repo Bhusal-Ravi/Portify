@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 
-import { Trash, Plus, ExternalLink } from 'lucide-react';
+import { Trash, Plus, ExternalLink, MoveUpRight } from 'lucide-react';
 
 import { FiGithub } from "react-icons/fi";
 import {
@@ -111,8 +111,8 @@ function Proximity({ url }) {
                 })}
         </div>
       </div>
-
-<div className="w-full flex justify-center items-center text-white border-t-2 border-red-400/30 mt-10">
+                {/*User Description */}
+        <div className="w-full flex justify-center items-center text-white border-b-2 pb-5 border-t-2 border-red-400/30 mt-10">
                 <div className="w-full flex flex-col justify-center items-center mt-10 max-w-3/4">
                       <div>
                         <img className="rounded-full object-cover shadow-lg shadow-emerald-600 border-emerald-400 border-5 w-[110px] h-[110px]" src={portfolio.profileimg}/>
@@ -128,7 +128,27 @@ function Proximity({ url }) {
                         <p className="flex mt-2 w-full text-md text-justify">{portfolio.description}</p>
                       </div>
                 </div>
-</div>
+        </div>
+
+        {/* Projects */}
+        <div className="w-full mt-5 flex flex-col justify-center items-center">
+          <h1 className="border-b-2 border-emerald-400 text-3xl text-white font-extrabold">Projects</h1>
+                  <div className="w-full mt-5  flex flex-col justify-center items-center max-w-3/4">
+                  
+                    {portfolio.projects.map((item,index)=>(
+                      <div className="text-white border-2 border-emerald-400 mb-5 w-full ">
+                            <img  src={item.img} className="w-full object-cover h-[180px]"/>
+                            <div className=" flex flex-col pb-[10px]   items-center border-t-3 w-full  border-red-400 bg-white/30">
+                                <h1 className="text-md font-semibold mt-[5px] border-b-2 border-emerald-400">{item.title}</h1>
+                                <div className="flex mt-[10px] max-w-1/2 w-full  justify-between ">
+                                  <button className="bg-black/50 rounded-full p-2"><a><FiGithub className="h-[30px] w-[30px]"/></a></button>
+                                   <button className="bg-black/50 rounded-full p-2"><a><MoveUpRight className="h-[30px] w-[30px]"/></a></button>
+                                </div>
+                            </div>
+                      </div>
+                    ))}
+                  </div>
+        </div>
      </div>
 
 </div>
