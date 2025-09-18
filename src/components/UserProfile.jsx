@@ -260,7 +260,7 @@ function UserProfile() {
                                             initial={{ opacity: 0, x: -20 }}
                                             whileInView={{ opacity: 1, x: 0 }}
                                             transition={{ type: "tween", duration: 0.5 }}
-                                            viewport={{ amount: 0.9 }}
+                                            viewport={{ amount: 0.02, once: true }}
 
                                             key={index}
                                             className='relative  bg-black rounded-lg shadow-lg shadow-black/50 '
