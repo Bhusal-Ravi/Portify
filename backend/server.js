@@ -14,6 +14,7 @@ const portfoliolist= require('./routes/portfollioList')
 const portfoliocard= require('./routes/portfoliocard')
 const emailRoute= require("./routes/email")
 const imageUploadRoute= require('./routes/imageUpload')
+const healthcheckRoute = require('./routes/healthcheck');
 
 const app= express();
 
@@ -58,6 +59,7 @@ app.use('/api',portfoliolist);
 app.use('/api',portfoliocard);
 app.use('/api',emailRoute);
 app.use('/api',imageUploadRoute)
+app.use('/api', healthcheckRoute);
 connectdb();
 
 const PORT= process.env.PORT || 5000
