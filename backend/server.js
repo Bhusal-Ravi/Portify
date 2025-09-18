@@ -17,6 +17,7 @@ const imageUploadRoute= require('./routes/imageUpload')
 const healthcheckRoute = require('./routes/healthcheck');
 
 const app= express();
+const isProduction = process.env.NODE_ENV === 'production';
 
 app.set('trust proxy', 1);
 app.use(
@@ -29,8 +30,8 @@ app.use(
             ttl: 60*60*24
         }),
         cookie:{
-            secure:true,
-            sameSite:'none',
+            secure: isProduction,
+            sameSite:isProduction ? 'none' : 'lax',
             maxAge: 60*60*24*1000,
             httpOnly: true
         }

@@ -135,7 +135,7 @@ function UserProfile() {
         <div className='userprofile  transition-all duration-300 ease-in-out min-h-screen relative flex flex-col items-center justify-start px-4'>
             <div className='hidden md:block text-2xl transition-all duration-400 ease-in-out lg:text-4xl text-white font-bold lg:ml-10  absolute top-5 left-5 '>
                 <div className='bg-gradient-to-r animate-pulse absolute inset-0 transition-all duration-400 ease-in-out  from-purple-500 to-red-500 to yellow-500 blur-md z-10 h-10 w-35 lg:h-15 lg:w-39'></div>
-                <h1 className=' relative z-50  transition-all duration-400 ease-in-out left-5 lg:top-2 text-center'>Portify</h1>
+                <h1 className=' relative z-50  transition-all duration-400 ease-in-out left-5 lg:top-2 text-center'>Portlify</h1>
 
 
             </div>
@@ -173,7 +173,7 @@ function UserProfile() {
                         <ul className='list-disc mx-5 mt-2 '>
                             <li className='mt-8 transition-all hover:text-purple-200 cursor-pointer'>Choose a unique username.</li>
                             <li className='mt-5 transition-all hover:text-purple-200 cursor-pointer'>Your username will uniquely identify your portfolio.</li>
-                            <li className='mt-5 transition-all hover:text-purple-200 cursor-pointer'>Once set, your portfolio will be accessible at portify.com/(username).</li>
+                            <li className='mt-5 transition-all hover:text-purple-200 cursor-pointer'>Once set, your portfolio will be accessible at Portlify.com/(username).</li>
                             <li className='mt-5 transition-all hover:text-purple-200 cursor-pointer'>Click "Submit" to proceed to the form page.</li>
                             <li className='mt-5 transition-all hover:text-purple-200 cursor-pointer'>Complete the form to generate your personalized portfolio.</li>
                             <li className='mt-5 transition-all hover:text-purple-200 cursor-pointer'>Currently, only one theme is available.</li>

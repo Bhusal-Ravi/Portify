@@ -37,7 +37,7 @@ router.post('/portfoliocard/update/:url',async(req,res)=>{
         const data= req.body;
         const userId=req.user._id
         const portfolioCheck= await Portfolio.findOne({url:url})
-        const {username,tag,description,profileimg,skills,social,projects,experience}=data;
+        const {username,tag,theme,description,profileimg,skills,social,projects,experience}=data;
 
         if(portfolioCheck && portfolioCheck.userId.toString()===userId){
             const update= await Portfolio.findOneAndUpdate(
@@ -46,6 +46,7 @@ router.post('/portfoliocard/update/:url',async(req,res)=>{
                     $set:{
                         username,
                         tag,
+                        theme,
                         description,
                         profileimg,
                         skills,

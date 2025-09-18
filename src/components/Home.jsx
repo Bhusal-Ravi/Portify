@@ -116,7 +116,7 @@ function Home() {
                 <div className='relative transition-all hover:scale-110 duration-300 ease-in-out  cursor-pointer'>
                     <div className='absolute -z-10 inset-0 bg-gradient-to-r from-purple-500 via-red-500 to-yellow-500 blur-lg animate-pulse'></div>
 
-                    <div><h1 className=' relative text-sm md:text-lg md:font-bold '>Portify</h1></div>
+                    <div><h1 className=' relative text-sm md:text-lg md:font-bold '>Portlify</h1></div>
                 </div>
                 {/*Medium Screen Nav*/}
                 <div className='hidden md:flex '>
@@ -211,7 +211,7 @@ function Home() {
                         </span>
                     </motion.h1>
                     <div className='mt-10 text-white/60 text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-md flex flex-col justify-center text-center text-wrap max-w-3xl md:max-w-4xl lg:max-w-7xl px-5'>
-                        <motion.p initial={{ opacity: 0, y: 100 }} whileInView={{ y: 0, opacity: 1 }} transition={{ type: "tween", delay: 0.5, duration: 0.5 }} className=' '>Skip the code. Portify, your Personal Portfolio <span className='bg-gradient-to-r from-purple-500 via-red-500 to-yellow-500 bg-clip-text text-transparent transition-all ease-in-out duration-200'>Designer,</span></motion.p>
+                        <motion.p initial={{ opacity: 0, y: 100 }} whileInView={{ y: 0, opacity: 1 }} transition={{ type: "tween", delay: 0.5, duration: 0.5 }} className=' '>Skip the code. Portlify, your Personal Portfolio <span className='bg-gradient-to-r from-purple-500 via-red-500 to-yellow-500 bg-clip-text text-transparent transition-all ease-in-out duration-200'>Designer,</span></motion.p>
                         <motion.p initial={{ opacity: 0, y: 100 }} whileInView={{ y: 0, opacity: 1 }} transition={{ type: "tween", delay: 0.5, duration: 0.5 }}>Builds a stunning showcase for your skills fast. Impress, don't <span className='bg-gradient-to-r from-purple-500 via-red-500 to-yellow-500 bg-clip-text text-transparent transition-all ease-in-out duration-300'>stress!</span></motion.p>
                     </div>
                 </div>
@@ -356,14 +356,14 @@ function Home() {
                                 >
                                     <div className='flex items-center justify-start '>
                                         <LocateFixed className='mr-2' />
-                                        <h1 className='text-xl text-left font-bold'>Portify <span className='text-white/80 font-medium'>Address</span></h1>
+                                        <h1 className='text-xl text-left font-bold'>Portlify <span className='text-white/80 font-medium'>Address</span></h1>
 
                                     </div>
 
 
                                     <p className='text-white transition-all text-left ease-in-out text-xl md:text-md lg:text-lg '>
                                         Your portfolio will be available under your username tag.
-                                        For example: www.portify.com/ravi.</p>
+                                        For example: www.Portlify.com/ravi.</p>
                                 </motion.div>
 
                             </div>
@@ -456,7 +456,7 @@ function Home() {
                     <div className="max-w-7xl mx-auto px-6 text-center">
 
                         <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-500 via-red-500 to-yellow-500 bg-clip-text text-transparent">
-                            Portify
+                            Portlify
                         </h2>
                         <p className="mt-3 text-sm max-w-xl mx-auto">
                             Create professional portfolios with ease. Showcase your skills, projects, and achievements in style.
@@ -468,7 +468,7 @@ function Home() {
 
 
                     <div className="py-4 text-center text-sm">
-                        © {new Date().getFullYear()} Portify. All rights reserved.
+                        © {new Date().getFullYear()} Portlify. All rights reserved.
                     </div>
                 </footer>
 

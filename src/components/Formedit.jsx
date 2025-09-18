@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Trash, Plus, ExternalLink } from 'lucide-react';
+import { Trash, Plus, ExternalLink, CircleCheckBig } from 'lucide-react';
 import { useLocation, useParams } from 'react-router-dom';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { FiGithub } from "react-icons/fi";
@@ -24,6 +24,7 @@ function Formedit() {
     const [notification, setNotification] = useState({ message: "", status: false, error: false })
     const [profilePicture,setPorfilePicture]= useState([]);
     const [projectPicture,setProjectPicture]= useState([])
+    const [theme,setTheme]= useState("")
 
     async function onSubmit(data) {
         try {
@@ -92,7 +93,8 @@ function Formedit() {
             projects: [],
             social: [],
             skills: [],
-            experience: []
+            experience: [],
+            theme: 'default'
         }
     });
     const { fields: projectsFileds, append: appendProject, remove: removeProject } = useFieldArray({
@@ -170,7 +172,7 @@ function Formedit() {
     }
 
     function profileUrlCheck(value) {
-        if (value.includes("imgur.com")) {
+        if (value) {
             return true
         } else return false
     }
@@ -236,6 +238,11 @@ function Formedit() {
         }
     }
 
+    function handleThemeSelect(value){
+        setTheme(value);
+        setValue("theme",value)
+    }
+
     async function handleFormData() {
         try {
             const response = await fetch(`${appUrl}/api/portfoliocard/formdetail/${editurl}`)
@@ -244,6 +251,15 @@ function Formedit() {
             if (result.error === false) {
                 setFormData(result.data)
                 reset(result.data);
+                // Set theme from existing data
+                if (result.data.theme) {
+                    setTheme(result.data.theme);
+                    
+                }
+                 if (result.data.profileimg) {
+                setPorfilePicture(result.data.profileimg);
+                setValue("profileimg", result.data.profileimg);
+            }
                 console.log(result.data)
             }
         } catch (error) {
@@ -266,6 +282,44 @@ function Formedit() {
                             Your portfolio will be available at: <span className='text-emerald-600 font-semibold'>www.xyz.com/{editurl}</span>
                         </p>
                     </div>
+                </div>
+
+                <div className='flex flex-col justify-center bg-white/20 p-2 rounded-md items-center mt-5 mb-10'>
+                <div className='flex flex-col items-center justify-center'>
+                    <h1 className='font-semibold text-white '>Choose Themes</h1>
+                    <p className='text-sm text-white'>You can view the themes on HomePage, Select one as you like</p>
+                    <div className='mt-5 justify-center items-center flex '>
+                       
+                        <div className='relative mr-3 h-30 w-50'>
+                        {theme==="default" &&
+                        (<div className={`absolute w-full h-full inset-0 z-10 bg-black/20 rounded-md `}></div>
+                        )}
+                        {theme==="default" && (
+                            <div className='absolute right-1 top-1 text-emerald-400 '>
+                            <CircleCheckBig/>
+                        </div>)}
+                        <button className='cursor-pointer h-30 w-50 hover:scale-105 transition-all duration-300' onClick={()=>handleThemeSelect("default")}>
+                        <img src='/default_theme.png' className='h-30 w-50 object-cover rounded-lg'/>
+                        </button>
+                        </div>
+
+                         <div className='relative h-30 w-50'>
+                        {theme==="proximity" &&
+                        (<div className={`absolute w-full h-full inset-0 z-10 bg-black/20 rounded-md `}></div>
+                        )}
+                        {theme==="proximity" && (
+                            <div className='absolute right-1 top-1 text-emerald-400 '>
+                            <CircleCheckBig/>
+                        </div>)}
+                        <button className='cursor-pointer h-30 w-50 hover:scale-105 transition-all duration-300' onClick={()=>handleThemeSelect("proximity")}>
+                        <img src='/proximity.jpeg' className='h-30 w-50 object-cover rounded-lg'/>
+                        </button>
+                        </div>
+                    </div>
+</div>
+<div className='bg-white-30'>
+
+</div>
                 </div>
 
                 <AnimatePresence>
@@ -336,6 +390,37 @@ function Formedit() {
 
                     <div className='xl:col-span-3 bg-gradient-to-r  from-blue-800/50 via-indigo-400-800/50 to-blue-900/50  rounded-lg shadow-lg  transition-all duration-400 hover:shadow-blue-500  p-6'>
                         <form onSubmit={handleSubmit(onSubmit)} className='space-y-6' encType='multipart/form-data'>
+
+                                <div className='flex p-5 rounded-md bg-slate-600/50 flex-col justify-center items-center'>
+                                    <h1 className='font-bold text-xl text-white'>Selected Theme</h1>
+                                   <div className='flex mt-2 flex-row justify-center items-center'>
+                                    {/* Default Theme Radio */}
+        <div className='flex items-center'>
+            <input 
+                type='radio' 
+                id='default-theme'
+                name='theme' 
+                value='default'
+                {...register("theme", { required: true })}
+                className='mr-2'
+            />
+            <label htmlFor='default-theme' className='text-white'>Default</label>
+        </div>
+
+        {/* Proximity Theme Radio */}
+        <div className='flex items-center ml-2'>
+            <input 
+                type='radio' 
+                id='proximity-theme'
+                name='theme' 
+                value='proximity'
+                {...register("theme", { required: true })}
+                className='mr-2'
+            />
+            <label htmlFor='proximity-theme' className='text-white'>Proximity</label>
+        </div>
+                               </div>
+                                </div>
 
                             <div className='bg-slate-600/50 transition-all duration-400 hover:scale-105 hover:shadow-white rounded-lg p-6 shadow-sm'>
                                 <h2 className='text-xl font-bold text-white text-center mb-6'>About You</h2>
