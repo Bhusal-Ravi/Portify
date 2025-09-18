@@ -149,7 +149,7 @@ function UserProfile() {
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: 30 }}
                         transition={{ type: "tween" }}
-                        className={`fixed top-4  ${cardResult.error === true ? "bg-red-500" : "bg-emerald-500"} p-2 rounded-2xl shadow-xl shadow-black   `}>
+                        className={`fixed top-4 z-100  ${cardResult.error === true ? "bg-red-500" : "bg-emerald-500"} p-2 rounded-2xl shadow-xl shadow-black   `}>
                         <p>{cardResult.message}</p>
                     </motion.div>
                 }
