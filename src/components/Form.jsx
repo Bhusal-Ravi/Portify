@@ -223,6 +223,7 @@ function Form() {
 
     function handleThemeSelect(value){
             setTheme(value);
+            setValue('theme',value)
     }
 
 
