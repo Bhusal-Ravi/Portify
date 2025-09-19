@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 
-import { Trash, Plus, ExternalLink, MoveUpRight, Link } from 'lucide-react';
+import { Trash, Plus, ExternalLink, MoveUpRight, Link, CircleArrowRight, CircleSmall } from 'lucide-react';
 
 import { FiGithub } from "react-icons/fi";
 import {
@@ -142,7 +142,7 @@ function Proximity({ url }) {
         </div>
 
         {/* Projects */}
-        <div className="w-full relative mt-5 flex flex-col justify-center items-center">
+        <div className="w-full pb-[10px] border-b-2 border-red-400/30 relative mt-5 flex flex-col justify-center items-center">
           <h1 className="border-b-2 border-emerald-400 text-3xl text-white font-extrabold">Projects</h1>
                 {detail && detailValue && <div className="fixed inset-0 bg-black/90 h-full   w-full z-20">
                  (<Proximity_Details detailValue={detailValue} handleDetailsClick={handleDetailsClick} detail={detail}/>)
@@ -175,6 +175,55 @@ function Proximity({ url }) {
         </div>
 
         {/* Experience */}
+        <div className="flex mb-10 mt-[20px] w-full max-w-[90%] flex-col justify-center items-center">
+           <h1 className="border-b-2 border-emerald-400 text-3xl text-white font-extrabold">Experience</h1>
+            <div className="border-l-4 border-dashed w-full  mt-[20px] pl-3 border-emerald-400">
+                {
+                  portfolio.experience.map((item,index)=>(
+                    <div className="flex   mb-[20px]">
+                      <span className="text-emerald-400 mt-[5px] mr-[10px]"><CircleArrowRight/></span>
+                    <div className="border-1 w-full max-w-[90%] flex flex-col  items-center  border-emerald-400 bg-slate-800 p-2 rounded-md">
+                         
+                         <div className="flex w-full px-[10px] justify-between items-center">
+                              <div className="flex flex-col justify-between">
+                                  <h1 className="flex border-b-2 border-emerald-400 font-bold  text-white">{item.title}</h1>
+                                  <h2 className="mt-[2px] font-semibold  bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 text-transparent bg-clip-text">{item.company}</h2>
+                              </div>
+
+                                <div className="ml-[35px] ">
+                                  <p className="text-white text-sm  bg-black font-mono p-2 rounded-lg  border-l-2 border-emerald-400 ">{item.startdate}-{!item.current? (item.endDate):("Present")}</p>
+                                  <p className="text-sm mt-[5px] font-semibold   bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 text-transparent bg-clip-text">{item.location}</p>
+                                </div>
+                          </div>
+
+<div className=" w-full max-w-[95%] mt-[10px] bg-white relative">
+  {/* Teal Glow Background */}
+  <div
+    className="absolute inset-0 z-0"
+    style={{
+      backgroundImage: `
+        radial-gradient(125% 125% at 50% 10%, #ffffff 40%, #14b8a6 100%)
+      `,
+      backgroundSize: "100% 100%",
+    }}
+  />
+  
+  <div className="relative   w-full max-w-[90%] rounded-md flex justify-center items-center  mt-[20px] mb-[5px]">
+                                
+                               <p className="p-2"> {item.highlight[0].split(",").map((item,index)=>(
+                                <p className="flex text-sm ">
+                                  < CircleSmall className="mr-[5px] text-emerald-800"/><span className="font-mono">{item}</span>
+                                </p>
+                               ))}</p>
+                            </div>
+</div>
+                            
+                      </div>
+                      </div>
+                  ))
+                }
+            </div>
+        </div>
      </div>
 
 </div>
