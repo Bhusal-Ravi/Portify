@@ -14,12 +14,14 @@ function Proximity_Details({detailValue,detail,handleDetailsClick}) {
     },[detail])
 
     return (
-    <div className='relative'>
+    <div className='relative max-h-screen overflow-y-auto flex flex-col justify-cetner items-center'>
        
-        <button onClick={()=>handleDetailsClick(null)}  className='absolute top-0 right-5'><X  className='h-[40px] w-[40px] text-red-400 '/></button>
+        <button onClick={()=>handleDetailsClick(null)}  className='absolute bg-slate-800 cursor-pointer rounded-lg p-1 top-0 right-5'><X  className='h-[40px] w-[40px] text-red-400 '/></button>
         
     <div className='pt-[15px] flex flex-col justify-center items-center'>
-      
+
+                <h1 className='font-extra-bold text-3xl text-white'>Project Detail</h1>
+
         <div className='w-full mt-10 h-72 overflow-hidden'>
             <img 
                 src={detailValue.img}
