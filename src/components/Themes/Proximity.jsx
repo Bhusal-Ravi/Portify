@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 
-import { Trash, Plus, ExternalLink, MoveUpRight, Link, CircleArrowRight, CircleSmall } from 'lucide-react';
+import { Trash, Plus, ExternalLink, MoveUpRight, Link, CircleArrowRight, CircleSmall, CircleChevronRight } from 'lucide-react';
 
 import { FiGithub } from "react-icons/fi";
 import {
@@ -175,7 +175,7 @@ function Proximity({ url }) {
         </div>
 
         {/* Experience */}
-        <div className="flex mb-10 mt-[20px] w-full max-w-[90%] flex-col justify-center items-center">
+        <div className="flex pb-[20px]  mb-10 mt-[20px] w-full max-w-[90%] flex-col justify-center items-center">
            <h1 className="border-b-2 border-emerald-400 text-3xl text-white font-extrabold">Experience</h1>
             <div className="border-l-4 border-dashed w-full  mt-[20px] pl-3 border-emerald-400">
                 {
@@ -196,27 +196,26 @@ function Proximity({ url }) {
                                 </div>
                           </div>
 
-<div className=" w-full max-w-[95%] mt-[10px] bg-white relative">
-  {/* Teal Glow Background */}
-  <div
-    className="absolute inset-0 z-0"
-    style={{
-      backgroundImage: `
-        radial-gradient(125% 125% at 50% 10%, #ffffff 40%, #14b8a6 100%)
-      `,
-      backgroundSize: "100% 100%",
-    }}
-  />
-  
-  <div className="relative   w-full max-w-[90%] rounded-md flex justify-center items-center  mt-[20px] mb-[5px]">
-                                
-                               <p className="p-2"> {item.highlight[0].split(",").map((item,index)=>(
-                                <p className="flex text-sm ">
-                                  < CircleSmall className="mr-[5px] text-emerald-800"/><span className="font-mono">{item}</span>
-                                </p>
-                               ))}</p>
-                            </div>
-</div>
+                                  <div className=" w-full max-w-[95%] mt-[10px] bg-white relative">
+                                    {/* Teal Glow Background */}
+                                    <div
+                                      className="absolute inset-0 z-0"
+                                      style={{
+                                        backgroundImage: `
+                                          radial-gradient(125% 125% at 50% 10%, #ffffff 40%, #14b8a6 100%)
+                                        `,
+                                        backgroundSize: "100% 100%",
+                                      }}
+                                    />
+                                    <div className="relative   w-full max-w-[90%] rounded-md flex flex-col justify-center  mt-[20px] mb-[5px]">
+                                                                  
+                                                                 {item.highlight[0].split(",").map((item,index)=>(
+                                                                  <p className="flex m-2   text-sm ">
+                                                                    < CircleChevronRight className="mr-[5px] h-[20px] w-[20px] text-emerald-800"/><span className="font-mono">{item}</span>
+                                                                  </p>
+                                                                ))}
+                                                              </div>
+                                  </div>
                             
                       </div>
                       </div>
@@ -224,6 +223,128 @@ function Proximity({ url }) {
                 }
             </div>
         </div>
+
+        {/* Skills */}
+
+<div className="w-full  pb-[20px] mb-[20px] border-t-2 flex justify-center items-center border-red-400/30">
+  <div className="max-w-[90%] mt-[20px] flex flex-col justify-center items-center">
+    <h1 className="text-3xl text-white border-b-2 border-emerald-400 font-extrabold">Skills</h1>
+
+    
+    <div className="grid grid-cols-5 gap-4 mt-4">
+      {portfolio.skills.map((item, index) => {
+        const skill = skillicons.find((value) => value.label === item.title);
+        const skillComponent = skill?.[item.title];
+
+        return skillComponent ? (
+          <div key={index} className="text-white   m-[10px] flex flex-col justify-center items-center">
+            {skillComponent}
+            <p className="text-sm mt-[5px] border-b-2 p-[5px]   border-emerald-400 ">{skill.label}</p>
+          </div>
+        ) : null;
+      })}
+    </div>
+  </div>
+</div>
+
+
+{/* Footer */}
+<footer className="w-full border-t-2 border-red-400/30 bg-black/30 text-white py-8">
+  <div className="max-w-[90%] mx-auto w-full">
+    
+    {/* Desktop Layout */}
+    <div className="hidden md:flex justify-between items-center">
+      
+      {/* Left Section */}
+      <div className="flex flex-col items-start">
+        <h1 className="text-lg font-bold bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 text-transparent bg-clip-text">
+          Portlify
+        </h1>
+        <p className="text-sm text-gray-400">Crafted with ❤️ by Ravi Bhusal</p>
+      </div>
+
+      {/* Center Section (Credits) */}
+      <div className="text-center text-sm text-gray-400">
+        <p className="mb-2">© {new Date().getFullYear()} Portlify. All rights reserved.</p>
+        <p>
+          Built with <span className="text-emerald-400 font-semibold">Proximity</span>-
+          <span className="text-cyan-400 font-semibold">Theme</span>
+        </p>
+      </div>
+
+      {/* Right Section (Social Links) */}
+      <div className="flex space-x-6">
+        {/* GitHub */}
+        <a
+          href="https://github.com/Bhusal-Ravi/Portify"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:scale-110 transition-transform"
+        >
+          <FiGithub className="h-6 w-6 text-white/80 hover:text-emerald-400" />
+        </a>
+
+        {/* Instagram */}
+        <a
+          href="https://www.instagram.com/bhusalravi/#"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:scale-110 transition-transform"
+        >
+          <FaInstagram className="h-6 w-6 text-white/80 hover:text-pink-500" />
+        </a>
+      </div>
+    </div>
+
+    {/* Mobile Layout */}
+    <div className="md:hidden space-y-6">
+      
+      {/* Top: Brand */}
+      <div className="text-center">
+        <h1 className="text-lg font-bold bg-gradient-to-r from-emerald-400 via-teal-400 to-cyan-400 text-transparent bg-clip-text">
+          Portlify
+        </h1>
+        <p className="text-sm text-gray-400 mt-1">Crafted with ❤️ by Ravi Bhusal</p>
+      </div>
+
+      {/* Middle: Copyright */}
+      <div className="text-center text-sm text-gray-400">
+        <p className="mb-2">© {new Date().getFullYear()} Portlify. All rights reserved.</p>
+        <p>
+          Built with <span className="text-emerald-400 font-semibold">Proximity</span>-
+          <span className="text-cyan-400 font-semibold">Theme</span>
+        </p>
+      </div>
+
+      {/* Bottom: Social Links */}
+      <div className="flex justify-center space-x-6">
+        {/* GitHub */}
+        <a
+          href="https://github.com/Bhusal-Ravi/Portify"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:scale-110 transition-transform"
+        >
+          <FiGithub className="h-6 w-6 text-white/80 hover:text-emerald-400" />
+        </a>
+
+        {/* Instagram */}
+        <a
+          href="https://www.instagram.com/bhusalravi/#"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hover:scale-110 transition-transform"
+        >
+          <FaInstagram className="h-6 w-6 text-white/80 hover:text-pink-500" />
+        </a>
+      </div>
+    </div>
+    
+  </div>
+</footer>
+
+          
+
      </div>
 
 </div>
