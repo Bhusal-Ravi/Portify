@@ -14,6 +14,7 @@ import { RiTailwindCssFill } from "react-icons/ri";
 import { DiDjango } from "react-icons/di";
 import { SiNumpy, SiTensorflow } from "react-icons/si";
 import { motion, scale } from 'framer-motion';
+import Proximity_Details from "./Proximity_Details";
 
 
 
@@ -57,6 +58,9 @@ function Proximity({ url }) {
     experience: []
   });
 
+  const [detail,setDetail] = useState(false);
+  const [detailValue,setDetailValue]= useState()
+
   useEffect(() => {
     async function fetchPortfolio() {
       try {
@@ -71,6 +75,13 @@ function Proximity({ url }) {
     }
     fetchPortfolio();
   }, [url]);
+
+  function handleDetailsClick(value){
+      setDetail((PREV)=>!PREV)
+      setDetailValue(value)
+
+
+  }
 
   return (
    <div className="min-h-screen w-full bg-[#020617] relative">
@@ -131,8 +142,11 @@ function Proximity({ url }) {
         </div>
 
         {/* Projects */}
-        <div className="w-full mt-5 flex flex-col justify-center items-center">
+        <div className="w-full relative mt-5 flex flex-col justify-center items-center">
           <h1 className="border-b-2 border-emerald-400 text-3xl text-white font-extrabold">Projects</h1>
+                {detail && detailValue && <div className="fixed inset-0 bg-black/90 h-full   w-full z-20">
+                 (<Proximity_Details detailValue={detailValue} handleDetailsClick={handleDetailsClick} detail={detail}/>)
+                 </div>}
                   <div className="w-full mt-5  flex flex-col justify-center items-center max-w-3/4">
                   
                     {portfolio.projects.map((item,index)=>(
@@ -148,7 +162,10 @@ function Proximity({ url }) {
                                   </div>
                                    <div className="relative group  inline-block" >
                                     <span className="absolute  bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:block bg-gray-800 text-white text-sm px-2 py-1 rounded shadow  ">Details</span>
-                                   <button className="bg-black/50 cursor-pointer rounded-full p-2 border-1 border-emerald-400"><MoveUpRight className="h-[25px] w-[25px]"/></button>
+                                   <button onClick={()=>handleDetailsClick(item)} className="bg-black/50 cursor-pointer rounded-full p-2 border-1 border-emerald-400"><MoveUpRight className="h-[25px] w-[25px]"/></button>
+
+                                  
+
                                 </div>
                                 </div>
                             </div>
