@@ -235,7 +235,7 @@ function Proximity({ url }) {
                                                 whileTap={{ scale: 0.9 }}
                                                 className="bg-black/50 rounded-full border-1 border-emerald-400 p-2"
                                             >
-                                                <a href={item.link}><Link className="h-[25px] w-[25px]" /></a>
+                                                <a target="_blank" rel="noopener noreferrer" href={item.link}><Link className="h-[25px] w-[25px]" /></a>
                                             </motion.button>
                                         </div>
                                         <div className="relative group inline-block">
