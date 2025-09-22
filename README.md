@@ -5,7 +5,7 @@
 
 ## 🚀 Introduction
 
-**Portify** is a modern, full-stack web application that lets anyone create, customize, and share a personal portfolio website—no coding required! Simply pick a unique username, fill out a form with your skills, experience, projects, and social links, and instantly get a beautiful, shareable portfolio at `portlify.com/your-username`.
+**Portify** is a modern, full-stack web application that lets anyone create, customize, and share a personal portfolio website,no coding required! Simply pick a unique username, fill out a form with your skills, experience, projects, and social links, and instantly get a beautiful, shareable portfolio at `portlify.com/your-username`.
 
 ---
 
