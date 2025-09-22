@@ -1,6 +1,6 @@
 # Portify
 
-![Portify Banner](./favicon_portlify.png) <!-- Replace with your actual banner image if available -->
+![Portify Banner](favicon_portlify.png) <!-- Replace with your actual banner image if available -->
 
 ## 🚀 Introduction
 
