@@ -149,6 +149,6 @@ Built with ❤️ by [Bhusal-Ravi](https://github.com/Bhusal-Ravi)
 ---
 
 ## 📧 Contact
-ravubh2003@gmail.com
+ravibh2003@gmail.com
 
 Have questions or feedback? Reach out via the contact form on your Portify portfolio, or open an issue on GitHub!
