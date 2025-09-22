@@ -1,6 +1,7 @@
 # Portify
 
-![Portify Banner](favicon_portlify.png) <!-- Replace with your actual banner image if available -->
+<img width="1280" height="1280" alt="image" src="https://github.com/user-attachments/assets/f667c9ed-9dc6-4243-9dd6-175b90d3f1d8" />
+ <!-- Replace with your actual banner image if available -->
 
 ## 🚀 Introduction
 
