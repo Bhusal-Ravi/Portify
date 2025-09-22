@@ -76,7 +76,7 @@ Check out the live demo: [https://www.portlify.me/ravi](https://www.portlify.me/
       ```
       # backend/.env
       SECRET_KEY=your_secret_key_here
-        MONGO_URL=mongodb+srv://username:password@cluster0.mongodb.net/dbname?retryWrites=true&w=majority
+        MONGO_URL=mongodb connection string
         CLIENT_ID=your_google_client_id_here
         CLIENT_SECRET=your_google_client_secret_here
         CALLBACK_URL=http://localhost:5001/auth/google/callback
