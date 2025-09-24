@@ -319,7 +319,7 @@ function Home() {
                                 <motion.img
                                     whileHover={{ scale: 1.05 }}
                                     transition={{ duration: 0.2, type: "spring", stiffness: 300, damping: 15 }}
-                                    viewport={{ amount: 0.5, once: true }} className='hidden md:block shadow-2xl shadow-purple-300 rounded-sm w-full h-auto max-w-md mx-auto' src='imgur.png' />
+                                    viewport={{ amount: 0.5, once: true }} className='hidden md:block shadow-2xl shadow-purple-300 rounded-sm w-full h-auto max-w-md mx-auto' src='themeChoose.png' />
                             </div>
                             <div className='p-5 md:w-1/3 lg:w-2/5 transition-all ease-in-out md:border-l-2 border-blue-900 ml-10'>
                                 <motion.div

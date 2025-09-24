@@ -13,6 +13,7 @@ import { DiDjango } from "react-icons/di";
 import { SiNumpy, SiTensorflow } from "react-icons/si";
 import { motion, scale } from 'framer-motion';
 import Proximity from './Themes/Proximity';
+import ZenPortfolio from './Themes/ZenPortfolio';
 
 
 function PortFolio() {
@@ -100,6 +101,7 @@ function PortFolio() {
     }
 
     if(portfolio.theme==="proximity") return <Proximity url={url} />
+    else if(portfolio.theme==="zen")return <ZenPortfolio url={url}/>
     return (
         <div className='w-full flex flex-col justify-center items-center bg-gradient-to-r from-slate-900 via-indigo-400 to-slate-900 min-h-screen relative overflow-hidden'>
             {/* Decorative background shapes */}

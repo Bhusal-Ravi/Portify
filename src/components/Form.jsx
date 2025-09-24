@@ -314,6 +314,19 @@ function Form() {
                         <img src='/proximity_theme.png' className='h-30 w-50 object-cover rounded-lg'/>
                         </button>
                         </div>
+
+                         <div className='relative ml-3 h-30 w-50'>
+                        {theme==="zen" &&
+                        (<div className={`absolute w-full h-full inset-0 z-10 bg-black/20 rounded-md `}></div>
+                        )}
+                        {theme==="zen" && (
+                            <div className='absolute right-1 top-1 text-emerald-400 '>
+                            <CircleCheckBig/>
+                        </div>)}
+                        <button className='cursor-pointer h-30 w-50 hover:scale-105 transition-all duration-300' onClick={()=>handleThemeSelect("zen")}>
+                        <img src='/zen_theme.png' className='h-30 w-50 object-cover rounded-lg'/>
+                        </button>
+                        </div>
                     </div>
 </div>
 <div className='bg-white-30'>
