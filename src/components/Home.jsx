@@ -218,7 +218,7 @@ function Home() {
 
                 <motion.div initial={{ opacity: 0, y: 100 }} whileInView={{ y: 0, opacity: 1 }} transition={{ type: "tween", delay: 0.5, duration: 0.5 }} className='flex gap-5 justify-center items-center'>
                     <button onClick={handlePortfolio} className='text-white/80 cursor-pointer text-sm font-bold  mt-15 bg-gradient-to-r from-purple-500 via-red-500 to-yellow-500 rounded-md h-13 w-40 p-[2px] flex items-center justify-center group hover:shadow-lg hover:shadow-purple-500/50'><span className=' group-hover:text-white bg-gradient-to-r from-slate-900  to-slate-900 group-hover:from-gray-800 group-hover:to-gray-900 w-full h-full rounded-md flex justify-center items-center'><Zap className='mr-3' />Try For Free</span></button>
-                    <button className='text-white/80 hover:text-white cursor-pointer text-sm font-bold  mt-15 bg-white/10 border-white border-2 rounded-md h-13 w-40 p-[2px] flex items-center justify-center group hover:shadow-lg hover:shadow-white/50'><span className='flex justify-center items-center '><Telescope className='mr-3' />Explore</span></button>
+                    <button className='text-white/80 hover:text-white cursor-pointer text-sm font-bold  mt-15 bg-white/10 border-white border-2 rounded-md h-13 w-40 p-[2px] flex items-center justify-center group hover:shadow-lg hover:shadow-white/50'><span className='flex justify-center items-center '><Telescope className='mr-3' />Under Construction</span></button>
                 </motion.div>
 
             </section>
