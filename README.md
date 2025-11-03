@@ -3,13 +3,13 @@
 <img width="500" height="500" alt="image" src="https://github.com/user-attachments/assets/f667c9ed-9dc6-4243-9dd6-175b90d3f1d8" />
  <!-- Replace with your actual banner image if available -->
 
-## 🚀 Introduction
+##  Introduction
 
 **Portify** is a modern, full-stack web application that lets anyone create, customize, and share a personal portfolio website,no coding required! Simply pick a unique username, fill out a form with your skills, experience, projects, and social links, and instantly get a beautiful, shareable portfolio at `portlify.com/your-username`.
 
 ---
 
-## ✨ Features
+##  Features
 
 - **Easy Portfolio Creation:** No coding needed—just fill out a form!
 - **Unique Portfolio URL:** Your portfolio is available at `portlify.com/your-username`
@@ -24,13 +24,13 @@
 
 ---
 
-## 🖼️ Demo
+##  Demo
 
 Check out the live demo: [https://www.portlify.me/ravi](https://www.portlify.me/ravi)
 
 ---
 
-## 📦 Tech Stack
+##  Tech Stack
 
 - **Frontend:** React, Framer Motion, React Hook Form
 - **Backend:** Node.js, Express.js
@@ -42,7 +42,7 @@ Check out the live demo: [https://www.portlify.me/ravi](https://www.portlify.me/
 
 ---
 
-## 🌟 Getting Started
+##  Getting Started
 
 ### Prerequisites
 
@@ -107,7 +107,7 @@ Check out the live demo: [https://www.portlify.me/ravi](https://www.portlify.me/
 
 ---
 
-## 📝 Usage
+##  Usage
 
 1. **Sign In:** Authenticate using Google (or as configured).
 2. **Pick a Username:** Your portfolio will be at `portlify.com/your-username`.
@@ -117,7 +117,7 @@ Check out the live demo: [https://www.portlify.me/ravi](https://www.portlify.me/
 
 ---
 
-## 📁 Project Structure
+##  Project Structure
 
 ```
 Portify/
@@ -130,25 +130,25 @@ Portify/
 
 ---
 
-## 🛠️ Contributing
+##  Contributing
 
 Feel free to fork the repo, open issues, or submit pull requests! Contributions are welcome.
 
 ---
 
-## 📄 License
+##  License
 
 This project is not yet licensed. Please add a license if you plan to share or use it commercially.
 
 ---
 
-## 🙌 Credits
+##  Credits
 
 Built with ❤️ by [Bhusal-Ravi](https://github.com/Bhusal-Ravi)
 
 ---
 
-## 📧 Contact
+##  Contact
 ravibh2003@gmail.com
 
 Have questions or feedback? Reach out via the contact form on your Portify portfolio, or open an issue on GitHub!
