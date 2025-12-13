@@ -277,7 +277,7 @@ function Form() {
 
                     <div className='bg-slate-800/40 backdrop-blur-3xl p-2 w-fit max-w-[600px] flex justify-center  items-center rounded-xl '>
                         <p className='text-white text-lg '>
-                            Your portfolio will be available at: <span className='text-emerald-600 font-semibold'>www.xyz.com/{url}</span>
+                            Your portfolio will be available at: <span className='text-emerald-600 font-semibold'>www.portlify.me/{url}</span>
                         </p>
                     </div>
                 </div>
@@ -744,7 +744,7 @@ function Form() {
                                                         type='text'
                                                         placeholder='https://github.com/yourproject'
                                                         className='w-full p-3 bg-slate-800 text-white border border-slate-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent placeholder-slate-400 transition-all duration-200'
-                                                        {...register(`projects.${index}.link`, { required: "This field is required", minLength: { value: 2, message: "Minimum length is 2" }, validate: (value) => checkProjectUrl(value) || "Please enter complete url including [https/http] for example [ https://www.xyz.com ]" })}
+                                                        {...register(`projects.${index}.link`, { required: "This field is required", minLength: { value: 2, message: "Minimum length is 2" }, validate: (value) => checkProjectUrl(value) || "Please enter complete url including [https/http] for example [ https://www.portlify.me ]" })}
                                                     />
                                                     {errors.projects?.[index]?.link && (
                                                         <div className='mt-2'>
